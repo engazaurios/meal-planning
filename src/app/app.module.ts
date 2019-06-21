@@ -22,7 +22,9 @@ import { PlannedMealComponent } from './planned-meal/planned-meal.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
