@@ -1,4 +1,28 @@
-<app-header></app-header>
+<nav *ngIf="currentUser" class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/">{{title}}</a>
+
+  <div class="collapse navbar-collapse">
+    <div [ngSwitch]="currentUser.role">
+      <app-header-admin *ngSwitchCase="admin"></app-header-admin>
+      <app-header-user *ngSwitchDefault></app-header-user>
+    </div>
+    <div>
+      <ul class="navbar-nav navbar-right">
+        <!--<li class="nav-item">
+          <a class="nav-link">{{currentUser.name}}</a>
+        </li>-->
+        <li class="nav-item">
+          <a class="nav-link user-avatar" routerlink="/profile">
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <div class="container">
   <div class="row">

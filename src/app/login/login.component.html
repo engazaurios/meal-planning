@@ -1,0 +1,28 @@
+<div *ngIf="error">{{error}}</div>
+
+<h2>Acercate al lector de QA para introducir tus datos.</h2>
+
+<h2>O inicia Sesión con Usuario y Contraseña</h2>
+<form [formGroup]="loginForm" (submit)="onSubmit()">
+  <div>
+    <label for="username">Usuario</label>
+    <input type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && form.username.errors }"/>
+    <div *ngIf="submitted && form.username.errors">
+      <div *ngIf="form.username.errors.required">Usuario inválido.</div>
+    </div>
+  </div>
+
+  <div>
+    <label for="password">Contraseña</label>
+    <input type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && form.username.errors }"/>
+    <div *ngIf="submitted && form.password.errors">
+      <div *ngIf="form.password.errors.required">Contraseña incorrecta.</div>
+    </div>
+  </div>
+
+  <div>
+    <button [disabled]="loading">
+      Login
+    </button>
+  </div>
+</form>

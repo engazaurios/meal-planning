@@ -2,21 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { PlannedMealComponent } from './planned-meal/planned-meal.component';
+import { LoginComponent } from './login';
+import { AuthGuard } from './_helpers';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/menu-list',
-    pathMatch: 'full'
-  },
-  {
-    path: 'menu-list',
-    component: MenuListComponent
-  },
-  {
-    path: 'planned-menu',
-    component: PlannedMealComponent
-  }
+  { path: '', component: MenuListComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'planned-menu', component: PlannedMealComponent },
+
+  { path: '**', redirectTo: ''}
 ];
 
 @NgModule({
