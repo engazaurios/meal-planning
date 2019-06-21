@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from '../_services';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  title = 'meal-planning';
 
-  ngOnInit() {
+  isHeaderCollapsed = true;
+  currentUser: any;
+
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
+
+  /**
+   * Method that logs out the user by calling the Authentication Service and return it to login.
+   */
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login-qr']);
+  }
+
+  ngOnInit(): void {
   }
 
 }
