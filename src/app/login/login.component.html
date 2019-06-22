@@ -1,8 +1,9 @@
 <div *ngIf="error">{{error}}</div>
 
-<h2>Inicia Sesión con Usuario y Contraseña</h2>
+<h2>Acercate al lector de QA para introducir tus datos.</h2>
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<h2>O inicia Sesión con Usuario y Contraseña</h2>
+<form [formGroup]="loginForm" (submit)="onSubmit()">
   <div>
     <label for="username">Usuario</label>
     <input type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && form.username.errors }"/>

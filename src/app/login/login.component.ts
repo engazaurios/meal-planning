@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../_services';
-import { first } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthenticationService} from '../_services';
+import {first} from 'rxjs/operators';
 
 // https://angular.io/docs
 // https://jasonwatmore.com/post/2019/05/17/angular-7-tutorial-part-4-login-form-authentication-service-route-guard
@@ -74,15 +74,16 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
 
-    // Login from the AuthenticationService based on input. If the login was fine, redirect to the returnUrl. If there's an error store it,
-    // and return it.
-    this.authenticationService.login(this.form.username.value, this.form.password.value)
-      .pipe(first())
+    /**
+     * Login from the AuthenticationService based on input. If the login was fine, redirect to the returnUrl. If there's an error store it,
+     * and return it.
+     */
+    this.authenticationService.login(this.form.username.value, this.form.password.value).pipe(first())
       .subscribe(data => {
-        this.router.navigate([this.returnUrl]);
-      }, error => {
-        this.error = error;
-        this.loading = false;
+          this.router.navigate([this.returnUrl]);
+        }, error => {
+          this.error = error;
+          this.loading = false;
       });
   }
 
