@@ -4,6 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../_services';
 import { first } from 'rxjs/operators';
 
+// https://angular.io/docs
+// https://jasonwatmore.com/post/2019/05/17/angular-7-tutorial-part-4-login-form-authentication-service-route-guard
+/**
+ * Component class that will handle the login form and interaction with user.
+ */
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -35,6 +41,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * Method that starts the form and sets the validators.
+   */
   ngOnInit() {
     // Creates the login form from Username and Password in blank.
     this.loginForm = this.formBuilder.group({
@@ -46,12 +55,16 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
-  // Returns the form values.
+  /**
+   * Form variable.
+   */
   get form() {
     return this.loginForm.controls;
   }
 
-  // Method that submits the information to the AuthenticationService
+  /**
+   * Method that submits the information from the AuthenticationService.
+   */
   onSubmit() {
     this.submitted = true;
 

@@ -4,30 +4,34 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /***
- * Class that handles the login/logout from users based on the API request/response.
+ * Typescript that handles the login/logout from users based on the API request/response.
  */
-
 @Injectable({ providedIn : 'root'})
 export class AuthenticationService {
 
-  // Key of the local storage.
   public currentUserKey: 'currentUser';
 
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
-  // Gets the user from the local storage and notify to others.
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem(this.currentUserKey)));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  // Returns tue current user.
+  /**
+   * Method that returns the current singleton user.
+   */
   public get currentUserValue() {
     return this.currentUserSubject.value;
   }
 
-  // Logs in to the API by sending as a JSON the user information.
+  /**
+   * Method that logs in to the API by sending as a JSON the user information.
+   * @param username Username of the user to log in.
+   * @param password Password of the user to log in.
+   * TODO: replace localhost url to the API URL.
+   */
   login(username, password) {
     return this.http.post<any>(`https://localhost:4201`, {username, password})
       .pipe(map(user => {
@@ -37,7 +41,9 @@ export class AuthenticationService {
       }));
   }
 
-  // Logs out by removing from the local storage the value and set the global variable as null.
+  /**
+   * Method that logs out by removing from the local storage the value and set the global variable as null.
+   */
   logout() {
     localStorage.removeItem(this.currentUserKey);
     this.currentUserSubject.next(null);

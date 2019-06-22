@@ -19,6 +19,9 @@ export class AppComponent {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
+  /**
+   * Method that logs out the user by calling the Authentication Service and return it to login.
+   */
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
