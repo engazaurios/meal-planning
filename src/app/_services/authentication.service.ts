@@ -31,9 +31,10 @@ export class AuthenticationService {
    * @param username Username of the user to log in.
    * @param password Password of the user to log in.
    * TODO: replace localhost url to the API URL.
+   * TODO: two diff roles: admin/user.
    */
   login(username, password) {
-    const user = JSON.parse('{"name":"Test","redirectURL":"/"}');
+    const user = JSON.parse('{"name":"Test", "role":"user", "token": "", "redirectURL":"/"}');
 
     localStorage.setItem(this.currentUserKey, JSON.stringify(user));
     this.currentUserSubject.next(user);

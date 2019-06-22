@@ -7,19 +7,22 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login';
-import { HeaderComponent } from './header/header.component';
+import { AdminHeaderComponent } from './header/admin-header/admin-header.component';
+import { UserHeaderComponent } from './header/user-header/user-header.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { PlannedMealComponent } from './planned-meal/planned-meal.component';
-import {JwtInterceptor} from './_helpers/jwt.interceptor';
-import {ErrorInterceptor} from './_helpers/error.interceptor';
+
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HeaderComponent,
     MenuListComponent,
-    PlannedMealComponent
+    PlannedMealComponent,
+    AdminHeaderComponent,
+    UserHeaderComponent
   ],
   imports: [
     BrowserModule,
