@@ -10,6 +10,7 @@ import { AuthenticationService } from './_services';
 export class AppComponent {
   title = 'meal-planning';
 
+  isHeaderCollapsed = true;
   currentUser: any;
 
   constructor(

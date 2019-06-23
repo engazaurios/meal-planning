@@ -1,23 +1,31 @@
 <nav *ngIf="currentUser" class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" routerLink="/">{{title}}</a>
 
-  <div class="collapse navbar-collapse">
-    <div [ngSwitch]="currentUser.role">
-      <app-header-admin *ngSwitchCase="admin"></app-header-admin>
-      <app-header-user *ngSwitchDefault></app-header-user>
-    </div>
-    <div>
+  <button class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#mainNavBar"
+          aria-controls="mainNavBar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          (click)="isHeaderCollapsed = !isHeaderCollapsed">
+
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div [ngSwitch]="currentUser.role" [ngbCollapse]="isHeaderCollapsed" class="collapse navbar-collapse" id="mainNavBar">
+    <app-header-admin *ngSwitchCase="'admin'" class="mt-2 mt-lg-0"></app-header-admin>
+    <app-header-user *ngSwitchDefault class="mt-2 mt-lg-0"></app-header-user>
+
+    <div class="ml-auto">
       <ul class="navbar-nav navbar-right">
-        <!--<li class="nav-item">
-          <a class="nav-link">{{currentUser.name}}</a>
-        </li>-->
         <li class="nav-item">
           <a class="nav-link user-avatar" routerlink="/profile">
-            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            <i class="fa fa-user-circle-o" title="{{currentUser.name}}" aria-hidden="true"></i>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="logout()">Logout</a>
+          <a class="nav-link text-danger" type="button" (click)="logout()">Salir</a>
         </li>
       </ul>
     </div>
