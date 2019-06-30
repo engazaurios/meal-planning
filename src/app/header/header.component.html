@@ -25,17 +25,30 @@
       </li>
     </ul>
 
-    <div class="ml-auto">
-      <ul class="navbar-nav navbar-right">
-        <li class="nav-item">
-          <a class="nav-link user-avatar" routerlink="/profile">
-            <i class="fa fa-user-circle-o" title="{{currentUser.name}}" aria-hidden="true"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-danger" type="button" (click)="logout()">Salir</a>
-        </li>
-      </ul>
-    </div>
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item">
+        <a class="nav-link">Tony Stark</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link user-avatar">
+          <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <div ngbDropdown placement="bottom-left">
+          <button
+            id="dropdownBasic1"
+            class="btn btn-outline-primary"
+            ngbDropdownToggle>
+            Settings
+          </button>
+
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem>Profile</button>
+            <button ngbDropdownItem (click)="logout()">Logout</button>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </nav>
