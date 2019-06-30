@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-12">
+    <h1 class="header">Usuarios</h1>
+  </div>
+</div>
+  
+<div class="user-container" *ngFor="let user of users;">
+  <div class="card card-inverse">
+    <div class="card-block">
+      <div class="row">
+        <div class="col-md-8 col-sm-8">
+          <h2 class="card-title">{{user.name}}</h2>
+          <p class="card-text"><strong>Departamento:</strong> {{user.department}}</p>
+          <p class="card-text"><strong>Cargo:</strong> {{user.position}}</p>
+          <button class="ntn btn-info">Editar</button>
+          <button class="ntn btn-danger">Eliminar</button>
+        </div>
+        <div class="col-md-4 col-sm-4 text-center">
+          <img
+            class="btn-md"
+            src="https://previews.123rf.com/images/prettyvectors/prettyvectors1309/prettyvectors130900060/22545994-user-profile-avatar-man-icon.jpg"
+            alt=""
+            style="width: 150px; border-radius:50%;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

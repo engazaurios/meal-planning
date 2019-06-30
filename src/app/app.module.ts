@@ -14,6 +14,8 @@ import { PlannedMealComponent } from './planned-meal/planned-meal.component';
 
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { UsersComponent } from './users/users.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     LoginComponent,
     LoginQrComponent,
     MenuListComponent,
-    PlannedMealComponent
+    PlannedMealComponent,
+    UsersComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
