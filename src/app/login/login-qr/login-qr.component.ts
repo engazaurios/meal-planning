@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginComponent } from '..';
+import { LoginComponent } from '../login/login.component';
 import { first } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 
