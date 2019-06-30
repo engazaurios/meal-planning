@@ -6,14 +6,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login/login.component';
+import { LoginQrComponent } from './login/login-qr/login-qr.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { PlannedMealComponent } from './planned-meal/planned-meal.component';
 
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
-import { HeaderComponent } from './header/header.component';
-import { LoginQrComponent } from './login/login-qr/login-qr.component';
 
 @NgModule({
   declarations: [
