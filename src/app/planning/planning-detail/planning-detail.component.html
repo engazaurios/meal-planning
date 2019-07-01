@@ -1,0 +1,31 @@
+<div class="text-center mt-4">
+  <div *ngIf="planningDetailService.loading" class="spinner-grow text-info mt-5" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+
+  <app-menu-list
+    (onActionClickedEvent)="validateMenus($event)"
+    [actualDate]="actualDate"
+    [dayMenu]="dayMenu"
+    [userMenu]="userMenu"
+    [currentUser]="currentUser"
+    [loading]="planningDetailService.loading">
+  </app-menu-list>
+</div>
+
+<ng-template #modalContent id="modalContent" let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ modalMessage.title }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cancel')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><b>{{ modalMessage.message }}</b></p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" [hidden]="!modalMessage.isNegativeButtonPresent" (click)="modal.dismiss('cancel')">{{ modalMessage.negativeMessage }}</button>
+    <button type="button" class="btn btn-success" [hidden]="!modalMessage.isPositiveButtonPresent" (click)="modal.close('continue')">{{ modalMessage.positiveMessage }}</button>
+    <button type="button" class="btn btn-info" [hidden]="!modalMessage.isNeutralButtonPresent" (click)="modal.dismiss('skip')">{{ modalMessage.neutralMessage }}</button>
+  </div>
+</ng-template>

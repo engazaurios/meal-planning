@@ -17,4 +17,8 @@ export class RequestService {
   post(url: string, data = {}, options = {}) {
     return this.http.post(this.host + url, data, options);
   }
+
+  put(url: string, data = {}, options = {}) {
+    return this.http.put(this.host + url, data, options);
+  }
 }
