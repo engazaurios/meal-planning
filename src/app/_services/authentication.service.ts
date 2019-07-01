@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 /***
  * Typescript that handles the login/logout from users based on the API request/response.
@@ -34,19 +35,12 @@ export class AuthenticationService {
    * TODO: two diff roles: admin/user.
    */
   login(username: string, password: string) {
-    const user = JSON.parse('{"name":"Test", "role":"user", "token": "", "redirectURL":"/"}');
-
-    localStorage.setItem(this.currentUserKey, JSON.stringify(user));
-    this.currentUserSubject.next(user);
-    return user;
-
-    // TODO: uncomment when API is ready.
-    // return this.http.post<any>(`https://localhost:4201`, {username, password})
-    //   .pipe(map(user => {
-    //     localStorage.setItem(this.currentUserKey, JSON.stringify(user));
-    //     this.currentUserSubject.next(user);
-    //     return user;
-    //   }));
+    return this.http.post<any>(`${environment.host}/api/AppUsers/login`, { username, password })
+      .pipe(map(user => {
+        localStorage.setItem(this.currentUserKey, JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        return user;
+      }));
   }
 
   /**

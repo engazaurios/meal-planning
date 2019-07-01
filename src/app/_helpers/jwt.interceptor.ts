@@ -1,7 +1,7 @@
-import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {AuthenticationService} from '../_services';
-import {Observable} from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { AuthenticationService } from '../_services';
+import { Observable } from 'rxjs';
 
 /**
  * Injectable typescript that handles the responses/requests from the API server.
@@ -18,10 +18,12 @@ export class JwtInterceptor implements HttpInterceptor {
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const currentUser = this.authenticationService.currentUserValue;
-    if (currentUser && currentUser.token) {
+
+    // WARNING: currentUser.id is really the token.
+    if (currentUser && currentUser.id) {
       req = req.clone({
         setHeaders: {
-          Authorization: `Bearer ${currentUser.token}`
+          Authorization: currentUser.id
         }
       });
     }
