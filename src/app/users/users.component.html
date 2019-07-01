@@ -17,10 +17,17 @@
       <div class="row">
         <div class="col-md-8 col-sm-8">
           <h2 class="card-title">{{user.name}}</h2>
-          <p class="card-text"><strong>Departamento:</strong> {{user.department.name}}</p>
-          <p class="card-text"><strong>Rol:</strong> {{user.role.name}}</p>
+          <p class="card-text">
+            <strong>Departamento:</strong>
+            {{ user.department ? user.department.name : ''}}</p>
+          <p class="card-text">
+            <strong>Rol:</strong>
+            {{ user.role ? user.role.name : ''}}
+          </p>
           <button class="ntn btn-info">Editar</button>
-          <button class="ntn btn-danger">Eliminar</button>
+          <button class="ntn btn-danger" (click)="onDelete(user.id)">
+            Eliminar
+          </button>
         </div>
         <div class="col-md-4 col-sm-4 text-center">
           <img

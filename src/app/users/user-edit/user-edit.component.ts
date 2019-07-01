@@ -65,7 +65,8 @@ export class UserEditComponent implements OnInit {
 
     this.usersService.createUser(this.userForm.value)
       .subscribe((data: Data) => {
-        console.log('RESPONSE:', data);
+        this.usersService.getAll();
+        this.router.navigate(['/users']);
       });
   }
 
