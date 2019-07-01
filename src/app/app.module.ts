@@ -14,6 +14,7 @@ import { PlannedMealComponent } from './planned-meal/planned-meal.component';
 
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { RequestService } from './_services/request.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     HttpClientModule
   ],
   providers: [
+    RequestService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
