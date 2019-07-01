@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { RequestService } from './request.service';
 
 /***
  * Typescript that handles the login/logout from users based on the API request/response.
@@ -15,7 +15,7 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
-  constructor(private http: HttpClient) {
+  constructor(private request: RequestService) {
     this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem(this.currentUserKey)));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -35,7 +35,7 @@ export class AuthenticationService {
    * TODO: two diff roles: admin/user.
    */
   login(username: string, password: string) {
-    return this.http.post<any>(`${environment.host}/api/AppUsers/login`, { username, password })
+    return this.request.post('/AppUsers/login', { username, password })
       .pipe(map(user => {
         localStorage.setItem(this.currentUserKey, JSON.stringify(user));
         this.currentUserSubject.next(user);
