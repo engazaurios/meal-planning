@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class RequestService {
   host: string;
 
   constructor(private http: HttpClient) {
-    this.host = 'http://localhost:3000/api';
+    this.host = environment.host;
   }
 
   get(url: string, options = {}) {
