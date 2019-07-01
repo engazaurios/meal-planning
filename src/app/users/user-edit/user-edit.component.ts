@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, Data } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Department } from '../department.model';
 import { Role } from '../role.model';
+import { UsersService } from '../users.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -18,7 +19,8 @@ export class UserEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private usersService: UsersService
   ) { }
 
   ngOnInit() {
@@ -50,7 +52,9 @@ export class UserEditComponent implements OnInit {
       role: new FormControl('', Validators.required),
       department: new FormControl('', Validators.required),
       status: new FormControl(true, Validators.required),
-      qrCode: new FormControl(null),
+      username: new FormControl(null, Validators.required),
+      qrCode: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required),
     });
   }
 
@@ -59,7 +63,10 @@ export class UserEditComponent implements OnInit {
       return;
     }
 
-    console.log(this.userForm.value);
+    this.usersService.createUser(this.userForm.value)
+      .subscribe((data: Data) => {
+        console.log('RESPONSE:', data);
+      });
   }
 
   onCancel() {

@@ -114,6 +114,26 @@
       <div class="form-group">
         <div class="row">
           <div class="col-sm-3">
+            <label for="username">Usuario</label>
+          </div>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="username">
+
+            <div
+              *ngIf="!userForm.get('username').valid && userForm.get('username').touched"
+              class="error-message small">
+              Campo requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
             <label for="qrCode">Código QR</label>
           </div>
           <div class="col-sm-9">
@@ -121,6 +141,32 @@
               type="text"
               class="form-control"
               formControlName="qrCode">
+
+            <div
+              *ngIf="!userForm.get('qrCode').valid && userForm.get('qrCode').touched"
+              class="error-message small">
+              Campo requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="password">Contraseña</label>
+          </div>
+          <div class="col-sm-9">
+            <input
+              type="password"
+              class="form-control"
+              formControlName="password">
+
+            <div
+              *ngIf="!userForm.get('password').valid && userForm.get('password').touched"
+              class="error-message small">
+              Campo requerido
+            </div>
           </div>
         </div>
       </div>

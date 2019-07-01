@@ -16,6 +16,8 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { UsersComponent } from './users/users.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { RequestService } from './_services/request.service';
+import { UsersService } from './users/users.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
     HttpClientModule
   ],
   providers: [
+    RequestService,
+    UsersService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
