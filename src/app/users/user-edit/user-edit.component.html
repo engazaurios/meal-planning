@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="col-12">
+    <h1 class="header">Crear usuario</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="name">Nombre</label>
+          </div>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="name">
+
+              <div
+                *ngIf="!userForm.get('name').valid && userForm.get('name').touched"
+                class="error-message small">
+                Campo requerido
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="lastName">Apellidos</label>
+          </div>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="lastName">
+
+              <div
+                *ngIf="!userForm.get('lastName').valid && userForm.get('lastName').touched"
+                class="error-message small">
+                Campo requerido
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="birthday">Fecha Nacimiento</label>
+          </div>
+          <div class="col-sm-9">
+            <input
+              type="date"
+              class="form-control"
+              formControlName="birthday">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="department">Departamento</label>
+          </div>
+          <div class="col-sm-9">
+            <select
+              name="department"
+              class="form-control"
+              formControlName="department">
+              <option value="">Selecciona una opción</option>
+              <option value="{{department.id}}" *ngFor="let department of departments">
+                {{department.name}}
+              </option>
+            </select>
+
+            <div
+              *ngIf="!userForm.get('department').valid && userForm.get('department').touched"
+              class="error-message small">
+              Campo requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="role">Rol</label>
+          </div>
+          <div class="col-sm-9">
+            <select
+              name="role"
+              class="form-control"
+              formControlName="role">
+              <option value="">Selecciona una opción</option>
+              <option value="{{role.id}}" *ngFor="let role of roles">
+                {{role.name}}
+              </option>
+            </select>
+
+            <div
+              *ngIf="!userForm.get('role').valid && userForm.get('role').touched"
+              class="error-message small">
+              Campo requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="qrCode">Código QR</label>
+          </div>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="qrCode">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions text-right">
+        <button
+          type="submit"
+          class="btn btn-success action"
+          [disabled]="!userForm.valid">
+          Save
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger action"
+          (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

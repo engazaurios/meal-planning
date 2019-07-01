@@ -5,3 +5,20 @@
     margin-bottom: 20px;
     font-weight: 400;
 }
+
+[disabled] {
+    cursor: not-allowed;
+}
+
+input,
+select {
+    &.ng-invalid.ng-touched {
+        border: 1px solid red;
+    }
+}
+
+.form-actions {
+    .action {
+        margin: 5px;
+    }
+}
