@@ -11,7 +11,7 @@ import { UsersService } from '../users.service';
   styleUrls: ['./user-edit.component.less']
 })
 export class UserEditComponent implements OnInit {
-  id: number;
+  id: string;
   editMode: boolean;
   userForm: FormGroup;
   departments: Department[];
@@ -26,8 +26,8 @@ export class UserEditComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe((params: Params) => {
-        this.id = +params['id'];
-        this.editMode = (this.id + 1) ? true : false;
+        this.id = params['id'];
+        this.editMode = this.id ? true : false;
 
         this.initForm();
       });
@@ -45,16 +45,32 @@ export class UserEditComponent implements OnInit {
   }
 
   initForm() {
+    let user = this.editMode ? this.usersService.peekById(this.id) : null;
+
+    if (!user) {
+      user = {
+        name: null,
+        lastName: null,
+        birthday: null,
+        role: '',
+        department: '',
+        status: true,
+        username: null,
+        qrCode: null,
+        password: null,
+      };
+    }
+
     this.userForm = new FormGroup({
-      name: new FormControl(null, Validators.required),
-      lastName: new FormControl(null, Validators.required),
-      birthday: new FormControl(null),
-      role: new FormControl('', Validators.required),
-      department: new FormControl('', Validators.required),
-      status: new FormControl(true, Validators.required),
-      username: new FormControl(null, Validators.required),
-      qrCode: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required),
+      name: new FormControl(user.name, Validators.required),
+      lastName: new FormControl(user.lastName, Validators.required),
+      birthday: new FormControl(user.birthday),
+      role: new FormControl(user.role, Validators.required),
+      department: new FormControl(user.department, Validators.required),
+      status: new FormControl(user.status, Validators.required),
+      username: new FormControl(user.username, Validators.required),
+      qrCode: new FormControl(user.qrCode, Validators.required),
+      password: new FormControl(user.password, this.editMode ? null : Validators.required),
     });
   }
 
@@ -63,9 +79,17 @@ export class UserEditComponent implements OnInit {
       return;
     }
 
+    if (this.editMode) {
+      this.usersService.updateUser(this.id, this.userForm.value)
+        .subscribe((data: Data) => {
+          this.router.navigate(['/users']);
+        });
+
+      return;
+    }
+
     this.usersService.createUser(this.userForm.value)
       .subscribe((data: Data) => {
-        this.usersService.getAll();
         this.router.navigate(['/users']);
       });
   }

@@ -18,6 +18,10 @@ export class RequestService {
     return this.http.post(this.host + url, data, options);
   }
 
+  patch(url: string, updates = {}, options = {}) {
+    return this.http.patch(this.host + url, updates, options);
+  }
+
   delete(url: string, options = {}) {
     return this.http.delete(this.host + url, options);
   }

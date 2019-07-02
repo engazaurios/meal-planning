@@ -18,8 +18,16 @@ export class UsersService {
       });
   }
 
+  peekById(id: string) {
+    return this.list.find(u => u.id === id);
+  }
+
   createUser(userData: Data) {
     return this.request.post('/AppUsers', userData);
+  }
+
+  updateUser(id: string, updates: Data) {
+    return this.request.patch(`/AppUsers/${id}`, updates);
   }
 
   deleteUser(id: string) {

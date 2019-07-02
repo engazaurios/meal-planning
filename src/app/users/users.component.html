@@ -24,7 +24,9 @@
             <strong>Rol:</strong>
             {{ user.role ? user.role.name : ''}}
           </p>
-          <button class="ntn btn-info">Editar</button>
+          <button class="ntn btn-info" (click)="onEdit(user.id)">
+            Editar
+          </button>
           <button class="ntn btn-danger" (click)="onDelete(user.id)">
             Eliminar
           </button>

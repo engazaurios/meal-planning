@@ -3,7 +3,7 @@ import { User } from './user.model';
 import { Department } from './department.model';
 import { Role } from './role.model';
 import { UsersService } from './users.service';
-import { Data } from '@angular/router';
+import { Router, Data } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   users: Data[];
   listSubscription: Subscription;
 
-  constructor(private usersService: UsersService) { }
+  constructor(private router: Router, private usersService: UsersService) { }
 
   ngOnInit() {
     this.users = [];
@@ -25,6 +25,10 @@ export class UsersComponent implements OnInit, OnDestroy {
       .subscribe((data: Data[]) => {
         this.users = data;
       });
+  }
+
+  onEdit(id: string) {
+    this.router.navigate([`/users/${id}`]);
   }
 
   onDelete(id: string) {
