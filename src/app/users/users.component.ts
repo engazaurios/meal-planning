@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.users = [];
-    this.usersService.getAll();
+    this.usersService.fetchAll();
 
     this.listSubscription = this.usersService.listChanged
       .subscribe((data: Data[]) => {
@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   onDelete(id: string) {
     this.usersService.deleteUser(id)
-      .subscribe(() => this.usersService.getAll());
+      .subscribe(() => this.usersService.fetchAll());
   }
 
   ngOnDestroy() {

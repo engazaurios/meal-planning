@@ -31,17 +31,18 @@ export class UserEditComponent implements OnInit {
 
         this.initForm();
       });
+  
+    this.departments = [];
+    this.usersService.fetchDepartments()
+      .subscribe((departments: Department[]) => {
+        this.departments = departments;
+      });
 
-    this.departments = [
-      new Department(1, 'Informatica'),
-      new Department(2, 'Recursos Humanos'),
-      new Department(3, 'Otro')
-    ];
-
-    this.roles = [
-      new Role(1, 'Administrador'),
-      new Role(2, 'Operario'),
-    ];
+    this.roles = [];
+    this.usersService.fetchRoles()
+      .subscribe((roles: Department[]) => {
+        this.roles = roles;
+      });
   }
 
   initForm() {
