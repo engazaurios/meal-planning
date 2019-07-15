@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, Data } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { UsersService } from '../users.service';
 import { Department } from '../department.model';
 import { Role } from '../role.model';
-import { UsersService } from '../users.service';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-user-edit',
@@ -31,47 +33,24 @@ export class UserEditComponent implements OnInit {
 
         this.initForm();
       });
-  
-    this.departments = [];
-    this.usersService.fetchDepartments()
-      .subscribe((departments: Department[]) => {
-        this.departments = departments;
-      });
 
-    this.roles = [];
-    this.usersService.fetchRoles()
-      .subscribe((roles: Department[]) => {
-        this.roles = roles;
-      });
+    this.departments = this.route.snapshot.data.userEditData.departments;
+    this.roles = this.route.snapshot.data.userEditData.roles;
   }
 
   initForm() {
-    let user = this.editMode ? this.usersService.peekById(this.id) : null;
-
-    if (!user) {
-      user = {
-        name: null,
-        lastName: null,
-        birthday: null,
-        role: '',
-        department: '',
-        status: true,
-        username: null,
-        qrCode: null,
-        password: null,
-      };
-    }
+    let user: User = this.route.snapshot.data.userEditData.user;
 
     this.userForm = new FormGroup({
       name: new FormControl(user.name, Validators.required),
       lastName: new FormControl(user.lastName, Validators.required),
       birthday: new FormControl(user.birthday),
-      role: new FormControl(user.role, Validators.required),
       department: new FormControl(user.department, Validators.required),
-      status: new FormControl(user.status, Validators.required),
+      role: new FormControl(user.role, Validators.required),
+      email: new FormControl(user.email, [Validators.required, Validators.email]),
       username: new FormControl(user.username, Validators.required),
       qrCode: new FormControl(user.qrCode, Validators.required),
-      password: new FormControl(user.password, this.editMode ? null : Validators.required),
+      password: new FormControl(user.password, user.id ? null : Validators.required),
     });
   }
 

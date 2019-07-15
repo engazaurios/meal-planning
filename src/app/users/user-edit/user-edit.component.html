@@ -14,6 +14,7 @@
           </div>
           <div class="col-sm-9">
             <input
+              id="name"
               type="text"
               class="form-control"
               formControlName="name">
@@ -34,6 +35,7 @@
           </div>
           <div class="col-sm-9">
             <input
+              id="lastName"
               type="text"
               class="form-control"
               formControlName="lastName">
@@ -54,6 +56,7 @@
           </div>
           <div class="col-sm-9">
             <input
+              id="birthday"
               type="date"
               class="form-control"
               formControlName="birthday">
@@ -68,7 +71,7 @@
           </div>
           <div class="col-sm-9">
             <select
-              name="department"
+              id="department"
               class="form-control"
               formControlName="department">
               <option value="">Selecciona una opción</option>
@@ -93,7 +96,7 @@
           </div>
           <div class="col-sm-9">
             <select
-              name="role"
+              id="role"
               class="form-control"
               formControlName="role">
               <option value="">Selecciona una opción</option>
@@ -114,10 +117,32 @@
       <div class="form-group">
         <div class="row">
           <div class="col-sm-3">
+            <label for="email">Correo</label>
+          </div>
+          <div class="col-sm-9">
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              formControlName="email">
+
+            <div
+              *ngIf="!userForm.get('email').valid && userForm.get('email').touched"
+              class="error-message small">
+              Campo requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
             <label for="username">Usuario</label>
           </div>
           <div class="col-sm-9">
             <input
+              id="username"
               type="text"
               class="form-control"
               formControlName="username">
@@ -138,6 +163,7 @@
           </div>
           <div class="col-sm-9">
             <input
+              id="qrCode"
               type="text"
               class="form-control"
               formControlName="qrCode">
@@ -158,6 +184,7 @@
           </div>
           <div class="col-sm-9">
             <input
+              id="password"
               type="password"
               class="form-control"
               formControlName="password">

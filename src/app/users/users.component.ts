@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./users.component.less']
 })
 export class UsersComponent implements OnInit, OnDestroy {
-  users: Data[];
+  users: User[];
   listSubscription: Subscription;
 
   constructor(private router: Router, private usersService: UsersService) { }
@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.usersService.fetchAll();
 
     this.listSubscription = this.usersService.listChanged
-      .subscribe((data: Data[]) => {
+      .subscribe((data: User[]) => {
         this.users = data;
       });
   }
