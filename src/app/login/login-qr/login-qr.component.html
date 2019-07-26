@@ -1,13 +1,20 @@
 <div *ngIf="error">{{error}}</div>
 
 <div class="container">
-  <div class="row align-middle card card-body mt-5">
-    <div class="row d-flex justify-content-center align-items-center">
-      <h1 class="text-center text-dark">Acercate al lector de QR para introducir tus datos.</h1>
-    </div>
+  <div class="row align-middle">
+      <div class="col-12 mt-5">
+        <h1 class="text-center text-dark">Inicio de sesión usando QR</h1>
+        <div class="circle-animation">
+            <div class="pulsating-circle">
+            </div>
+            <span class="content-text">Acerca tu carnet al lector</span>
+          </div>
+      </div>
   </div>
 
-  <div class="row position-absolute">
-    <button (click)="router.navigate(['/login'])" class="col-auto">Iniciar sesión manual</button>
+  <div class="row">
+    <div class="col-12 text-center">
+      <button (click)="router.navigate(['/login'])" class="btn btn-primary col-auto">Iniciar sesión manual</button>
+    </div>
   </div>
 </div>
