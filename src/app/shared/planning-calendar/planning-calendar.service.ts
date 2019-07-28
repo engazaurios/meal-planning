@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {RequestService} from '../_services/request.service';
+import {RequestService} from '../../_services/request.service';
 import {Subject} from 'rxjs';
-import {DayMenu} from '../_models/DayMenu';
+import {DayMenu} from '../../_models/DayMenu';
 import {plainToClass} from 'class-transformer';
 
 @Injectable({ providedIn : 'root'})
-export class PlanningService {
+export class PlanningCalendarService {
 
   loading = false;
 

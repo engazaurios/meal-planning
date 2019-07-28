@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import {DayMenu} from '../../_models/DayMenu';
-import {PlanningService} from '../../planning/planning.service';
+import {PlanningCalendarService} from './planning-calendar.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -29,7 +29,7 @@ export class PlanningCalendarComponent implements OnInit, OnDestroy {
   isPending = (date: NgbDate) => this.isDateWithStatus(date, 'pending');
 
   constructor(
-    private planningService: PlanningService,
+    private planningService: PlanningCalendarService,
     private router: Router
   ) { }
 
