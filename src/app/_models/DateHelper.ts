@@ -45,6 +45,16 @@ export class DateHelper {
     return dateMoment.subtract(7, 'days');
   }
 
+  static getNextWeekEnd(actualDate?) {
+    return this.getNextWeek(actualDate).endOf('week');
+  }
 
+  static getPreviousWeekStart(actualDate?) {
+    return this.getPreviousWeek(actualDate).startOf('week');
+  }
 
 }
+
+
+
+

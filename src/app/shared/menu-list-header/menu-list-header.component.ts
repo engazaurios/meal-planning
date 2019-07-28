@@ -43,11 +43,15 @@ export class MenuListHeaderComponent implements OnInit {
    * @param action Which action should it take, next/previous.
    */
   private clickOnArrow(action) {
-    if (action === 'next') {
-      window.location.href = `planning/${this.getNextDate()}`;
-    } else {
-      window.location.href = `planning/${this.getPreviousDate()}`;
+    const arrowDate = action === 'next' ? DateHelper.getNextDate(this.actualDate) : DateHelper.getPreviousDate(this.actualDate);
+    const arrowDateDay = arrowDate.dayOfYear();
+    const previousWeekDay = DateHelper.getPreviousWeekStart().dayOfYear();
+    const nextWeekDay = DateHelper.getNextWeekEnd().dayOfYear();
+
+    if (nextWeekDay >= arrowDateDay && arrowDateDay >= previousWeekDay) {
+      window.location.href = `planning/${DateHelper.getFormattedDate(arrowDate)}`;
     }
+
   }
 
 }
