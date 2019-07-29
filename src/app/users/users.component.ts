@@ -22,8 +22,8 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.usersService.fetchAll();
 
     this.listSubscription = this.usersService.listChanged
-      .subscribe((data: User[]) => {
-        this.users = data;
+      .subscribe((users: User[]) => {
+        this.users = users;
       });
   }
 

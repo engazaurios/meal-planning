@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from '../_services';
-import {Router} from '@angular/router';
+import { AuthenticationService } from '../_services';
+import { Router } from '@angular/router';
+import { User } from '../users/user.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -12,20 +14,20 @@ export class HeaderComponent implements OnInit {
   title = 'meal-planning';
 
   isHeaderCollapsed = true;
-  currentUser: any;
+  session: Observable<any>;
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authService: AuthenticationService
   ) {
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    authService.currentUser.subscribe(session => this.session = session);
   }
 
   /**
    * Method that logs out the user by calling the Authentication Service and return it to login.
    */
   logout() {
-    this.authenticationService.logout();
+    this.authService.logout();
     this.router.navigate(['/login-qr']);
   }
 

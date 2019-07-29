@@ -3,7 +3,7 @@
     <h1 class="header">
       Usuarios
 
-      <button class="btn btn-success pull-right" routerLink="/users/new">
+      <button class="btn btn-success float-right" routerLink="/users/new">
         <i class="fa fa-plus"></i>
         Agregar
       </button>
@@ -22,12 +22,14 @@
             {{ user.department ? user.department.name : ''}}</p>
           <p class="card-text">
             <strong>Rol:</strong>
-            {{ user.role ? user.role.name : ''}}
+            {{ user.roles && user.roles.length ? user.roles[0].name : ''}}
           </p>
           <button class="ntn btn-info" (click)="onEdit(user.id)">
+            <i class="fas fa-pencil-alt"></i>
             Editar
           </button>
           <button class="ntn btn-danger" (click)="onDelete(user.id)">
+            <i class="fas fa-trash"></i>
             Eliminar
           </button>
         </div>

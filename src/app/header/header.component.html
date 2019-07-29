@@ -1,5 +1,5 @@
-<nav *ngIf="currentUser" class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="/">{{title}}</a>
+<nav *ngIf="session" class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/">{{ title }}</a>
 
   <button class="navbar-toggler"
     type="button"
@@ -13,7 +13,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div [ngSwitch]="currentUser.role" [ngbCollapse]="isHeaderCollapsed" class="collapse navbar-collapse" id="mainNavBar">
+  <div [ngSwitch]="session.user.role" [ngbCollapse]="isHeaderCollapsed" class="collapse navbar-collapse" id="mainNavBar">
     <ul *ngSwitchCase="'admin'" class="navbar-nav navbar-collapse">
     </ul>
     <ul *ngSwitchDefault class="navbar-nav navbar-collapse">
@@ -23,34 +23,25 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/planned-menu">My meal</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="session.user.isAdmin" class="nav-item">
           <a class="nav-link" routerLink="/users">Usuarios</a>
         </li>
     </ul>
 
     <ul class="navbar-nav navbar-right">
       <li class="nav-item">
-        <a class="nav-link">Tony Stark</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link user-avatar">
-          <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+          <i class="fas fa-user-circle"></i>
         </a>
       </li>
       <li class="nav-item">
-        <div ngbDropdown placement="bottom-left">
-          <button
-            id="dropdownBasic1"
-            class="btn btn-outline-primary"
-            ngbDropdownToggle>
-            Settings
-          </button>
-
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button ngbDropdownItem>Profile</button>
-            <button ngbDropdownItem (click)="logout()">Logout</button>
-          </div>
-        </div>
+        <a class="nav-link">{{ session.user.fullName }}</a>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-danger" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i>
+          Salir
+        </button>
       </li>
     </ul>
   </div>

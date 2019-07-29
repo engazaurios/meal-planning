@@ -22,14 +22,14 @@ const routes: Routes = [
     path: 'users/new',
     component: UserEditComponent,
     resolve: {
-      userEditData: UserEditResolverService
+      model: UserEditResolverService
     }
   },
   {
     path: 'users/:id',
     component: UserEditComponent,
     resolve: {
-      userEditData: UserEditResolverService
+      model: UserEditResolverService
     }
   },
   { path: '**', redirectTo: ''}

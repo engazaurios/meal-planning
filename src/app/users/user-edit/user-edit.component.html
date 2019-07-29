@@ -67,13 +67,13 @@
       <div class="form-group">
         <div class="row">
           <div class="col-sm-3">
-            <label for="department">Departamento</label>
+            <label for="departmentId">Departamento</label>
           </div>
           <div class="col-sm-9">
             <select
-              id="department"
+              id="departmentId"
               class="form-control"
-              formControlName="department">
+              formControlName="departmentId">
               <option value="">Selecciona una opción</option>
               <option value="{{department.id}}" *ngFor="let department of departments">
                 {{department.name}}
@@ -81,7 +81,7 @@
             </select>
 
             <div
-              *ngIf="!userForm.get('department').valid && userForm.get('department').touched"
+              *ngIf="!userForm.get('departmentId').valid && userForm.get('departmentId').touched"
               class="error-message small">
               Campo requerido
             </div>
@@ -92,13 +92,13 @@
       <div class="form-group">
         <div class="row">
           <div class="col-sm-3">
-            <label for="role">Rol</label>
+            <label for="roleId">Rol</label>
           </div>
           <div class="col-sm-9">
             <select
-              id="role"
+              id="roleId"
               class="form-control"
-              formControlName="role">
+              formControlName="roleId">
               <option value="">Selecciona una opción</option>
               <option value="{{role.id}}" *ngFor="let role of roles">
                 {{role.name}}
@@ -106,7 +106,7 @@
             </select>
 
             <div
-              *ngIf="!userForm.get('role').valid && userForm.get('role').touched"
+              *ngIf="!userForm.get('roleId').valid && userForm.get('roleId').touched"
               class="error-message small">
               Campo requerido
             </div>

@@ -18,8 +18,8 @@ export class UsersService {
 
   fetchAll() {
     return this.request.get('/AppUsers')
-      .subscribe((data: Data[]) => {
-        this.list = this.dataHelper.createModelArray(User, data);
+      .subscribe((users: User[]) => {
+        this.list = users;
         this.listChanged.next(this.list);
       });
   }

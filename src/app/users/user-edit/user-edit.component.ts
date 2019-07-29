@@ -34,19 +34,19 @@ export class UserEditComponent implements OnInit {
         this.initForm();
       });
 
-    this.departments = this.route.snapshot.data.userEditData.departments;
-    this.roles = this.route.snapshot.data.userEditData.roles;
+    this.departments = this.route.snapshot.data.model.departments;
+    this.roles = this.route.snapshot.data.model.roles;
   }
 
   initForm() {
-    let user: User = this.route.snapshot.data.userEditData.user;
+    let user: User = this.route.snapshot.data.model.user;
 
     this.userForm = new FormGroup({
       name: new FormControl(user.name, Validators.required),
       lastName: new FormControl(user.lastName, Validators.required),
       birthday: new FormControl(user.birthday),
-      department: new FormControl(user.department, Validators.required),
-      role: new FormControl(user.role, Validators.required),
+      departmentId: new FormControl(user.departmentId, Validators.required),
+      roleId: new FormControl(user.roleId, Validators.required),
       email: new FormControl(user.email, [Validators.required, Validators.email]),
       username: new FormControl(user.username, Validators.required),
       qrCode: new FormControl(user.qrCode, Validators.required),

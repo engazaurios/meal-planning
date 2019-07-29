@@ -4,27 +4,41 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { RequestService } from './request.service';
 
+import { DataHelperService } from './data.helper.service';
+import { User } from '../users/user.model';
+
+interface LoginResponse {
+  id: string,
+  ttl: number,
+  user: Object,
+  userId: string
+};
+
 /***
  * Typescript that handles the login/logout from users based on the API request/response.
  */
 @Injectable({ providedIn : 'root'})
 export class AuthenticationService {
-
-  public currentUserKey: 'currentUser';
-
-  private currentUserSubject: BehaviorSubject<any>;
+  public sessionKey = 'session';
+  private sessionSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
-  constructor(private request: RequestService) {
-    this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem(this.currentUserKey)));
-    this.currentUser = this.currentUserSubject.asObservable();
+  constructor(private request: RequestService, private dataHelper: DataHelperService) {
+    let session = JSON.parse(localStorage.getItem(this.sessionKey));
+
+    if (session) {
+      session.user = this.dataHelper.createUserFromObject(session.user);
+    }
+
+    this.sessionSubject = new BehaviorSubject<any>(session);
+    this.currentUser = this.sessionSubject.asObservable();
   }
 
   /**
    * Method that returns the current singleton user.
    */
   public get currentUserValue() {
-    return this.currentUserSubject.value;
+    return this.sessionSubject.value;
   }
 
   /**
@@ -35,11 +49,22 @@ export class AuthenticationService {
    * TODO: two diff roles: admin/user.
    */
   login(username: string, password: string) {
-    return this.request.post('/AppUsers/login', { username, password })
-      .pipe(map(user => {
-        localStorage.setItem(this.currentUserKey, JSON.stringify(user));
-        this.currentUserSubject.next(user);
-        return user;
+    return this.request
+      .post(
+        '/AppUsers/login',
+        { username, password },
+        {
+          params: { include: 'user' }
+        }
+      )
+      .pipe(map((session: LoginResponse) => {
+        session.user = this.dataHelper.createUserFromObject(session.user);
+
+        localStorage.setItem(this.sessionKey, JSON.stringify(session));
+
+        this.sessionSubject.next(session);
+
+        return session;
       }));
   }
 
@@ -50,27 +75,17 @@ export class AuthenticationService {
    * TODO: two diff roles: admin/user.
    */
   loginQR(usernameID: string) {
-    const user = JSON.parse('{"name":"Test", "role":"user", "token": "", "redirectURL":"/"}');
-
-    localStorage.setItem(this.currentUserKey, JSON.stringify(user));
-    this.currentUserSubject.next(user);
-    return user;
-
-    // TODO: uncomment when API is ready.
-    // return this.http.post<any>(`https://localhost:4201`, {usernameID})
-    //   .pipe(map(user => {
-    //     localStorage.setItem(this.currentUserKey, JSON.stringify(user));
-    //     this.currentUserSubject.next(user);
-    //     return user;
-    //   }));
+    // TODO: Implement
+    return this.login('todo', 'todo');
   }
 
   /**
    * Method that logs out by removing from the local storage the value and set the global variable as null.
    */
   logout() {
-    localStorage.removeItem(this.currentUserKey);
-    this.currentUserSubject.next(null);
+    localStorage.removeItem(this.sessionKey);
+
+    this.sessionSubject.next(null);
   }
 
 }
