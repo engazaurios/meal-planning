@@ -1,13 +1,11 @@
-<div class="text-center w-100 p-3">
+<app-page-title
+  title="Selecciona el día de la semana"
+  centerTitle="true"></app-page-title>
 
-  <div>
-    <h2 class="font-italic">Selecciona el día de la semana.</h2>
-  </div>
-
+<div class="text-center w-100">
   <app-planning-calendar
     [currentUser]="currentUser"
     [startOfWeek]="startOfWeek"
     [endOfWeek]="endOfWeek">
   </app-planning-calendar>
-
 </div>

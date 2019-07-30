@@ -10,8 +10,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent implements OnInit {
-
-  title = 'meal-planning';
+  title = 'Planificación de Comidas';
 
   isHeaderCollapsed = true;
   session: Observable<any>;

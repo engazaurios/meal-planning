@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PageTitleComponent implements OnInit {
   @Input() title: string;
   @Input() actions: Array<Object>;
+  @Input() centerTitle: boolean;
 
   constructor() { }
 

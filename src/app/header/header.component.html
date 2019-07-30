@@ -1,4 +1,4 @@
-<nav *ngIf="session" class="navbar navbar-expand-lg navbar-light bg-light">
+<nav *ngIf="session" class="navbar navbar-expand-lg navbar-light">
   <a class="navbar-brand" routerLink="/">{{ title }}</a>
 
   <button class="navbar-toggler"
@@ -18,10 +18,7 @@
     </ul>
     <ul *ngSwitchDefault class="navbar-nav navbar-collapse">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/menu-list">Menu list</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/planned-menu">My meal</a>
+        <a class="nav-link" routerLink="/planned-menu">Calendario</a>
       </li>
       <li *ngIf="session.user.isAdmin" class="nav-item">
           <a class="nav-link" routerLink="/users">Usuarios</a>
