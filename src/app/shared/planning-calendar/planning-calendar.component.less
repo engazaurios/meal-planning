@@ -1,0 +1,45 @@
+@gray-color: #dfdfdf;
+
+.custom-day {
+  width: 100%;
+  height: 100%;
+
+  text-align: right;
+  display: inherit;
+
+  padding: 0.5rem;
+
+  border-radius: 0.25rem;
+  border-style: solid;
+  border-width: 0.15px;
+  border-color: @gray-color;
+
+  &:hover {
+    background-color: @gray-color;
+  }
+}
+.custom-day-pending, .custom-day-sent {
+  font-weight: bold;
+  font-style: italic;
+}
+.custom-day-na {
+  color: #6c757d;
+}
+.custom-day-pending {
+  animation: shadow-pulse 1s 1;
+  background-color: #F0AD4E;
+  &:hover {
+    background-color: #966115;
+  }
+}
+.custom-day-sent {
+  background-color: #A5CCA0;
+  &:hover {
+    background-color: #688264;
+  }
+}
+
+.spinner-grow {
+  width: 5rem;
+  height: 5rem;
+}
