@@ -45,8 +45,8 @@ export class MenuListHeaderComponent implements OnInit {
   private clickOnArrow(action) {
     const arrowDate = action === 'next' ? DateHelper.getNextDate(this.actualDate) : DateHelper.getPreviousDate(this.actualDate);
     const arrowDateDay = arrowDate.dayOfYear();
-    const previousWeekDay = DateHelper.getPreviousWeekStart().dayOfYear();
-    const nextWeekDay = DateHelper.getNextWeekEnd().dayOfYear();
+    const previousWeekDay = DateHelper.getPreviousMonthStart().dayOfYear();
+    const nextWeekDay = DateHelper.getNextMonthEnd().dayOfYear();
 
     if (nextWeekDay >= arrowDateDay && arrowDateDay >= previousWeekDay) {
       window.location.href = `planning/${DateHelper.getFormattedDate(arrowDate)}`;
