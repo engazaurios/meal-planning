@@ -14,6 +14,14 @@ import { Subscription } from 'rxjs';
 export class UsersComponent implements OnInit, OnDestroy {
   users: User[];
   listSubscription: Subscription;
+  pageActions: Array<Object> = [
+    {
+      text: 'Agregar',
+      buttonType: 'btn btn-success',
+      icon: 'fa fa-plus',
+      route: '/users/new'
+    }
+  ];
 
   constructor(private router: Router, private usersService: UsersService) { }
 

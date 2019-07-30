@@ -1,44 +1,50 @@
-<div class="row">
-  <div class="col-12">
-    <h1 class="header">
-      Usuarios
+<app-page-title title="Usuarios" [actions]="pageActions"></app-page-title>
 
-      <button class="btn btn-success float-right" routerLink="/users/new">
-        <i class="fa fa-plus"></i>
-        Agregar
-      </button>
-    </h1>
-  </div>
-</div>
-  
 <div class="user-container" *ngFor="let user of users;">
   <div class="card card-inverse">
     <div class="card-block">
       <div class="row">
-        <div class="col-md-8 col-sm-8">
-          <h2 class="card-title">{{user.name}}</h2>
-          <p class="card-text">
-            <strong>Departamento:</strong>
-            {{ user.department ? user.department.name : ''}}</p>
-          <p class="card-text">
-            <strong>Rol:</strong>
-            {{ user.roles && user.roles.length ? user.roles[0].name : ''}}
-          </p>
-          <button class="ntn btn-info" (click)="onEdit(user.id)">
-            <i class="fas fa-pencil-alt"></i>
-            Editar
-          </button>
-          <button class="ntn btn-danger" (click)="onDelete(user.id)">
-            <i class="fas fa-trash"></i>
-            Eliminar
-          </button>
+        <div class="col-sm-8 col-md-9 col-lg-10">
+          <h2 class="card-title">
+            {{ user.fullName }}
+          </h2>
+          <div class="row">
+            <div class="col-sm-12 col-lg-6">
+              <p>
+                <strong>Departamento:</strong>
+                {{ user.department ? user.department.name : ''}}</p>
+              <p>
+                <strong>Rol:</strong>
+                {{ user.roles && user.roles.length ? user.roles[0].name : ''}}
+              </p>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+              <p>
+                <strong>Usuario:</strong>
+                {{ user.username }}
+              </p>
+              <p>
+                <strong>Correo:</strong>
+                {{ user.email }}
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4 col-sm-4 text-center">
+        <div class="col-sm-4 col-md-3 col-lg-2 text-center">
           <img
             class="btn-md"
             src="https://previews.123rf.com/images/prettyvectors/prettyvectors1309/prettyvectors130900060/22545994-user-profile-avatar-man-icon.jpg"
             alt=""
-            style="width: 150px; border-radius:50%;">
+            style="width: 100px; border-radius:50%;">
+
+          <div class="actions text-center">
+            <button class="action btn btn-outline-info" (click)="onEdit(user.id)">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+            <button class="action btn btn-outline-danger" (click)="onDelete(user.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>

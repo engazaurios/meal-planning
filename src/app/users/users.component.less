@@ -1,5 +1,21 @@
 .user-container {
   .card.card-inverse {
     padding: 10px;
+
+    .card-text:last-child {
+      margin-bottom: 1rem;
+    }
+
+    .card-block {
+      .actions {
+        .action {
+          font-size: 0.75rem;
+
+          &:not(:first-child) {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
   }
 }

@@ -19,6 +19,7 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { RequestService } from './_services/request.service';
 import { UsersService } from './users/users.service';
 import { DataHelperService } from './_services/data.helper.service';
+import { PageTitleComponent } from './common/page-title/page-title.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { DataHelperService } from './_services/data.helper.service';
     MenuListComponent,
     PlannedMealComponent,
     UsersComponent,
-    UserEditComponent
+    UserEditComponent,
+    PageTitleComponent
   ],
   imports: [
     BrowserModule,
