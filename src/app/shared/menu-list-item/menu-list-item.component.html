@@ -5,7 +5,8 @@
       {{menu.category.name}}
     </span>
   </div>
-  <div [class.planning-detail-selected-description]="isSelected" class="card-body clickable bold font-italic">
+  <div [class.planning-detail-selected-description]="isSelected" class="card-body clickable bold font-italic text-center">
+    <img class="planning-detail-card-image" src="{{ getRandomImage() }}">
     <p class="card-text">{{menu.description}}</p>
   </div>
 </div>

@@ -8,9 +8,9 @@
       </ng-template>
       <ng-template ngbTabContent>
         <div class="mt-md-4 card-deck">
-          <div class="d-flex card text-left planning-detail" *ngFor="let menu of dayMenu.getMealsByMealCode(meal)"
+          <div class="d-flex card text-left planning-detail" *ngFor="let menu of dayMenu.getMealsByMealCode(meal); let i = index"
                (click)="onMenuClicked(menu)">
-            <app-menu-item [menu]="menu" [isSelected]="isSelected(menu)"></app-menu-item>
+            <app-menu-item [index]="i" [menu]="menu" [isSelected]="isSelected(menu)"></app-menu-item>
           </div>
         </div>
         <button class="btn btn-primary btn-lg float-md-right mt-md-3 btn-static font-weight-bold"
