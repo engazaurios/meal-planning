@@ -21,10 +21,15 @@
     "@angular/router": "~8.0.1",
     "@fortawesome/fontawesome-free": "^5.9.0",
     "@ng-bootstrap/ng-bootstrap": "^4.2.1",
+    "angular-notifier": "^4.0.0",
     "bootstrap": "^4.3.1",
+    "class-transformer": "^0.2.3",
+    "es6-shim": "^0.35.5",
     "moment": "^2.24.0",
+    "reflect-metadata": "^0.1.13",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
+    "util": "^0.12.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {

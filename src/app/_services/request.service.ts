@@ -25,4 +25,8 @@ export class RequestService {
   delete(url: string, options = {}) {
     return this.http.delete(this.host + url, options);
   }
+
+  put(url: string, data = {}, options = {}) {
+    return this.http.put(this.host + url, data, options);
+  }
 }
