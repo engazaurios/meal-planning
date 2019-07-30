@@ -6,6 +6,7 @@ import { Department } from '../department.model';
 import { Role } from '../role.model';
 import { forkJoin, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { DataHelperService } from 'src/app/_services/data.helper.service';
 
 interface UserEditData {
   departments: Department[],
@@ -15,7 +16,7 @@ interface UserEditData {
 
 @Injectable({ providedIn: 'root' })
 export class UserEditResolverService implements Resolve<UserEditData> {
-  constructor(private userService: UsersService) {}
+  constructor(private userService: UsersService, private dataHelper: DataHelperService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let queries : Observable<any>[] = [
@@ -29,10 +30,14 @@ export class UserEditResolverService implements Resolve<UserEditData> {
 
     return forkJoin(queries).pipe(
       map(data => {
+        let userObject = data[2]
+          ? this.dataHelper.createUserFromObject(data[2])
+          : new User();
+
         return {
           departments: <Department[]>data[0],
           roles: <Role[]>data[1],
-          user: data[2] ? <User>data[2] : new User()
+          user: userObject
         };
       })
     );

@@ -1,5 +1,8 @@
 import { Data } from '@angular/router';
 import { User } from '../users/user.model';
+import { Department } from '../users/department.model';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
 export class DataHelperService {
   createModel(model: any, data: Data) {
@@ -14,7 +17,7 @@ export class DataHelperService {
     return modelInstance;
   }
 
-  createModelArray(model: Object, data: Data[]) {
+  createModelArray(model: Object, data: Object[]) {
     return data.map((modelData) => this.createModel(model, modelData));
   }
 
@@ -22,11 +25,22 @@ export class DataHelperService {
     let user = new User();
 
     Object.keys(data).forEach(key => {
-      if (key === 'birthday') {
-        data[key] = new Date(data[key]);
+      if (!user.hasOwnProperty(key)) {
+        return;
       }
 
-      if (user.hasOwnProperty(key)) {
+      if (key === 'birthday') {
+        let birthday = moment(data[key]);
+        
+        if (birthday.isValid()) {
+          user['birthday'] = birthday.toDate();
+          user['birthdayNgbDate'] = new NgbDate(
+            birthday.year(),
+            birthday.month() + 1,
+            birthday.date()
+          );
+        }
+      } else {
         user[key] = data[key];
       }
     });

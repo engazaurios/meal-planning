@@ -1,5 +1,6 @@
 import { Department } from './department.model';
 import { Role } from './role.model';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 
 export class User {
@@ -7,6 +8,7 @@ export class User {
     public name: string;
     public lastName: string;
     public birthday: Date;
+    public birthdayNgbDate: NgbDate;
     public department: Department;
     public departmentId: string;
     public roles: Role[];
@@ -52,6 +54,14 @@ export class User {
         this.emailVerified = emailVerified || false;
         this.status = status || null;
         this.photo = photo || null;
+
+        if (this.birthday) {
+            this.birthdayNgbDate = new NgbDate(
+                this.birthday.getFullYear(),
+                this.birthday.getMonth() + 1,
+                this.birthday.getDate()
+            );
+        }
     }
 
     get fullName() : string {

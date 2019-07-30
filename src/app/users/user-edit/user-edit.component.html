@@ -57,9 +57,12 @@
           <div class="col-sm-9">
             <input
               id="birthday"
-              type="date"
+              type="text"
               class="form-control"
-              formControlName="birthday">
+              formControlName="birthdayNgbDate"
+              ngbDatepicker
+              #d="ngbDatepicker"
+              (click)="d.toggle()"/>
           </div>
         </div>
       </div>

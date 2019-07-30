@@ -6,6 +6,7 @@ import { UsersService } from '../users.service';
 import { Department } from '../department.model';
 import { Role } from '../role.model';
 import { User } from '../user.model';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-edit',
@@ -44,7 +45,7 @@ export class UserEditComponent implements OnInit {
     this.userForm = new FormGroup({
       name: new FormControl(user.name, Validators.required),
       lastName: new FormControl(user.lastName, Validators.required),
-      birthday: new FormControl(user.birthday),
+      birthdayNgbDate: new FormControl(user.birthdayNgbDate),
       departmentId: new FormControl(user.departmentId, Validators.required),
       roleId: new FormControl(user.roleId, Validators.required),
       email: new FormControl(user.email, [Validators.required, Validators.email]),
@@ -59,9 +60,16 @@ export class UserEditComponent implements OnInit {
       return;
     }
 
+    if (this.userForm.value.birthdayNgbDate) {
+      let ngbDate: NgbDate = this.userForm.value.birthdayNgbDate;
+      this.userForm.value.birthday = new Date(ngbDate.year, ngbDate.month - 1, ngbDate.day);
+
+      delete this.userForm.value['birthdayNgbDate'];
+    }
+
     if (this.editMode) {
       this.usersService.updateUser(this.id, this.userForm.value)
-        .subscribe((data: Data) => {
+        .subscribe(() => {
           this.router.navigate(['/users']);
         });
 
@@ -69,7 +77,7 @@ export class UserEditComponent implements OnInit {
     }
 
     this.usersService.createUser(this.userForm.value)
-      .subscribe((data: Data) => {
+      .subscribe(() => {
         this.router.navigate(['/users']);
       });
   }
