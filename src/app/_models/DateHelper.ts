@@ -53,6 +53,24 @@ export class DateHelper {
     return this.getPreviousWeek(actualDate).startOf('week');
   }
 
+  static getNextMonth(actualDate?) {
+    const dateMoment = this.getDate(actualDate);
+    return dateMoment.add(1, 'months');
+  }
+
+  static getPreviousMonth(actualDate?) {
+    const dateMoment = this.getDate(actualDate);
+    return dateMoment.subtract(1, 'months');
+  }
+
+  static getNextMonthEnd(actualDate?) {
+    return this.getNextMonth(actualDate).endOf('week');
+  }
+
+  static getPreviousMonthStart(actualDate?) {
+    return this.getPreviousMonth(actualDate).startOf('week');
+  }
+
 }
 
 
