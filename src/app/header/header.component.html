@@ -13,16 +13,20 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div [ngSwitch]="session.user.role" [ngbCollapse]="isHeaderCollapsed" class="collapse navbar-collapse" id="mainNavBar">
-    <ul *ngSwitchCase="'admin'" class="navbar-nav navbar-collapse">
+  <div [ngSwitch]="session.user.isAdmin" [ngbCollapse]="isHeaderCollapsed" class="collapse navbar-collapse" id="mainNavBar">
+    <ul *ngSwitchCase="true" class="navbar-nav navbar-collapse">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/manage">Calendario</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/manage/table">Tabla</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/users">Usuarios</a>
+      </li>
     </ul>
     <ul *ngSwitchDefault class="navbar-nav navbar-collapse">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/planned-menu">Calendario</a>
-      </li>
-      <li *ngIf="session.user.isAdmin" class="nav-item">
-          <a class="nav-link" routerLink="/users">Usuarios</a>
-        </li>
+      <a class="nav-link" routerLink="/">Calendario</a>
     </ul>
 
     <ul class="navbar-nav navbar-right">

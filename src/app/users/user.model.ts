@@ -1,6 +1,7 @@
 import { Department } from './department.model';
 import { Role } from './role.model';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import {Constants} from '../_helpers/constants';
 
 
 export class User {
@@ -73,7 +74,7 @@ export class User {
             return false;
         }
 
-        let adminRole = this.roles.find(r => r.name === 'admin');
+        let adminRole = this.roles.find(r => r.name === Constants.userTypes.ADMIN.key);
 
         return adminRole ? true : false;
     }
@@ -85,7 +86,7 @@ export class User {
         const role = this.roles && this.roles.length ? this.roles[0] : null;
 
         switch (role.name) {
-            case 'admin':
+            case Constants.userTypes.ADMIN.key:
                 return admin;
             default:
                 return [];

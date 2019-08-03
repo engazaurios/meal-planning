@@ -1,0 +1,35 @@
+form {
+  div {
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    label {
+      font-style: italic;
+      margin-right: 10px;
+      text-align: right;
+      justify-content: center;
+      width: 20%;
+    }
+    input, select {
+      align-self: flex-end;
+      width: 70%;
+    }
+    select {
+      align-self: normal;
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  form {
+    div {
+      display: inherit;
+      label, input, select {
+        align-self: normal;
+        text-align: left;
+        width: 100%;
+      }
+    }
+  }
+}

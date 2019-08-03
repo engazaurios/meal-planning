@@ -33,7 +33,11 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/angular-notifier/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {

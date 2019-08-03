@@ -1,0 +1,61 @@
+<!-- Create new menu Modal -->
+
+<div class="modal-header">
+  <h3 class="modal-title">Crea un nuevo menú</h3>
+</div>
+
+<div class="modal-body">
+
+  <div *ngIf="menuFormsService.loading"
+       class="spinner-grow text-info mt-5"
+       role="status">
+    <span class="sr-only">Cargando...</span>
+  </div>
+
+  <form *ngIf="!menuFormsService.loading"
+        class="col-md"
+        [formGroup]="formGroup">
+    <div>
+      <label for="newMenuTitle">Título:</label>
+      <input type="text" placeholder="Título"
+             id="newMenuTitle"
+             class="form-control" formControlName="title"/>
+    </div>
+    <div>
+      <label for="newMenuDescription">Descripción:</label>
+      <input type="text" placeholder="Descripción"
+             id="newMenuDescription"
+             class="form-control" formControlName="description"/>
+    </div>
+    <div>
+      <label for="newMenuPrice">Precio:</label>
+      <input type="number" placeholder="Precio" value="24.00"
+             id="newMenuPrice"
+             class="form-control" formControlName="price"/>
+    </div>
+    <div>
+      <label for="newMenuMealId">Tipo:</label>
+      <select class="form-control"
+              id="newMenuMealId"
+              name="meals" formControlName="meal">
+        <option *ngFor="let meal of meals" value="{{ meal.id }}">{{ meal.name }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="newMenuCategoryId">Categoría:</label>
+      <select class="form-control"
+              id="newMenuCategoryId"
+              name="categories" formControlName="category">
+        <option *ngFor="let category of categories" value="{{ category.id }}">{{ category.name }}</option>
+      </select>
+    </div>
+  </form>
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger"
+          (click)="cancelAction()">Cancelar</button>
+  <button type="button" ngbAutofocus class="btn btn-success"
+          (click)="validate()">Crear Menú</button>
+</div>

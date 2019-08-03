@@ -1,0 +1,59 @@
+<div class="modal-header">
+  <h3 class="modal-title">Agrega un nuevo menú al día <b class="text-capitalize">{{formattedDate}}</b></h3>
+</div>
+
+<div class="modal-body text-center">
+
+  <div *ngIf="menuUploadService.allMenusLoading" class="spinner-grow text-info mt-5" role="status">
+    <span class="sr-only">Cargando...</span>
+  </div>
+
+  <form *ngIf="!menuUploadService.allMenusLoading" class="col-md text-left" [formGroup]="uploadMenuFormGroup">
+    <div>
+      <label for="uploadMenuMealId">Tipo:</label>
+      <select class="form-control"
+              id="uploadMenuMealId"
+              name="meals"  formControlName="mealUploadId"
+              (change)="onFormChange()">
+        <option *ngFor="let meal of meals" value="{{ meal.id }}">{{ meal.name }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="uploadMenuCategoryId">Categoría:</label>
+      <select class="form-control"
+              id="uploadMenuCategoryId"
+              name="categories" formControlName="categoryUploadId"
+              (change)="onFormChange()">
+        <option *ngFor="let category of categories" value="{{ category.id }}">{{ category.name }}</option>
+      </select>
+    </div>
+
+    <div *ngIf="uploadMenuMealId !== '' && uploadMenuCategoryId !== ''">
+
+      <label for="menuUploadId">Menús disponibles:</label>
+      <select class="form-control"
+              id="menuUploadId"
+              name="menuUpload" formControlName="menuUploadId">
+        <option *ngFor="let menu of getUploadMenusByFilter(uploadMenuMealId, uploadMenuCategoryId)"
+                value="{{ menu.id }}">{{ menu.title }}</option>
+      </select>
+
+    </div>
+
+    <app-menu-item
+      *ngIf="isMenuSelected"
+      [isSelected]="false"
+      [menu]="getUploadMenuSelected(uploadMenuForm.menuUploadId.value)"
+      [index]="0">
+    </app-menu-item>
+  </form>
+
+</div>
+<div *ngIf="!menuFormsService.dayMenuLoading" class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="cancelAction()">Cancelar</button>
+  <button type="button" ngbAutofocus class="btn btn-success" (click)="validate()">Subir Menú</button>
+</div>
+<div *ngIf="menuFormsService.dayMenuLoading" class="modal-footer spinner-grow text-info mt-5" role="status">
+  <span class="sr-only">Cargando...</span>
+</div>

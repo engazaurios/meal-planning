@@ -1,0 +1,39 @@
+<!-- Main content -->
+<div class="text-center mt-4" xmlns="http://www.w3.org/1999/html">
+
+  <div *ngIf="planningDetailService.loading" class="spinner-grow text-info mt-5" role="status">
+    <span class="sr-only">Cargando...</span>
+  </div>
+
+  <app-menu-list
+    (dateChanged)="onDateChanged($event)"
+    (itemClickedEvent)="onItemClicked($event)"
+
+    [showHeader]="userMenuExists && !planningDetailService.loading"
+    [showItems]="dayMenuExists && userMenuExistsAndAvailable"
+
+    [currentUser]="currentUser"
+    [selectedMenus]="selectedMenus"
+
+    [actualDate]="actualDate"
+    [dayMenu]="dayMenu"
+    [userMenu]="userMenu">
+  </app-menu-list>
+
+  <button
+    class="btn btn-danger float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-delete"
+    [class.btn-static-ready]="menusReady(1)"
+    (click)="onDeleteMenuClick(dayMenu, selectedMenu)"
+    [disabled]="!menusReady(1)">Borrar menú</button>
+
+  <button
+    class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-ready"
+    (click)="onAddMenuClick(dayMenu)"
+    [disabled]="planningDetailService.loading">Crear menú</button>
+
+  <button
+    class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-ready btn-static-upload"
+    (click)="onUploadMenuClick(dayMenu)"
+    [disabled]="planningDetailService.loading">Subir menú</button>
+
+</div>
