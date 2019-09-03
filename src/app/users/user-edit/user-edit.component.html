@@ -201,6 +201,39 @@
         </div>
       </div>
 
+      <div class="form-group" *ngIf="editMode">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="profilePicture">Foto</label>
+          </div>
+          <div class="col-sm-9">
+            <input
+              id="profilePicture"
+              type="file"
+              name="profilePicture"
+              class="form-control"
+              (change)="fileProgress($event)">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">&nbsp;</div>
+          <div class="col-sm-9">
+            <button type="button" class="btn btn-primary"  (click)="uploadProfilePicture()">
+              Subir
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3">&nbsp;</div>
+        <div class="col-sm-9">
+          <div class="image-preview mb-3" *ngIf="profilePicturePreviewUrl">
+            <img [src]="profilePicturePreviewUrl" height="300" />                 
+          </div>
+        </div>
+      </div>
+
       <div class="form-actions text-right">
         <button
           type="submit"
