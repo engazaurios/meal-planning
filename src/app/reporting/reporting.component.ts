@@ -6,6 +6,8 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/user.model';
 import { Department } from '../users/department.model';
+import { ReportingServie } from './reporting.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-reporting',
@@ -18,7 +20,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
   allDepartments: Department[];
   usersSubscription: Subscription;
 
-  constructor(private usersService: UsersService) {
+  constructor(private reporting: ReportingServie, private usersService: UsersService) {
     const startMonth = moment().startOf('month');
     const endMonth = moment().endOf('month');
 
@@ -59,6 +61,27 @@ export class ReportingComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.filterForm.value);
+    const filters = this.filterForm.value;
+
+    if (!filters.fromNgbDate || !filters.toNgbDate) {
+      return;
+    }
+
+    const fromNgbDate = <NgbDate>filters.fromNgbDate;
+    const toNgbDate = <NgbDate>filters.toNgbDate;
+
+    filters.from = new Date(fromNgbDate.year, fromNgbDate.month - 1, fromNgbDate.day).toISOString();
+    filters.to = new Date(toNgbDate.year, toNgbDate.month - 1, toNgbDate.day).toISOString();
+
+    delete filters.fromNgbDate;
+    delete filters.toNgbDate;
+
+    this.reporting.downloadReport(filters)
+      .subscribe((response: Blob) => {
+        const contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'; 
+        const blob = new Blob([response], { type: contentType });
+
+        saveAs(blob, 'Reporte-Comidas.xlsx');
+      });
   }
 }

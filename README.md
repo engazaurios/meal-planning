@@ -32,3 +32,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   - Alternatives:
     - https://github.com/CuppaLabs/angular2-multiselect-dropdown
     - https://github.com/nileshpatel17/ng-multiselect-dropdown
+- file-saver
+    - Repo: https://github.com/eligrey/FileSaver.js

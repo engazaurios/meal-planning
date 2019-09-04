@@ -26,6 +26,7 @@
     "bootstrap": "^4.3.1",
     "class-transformer": "^0.2.3",
     "es6-shim": "^0.35.5",
+    "file-saver": "^2.0.2",
     "moment": "^2.24.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.4.0",
