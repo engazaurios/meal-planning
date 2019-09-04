@@ -21,8 +21,11 @@
         <a class="nav-link" routerLink="/planned-menu">Calendario</a>
       </li>
       <li *ngIf="session.user.isAdmin" class="nav-item">
-          <a class="nav-link" routerLink="/users">Usuarios</a>
-        </li>
+        <a class="nav-link" routerLink="/users">Usuarios</a>
+      </li>
+      <li *ngIf="session.user.isAdmin" class="nav-item">
+        <a class="nav-link" routerLink="/reporting">Reporte</a>
+      </li>
     </ul>
 
     <ul class="navbar-nav navbar-right">

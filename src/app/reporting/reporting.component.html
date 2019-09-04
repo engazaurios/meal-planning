@@ -1,0 +1,48 @@
+<app-page-title title="Reportería"></app-page-title>
+
+<div class="row">
+  <div class="col-sm-6">
+    <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="fromNgbDate">Fecha inicio</label>
+          </div>
+          <div class="col-sm-9">
+            <input
+              id="fromNgbDate"
+              type="date"
+              class="form-control"
+              formControlName="fromNgbDate"
+              ngbDatepicker
+              #fromPicker="ngbDatepicker"
+              (click)="fromPicker.toggle()">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="toNgbDate">Fecha fin</label>
+          </div>
+          <div class="col-sm-9">
+            <input
+              id="toNgbDate"
+              type="date"
+              class="form-control"
+              formControlName="toNgbDate"
+              ngbDatepicker
+              #toPicker="ngbDatepicker"
+              (click)="toPicker.toggle()">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<p>
+  <button class="btn btn-info">
+    Descargar
+  </button>
+</p>
