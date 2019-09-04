@@ -20,6 +20,7 @@
           </div>
         </div>
       </div>
+
       <div class="form-group">
         <div class="row">
           <div class="col-sm-3">
@@ -37,12 +38,48 @@
           </div>
         </div>
       </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="departments">Departamentos</label>
+          </div>
+          <div class="col-sm-9">
+            <ng-select
+              id="departments"
+              [multiple]="true"
+              formControlName="departments">
+              <ng-option *ngFor="let department of allDepartments" [value]="department.id">
+                {{ department.name }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="users">Usuarios</label>
+          </div>
+          <div class="col-sm-9">
+            <ng-select
+              id="users"
+              [multiple]="true"
+              formControlName="users">
+              <ng-option *ngFor="let user of allUsers" [value]="user.id">
+                {{ user.fullName }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-info">
+          Descargar
+        </button>
+      </div>
     </form>
   </div>
 </div>
-
-<p>
-  <button class="btn btn-info">
-    Descargar
-  </button>
-</p>
