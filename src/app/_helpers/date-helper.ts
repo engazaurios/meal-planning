@@ -37,15 +37,7 @@ export class DateHelper {
     return this.getDate(actualDate).endOf(endType.key);
   }
 
-  static getStartOfWeek(actualDate) {
-    return this.getStartOfType(actualDate, Constants.displayTypes.WEEK.key);
-  }
-
-  static getEndOfWeek(actualDate) {
-    return this.getEndOfType(actualDate, Constants.displayTypes.WEEK.key);
-  }
-
-  // Methods to get the next DAY, WEEK, MONTH, YEAR, if applicable.
+  // Methods to get the previous/next date type.
 
   static getNextDateType(actualDate, type, amount = 1) {
     const dateMoment = this.getDate(actualDate);
@@ -57,54 +49,32 @@ export class DateHelper {
     return dateMoment.subtract(amount, type.key);
   }
 
+  // Methods to get the previous/next DAY, WEEK, MONTH, YEAR, if applicable.
 
-
-
-
-  static getNextDate(actualDate, amountDays = 1) {
-    const dateMoment = this.getDate(actualDate);
-    return dateMoment.add(amountDays, 'days');
+  static getNextDay(actualDate, amountDays = 1) {
+    return this.getNextDateType(actualDate, Constants.displayTypes.DAY, amountDays);
   }
 
-  static getPreviousDate(actualDate, amountDays = 1) {
-    const dateMoment = this.getDate(actualDate);
-    return dateMoment.subtract(amountDays, 'days');
-  }
-
-  static getNextWeek(actualDate?) {
-    const dateMoment = this.getDate(actualDate);
-    return dateMoment.add(7, 'days');
-  }
-
-  static getPreviousWeek(actualDate?) {
-    const dateMoment = this.getDate(actualDate);
-    return dateMoment.subtract(7, 'days');
-  }
-
-  static getNextWeekEnd(actualDate?) {
-    return this.getEndOfWeek(this.getNextWeek(actualDate));
-  }
-
-  static getPreviousWeekStart(actualDate?) {
-    return this.getStartOfWeek(this.getPreviousWeek(actualDate));
+  static getPreviousDay(actualDate, amountDays = 1) {
+    return this.getPreviousDateType(actualDate, Constants.displayTypes.DAY, amountDays);
   }
 
   static getNextMonth(amountMonths = 1, actualDate?) {
-    const dateMoment = this.getDate(actualDate);
-    return dateMoment.add(1, 'months');
+    return this.getNextDateType(actualDate, Constants.displayTypes.MONTH, amountMonths);
   }
 
   static getPreviousMonth(amountMonths = 1, actualDate?) {
-    const dateMoment = this.getDate(actualDate);
-    return dateMoment.subtract(1, 'months');
+    return this.getPreviousDateType(actualDate, Constants.displayTypes.MONTH, amountMonths);
   }
 
   static getNextMonthEnd(amountOfMonths?, actualDate?) {
-    return this.getNextMonth(amountOfMonths, actualDate).endOf('week');
+    const date = this.getNextMonth(amountOfMonths, actualDate);
+    return this.getEndOfType(date, Constants.displayTypes.WEEK);
   }
 
   static getPreviousMonthStart(amountOfMonths?, actualDate?) {
-    return this.getPreviousMonth(amountOfMonths, actualDate).startOf('week');
+    const date = this.getPreviousMonth(amountOfMonths, actualDate);
+    return this.getStartOfType(date, Constants.displayTypes.WEEK);
   }
 
 }

@@ -38,6 +38,8 @@ import { MenuCreateComponent } from './common/forms/menu-forms/menu-add/menu-cre
 import { MenuUploadComponent } from './common/forms/menu-forms/menu-upload/menu-upload.component';
 import { AlertSimpleComponent } from './common/forms/common-forms/alert-simple/alert-simple.component';
 import { MenuViewComponent } from './common/forms/menu-forms/menu-view/menu-view.component';
+import { OverviewFormManageComponent } from './common/forms/overview-form/overview-form-manage/overview-form-manage.component';
+import { OverviewFormPlanningComponent } from './common/forms/overview-form/overview-form-view/overview-form-planning.component';
 
 registerLocaleData (localeEs, 'es-GT', localeEsExtra);
 
@@ -63,7 +65,9 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     MenuCreateComponent,
     MenuUploadComponent,
     AlertSimpleComponent,
-    MenuViewComponent
+    MenuViewComponent,
+    OverviewFormManageComponent,
+    OverviewFormPlanningComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,9 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     AlertSimpleComponent,
     MenuViewComponent,
     MenuCreateComponent,
-    MenuUploadComponent
+    MenuUploadComponent,
+    OverviewFormManageComponent,
+    OverviewFormPlanningComponent
   ],
   providers: [
     RequestService,

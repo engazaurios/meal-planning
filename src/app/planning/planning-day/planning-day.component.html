@@ -18,9 +18,10 @@
     [userMenu]="userMenu">
   </app-menu-list>
 
+  <!--  TODO : validate send button when is already confirmed (not send) -->
   <button class="btn btn-primary btn-lg float-md-right mt-md-3 btn-static font-weight-bold"
           (click)="validateUploadMenus()"
-          [class.btn-static-ready]="menusReady(2) && !userMenu.alreadySent()"
-          [disabled]="userMenu && (userMenu.alreadySent() || !menusReady(2))">Enviar</button>
+          [class.btn-static-ready]="menusReady(2)"
+          [disabled]="userMenu && (!menusReady(2))">Enviar</button>
 
 </div>

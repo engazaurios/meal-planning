@@ -1,9 +1,11 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDate, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {DayMenuModel} from '../models/day-menu.model';
 import {MenuCalendarService} from './menu-calendar.service';
 import {Router} from '@angular/router';
 import {Constants} from '../../_helpers/constants';
+import {DateHelper} from '../../_helpers/date-helper';
+import {OverviewFormPlanningComponent} from '../forms/overview-form/overview-form-view/overview-form-planning.component';
 
 @Component({
   selector: 'app-planning-calendar',
@@ -20,17 +22,21 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   minDate: any;
   maxDate: any;
 
-  dayMenus: any;
+  protected dayMenus: any;
+  protected dayMenusList: DayMenuModel[] = [];
 
   planningServiceSubscription: any;
 
-  isNA        = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.NA.key);
+  isNA        = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.NA.key) || this.isAction(date);
   isPublished = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.OPEN.key);
   isSent      = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.SENT.key);
   isPending   = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.PENDING.key);
 
+  isAction    = (date: NgbDate) => DateHelper.getDayOfWeek(this.formatDate(date)) === 6;
+
   constructor(
     protected planningService: MenuCalendarService,
+    protected modalService: NgbModal,
     protected router: Router
   ) { }
 
@@ -38,11 +44,19 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
     this.minDate = JSON.parse(this.startOfWeek.format('{["year"]:YYYY, ["month"]:M, ["day"]:D}'));
     this.maxDate = JSON.parse(this.endOfWeek.format('{["year"]:YYYY, ["month"]:M, ["day"]:D}'));
 
-    this.planningServiceSubscription = this.planningService.dayMenusDataChanged.subscribe((dayMenusResponse: DayMenuModel[]) => {
+    this.getDayMenus();
+  }
+
+  /**
+   * Method to get the default day menus.
+   */
+  protected getDayMenus() {
+    this.planningServiceSubscription = this.planningService.userDayMenusDataChanged.subscribe((dayMenusResponse: DayMenuModel[]) => {
       this.dayMenus = this.menusToJson(dayMenusResponse);
+      this.dayMenusList = dayMenusResponse;
     });
 
-    this.planningService.getDayMenus(this.currentUser.userId, this.startOfWeek.toISOString(), this.endOfWeek.toISOString());
+    this.planningService.getUserDayMenus(this.currentUser.userId, this.startOfWeek.toISOString(), this.endOfWeek.toISOString());
   }
 
   /**
@@ -50,7 +64,45 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
    * @param event Event to trigger.
    */
   protected onSelect(event) {
-    this.router.navigate([`/planning/${this.formatDate(event)}`]);
+    if (!this.isAction(event)) {
+      this.router.navigate([`/planning/${this.formatDate(event)}`]);
+    }
+  }
+
+  /**
+   * Method that will retrieve the weekday
+   * @param startDatePublish Start of the week.
+   */
+  protected getWeekDay(startDatePublish) {
+    const actualDate = this.formatDate(startDatePublish);
+    const startDate = DateHelper.getStartOfType(actualDate, Constants.displayTypes.WEEK);
+    const endDate = DateHelper.getEndOfType(actualDate, Constants.displayTypes.WEEK);
+
+    const weekDayMenus = [];
+    for (const dayMenu of this.dayMenusList) {
+      const dayMenuDate = DateHelper.getDate(dayMenu.date);
+      if (dayMenuDate.dayOfYear() >= startDate.dayOfYear() && dayMenuDate.dayOfYear() <= endDate.dayOfYear() - 2) {
+        weekDayMenus.push(dayMenu);
+      }
+    }
+
+    return weekDayMenus;
+  }
+
+  /**
+   * Method that will confirm the week.
+   * @param startDatePublish start date to publish
+   */
+  protected onConfirmWeek(startDatePublish) {
+    const actualDate = this.formatDate(startDatePublish);
+    const startDate = DateHelper.getStartOfType(actualDate, Constants.displayTypes.WEEK);
+    const endDate = DateHelper.getEndOfType(actualDate, Constants.displayTypes.WEEK);
+    const weekDayMenus = this.getWeekDay(startDatePublish);
+
+    const publishModalRef = this.modalService.open(OverviewFormPlanningComponent, { size: 'lg' });
+    publishModalRef.componentInstance.startOfWeek = startDate;
+    publishModalRef.componentInstance.endOfWeek = endDate;
+    publishModalRef.componentInstance.dayMenus = weekDayMenus;
   }
 
   /**
@@ -80,7 +132,7 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
    * Method that will map the status to a dictionary.
    * @param dayMenusResponse The response of the status.
    */
-  private menusToJson(dayMenusResponse) {
+  protected menusToJson(dayMenusResponse) {
     const dayMenus = dayMenusResponse.sort((val1, val2) =>
       val1.date.dayOfYear() - val2.date.dayOfYear()
     );

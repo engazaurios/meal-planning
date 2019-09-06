@@ -177,7 +177,6 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
 
   /**
    * Method that validates the selected dayMenus.
-   * TODO : update to use ModalAlertSimple.
    */
   protected validateUploadMenus() {
     const amountBreakfast = this.selectedMenus[`${Constants.mealsTypes.BREAKFAST.key}`].length;
@@ -230,8 +229,8 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     const actualDayOfWeek = DateHelper.getDayOfWeek(actualDate);
     const actualTime = actualDate.hours();
 
-    if ((actualDayOfWeek > 4 && actualDayOfWeek < 2)
-      && (actualTime < 6 && actualTime > 23)) {
+    if ((actualDayOfWeek > 2 && actualDayOfWeek < 5)
+      && (actualTime > 6 && actualTime < 23)) {
       return false;
     }
 

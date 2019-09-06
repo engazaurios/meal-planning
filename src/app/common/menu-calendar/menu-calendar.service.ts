@@ -9,7 +9,8 @@ export class MenuCalendarService {
 
   loading = false;
 
-  dayMenusDataChanged = new Subject<any>();
+  userDayMenusDataChanged = new Subject<any>();
+  dayMenuDataChanged = new Subject<any>();
 
   constructor(
     private requestService: RequestService
@@ -21,13 +22,26 @@ export class MenuCalendarService {
    * @param startDate Start date of the day dayMenus to display.
    * @param endDate End date of the day dayMenus to display.
    */
-  getDayMenus(userId, startDate, endDate) {
+  getUserDayMenus(userId, startDate, endDate) {
     this.loading = true;
 
     this.requestService.get(`/usermenus/menusperdate/${userId}/${startDate}/${endDate}`).subscribe((data: any) => {
       this.loading = false;
-      this.dayMenusDataChanged.next(plainToClass(DayMenuModel, data[`menus`]));
+      this.userDayMenusDataChanged.next(plainToClass(DayMenuModel, data[`menus`]));
     });
+  }
+
+  /**
+   * Method that gets all the meals ID and Names.
+   */
+  getDayMenus(startDate, endDate) {
+    this.loading = true;
+
+    this.requestService.get(`/daymenus/daymenusperdate/${startDate}/${endDate}`)
+      .subscribe((dayMenus: any) => {
+        this.loading = false;
+        this.dayMenuDataChanged.next(plainToClass(DayMenuModel, dayMenus.menus));
+      });
   }
 
 }

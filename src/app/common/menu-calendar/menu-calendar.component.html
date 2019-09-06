@@ -5,22 +5,24 @@
 
   <ng-template #customDay let-date let-currentMonth="currentMonth"
                let-selected="selected" let-disabled="disabled" let-focused="focused">
-      <span class="custom-day"
-            [class.focused]="focused" [class.bg-primary]="selected" [class.text-muted]="disabled"
-            [class.custom-day-na]="isNA(date)"
-            [class.custom-day-sent]="isSent(date) || isPublished(date)"
-            [class.custom-day-pending]="isPending(date)">
-        {{ date.day }}
-      </span>
+      <div class="custom-day"
+           [class.bg-primary]="selected"
+           [class.custom-day-out-month]="date.month !== currentMonth"
+           [class.custom-day-na]="isNA(date) && date.month === currentMonth"
+           [class.custom-day-sent]="isSent(date) || isPublished(date)"
+           [class.custom-day-pending]="isPending(date)">
+        <i *ngIf="isAction(date); else dayNumber"
+           (click)="onConfirmWeek(date)" class="fas fa-eye icon-hover custom-day-friday"></i>
+        <ng-template #dayNumber><p>{{ date.day }}</p></ng-template>
+      </div>
   </ng-template>
 
   <ngb-datepicker *ngIf="!planningService.loading"
                   [maxDate]="maxDate"
                   [minDate]="minDate"
                   [displayMonths]="1"
-                  [markDisabled]="isNA"
+                  [markDisabled]="isNA || isAction"
                   [dayTemplate]="customDay"
                   (select)="onSelect($event)"
-                  [navigation]="select"
-                  [outsideDays]="'hidden'"></ngb-datepicker>
+                  [navigation]="select"></ngb-datepicker>
 </div>

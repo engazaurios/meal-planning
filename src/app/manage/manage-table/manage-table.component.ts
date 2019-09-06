@@ -10,6 +10,7 @@ import {NotifierService} from 'angular-notifier';
 import {ManageService} from '../manage.service';
 import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
 import {MenuViewComponent} from '../../common/forms/menu-forms/menu-view/menu-view.component';
+import {OverviewFormManageComponent} from '../../common/forms/overview-form/overview-form-manage/overview-form-manage.component';
 
 @Component({
   selector: 'app-manage-table',
@@ -145,7 +146,6 @@ export class ManageTableComponent implements OnInit, OnDestroy {
    * Method that will delete the menu. Will show a modal.
    * @param dayMenu Day menu to delete from.
    * @param menu Menu to delete.
-   * TODO : change to simple alert.
    */
   private onDeleteMenuClick(dayMenu: DayMenuModel, menu: MenuModel) {
     const deleteMenuRef = this.modalService.open(AlertSimpleComponent, { size: 'lg' });
@@ -177,24 +177,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const publishWeekRef = this.modalService.open(AlertSimpleComponent, { size: 'lg' });
-    publishWeekRef.componentInstance.content = {
-      title: '¿Publicar semana?',
-      description: `¿Estás seguro de publicar la semana <b><i>${this.getActualDateRange}</i></b>?`,
-      cancelText: 'Cancelar',
-      confirmationText: 'OK'
-    };
-
-    publishWeekRef.result.then(() => {
-      this.manageDayService.publishWeek(this.startDate).subscribe((response) => {
-        console.log(response);
-        this.notifier.notify(
-          'success',
-          `La semana ${this.getActualDateRange} ha sido publicada.`
-        );
-        this.getSpecifiedDates();
-      });
-    }, () => {});
+    const publishModalRef = this.modalService.open(OverviewFormManageComponent, { size: 'lg' });
+    publishModalRef.componentInstance.startOfWeek = this.startDate;
+    publishModalRef.componentInstance.endOfWeek = this.endDate;
+    publishModalRef.componentInstance.dayMenus = this.dayMenus;
   }
 
   /**

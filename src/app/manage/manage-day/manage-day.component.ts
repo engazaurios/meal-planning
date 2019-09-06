@@ -93,7 +93,6 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
    * Method that will delete the menu. Will show a modal.
    * @param dayMenu Day menu to delete from.
    * @param menu Menu to delete.
-   * TODO : finish
    */
   onDeleteMenuClick(dayMenu: DayMenuModel, menu: MenuModel) {
     const deleteMenuRef = this.modalService.open(AlertSimpleComponent, { size: 'lg' });

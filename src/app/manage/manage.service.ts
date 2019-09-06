@@ -5,6 +5,7 @@ import {DayMenuModel} from 'src/app/common/models/day-menu.model';
 
 import {plainToClass} from 'class-transformer';
 
+// TODO : remove
 @Injectable({ providedIn : 'root'})
 export class ManageService extends PlanningDayService {
 
@@ -25,17 +26,6 @@ export class ManageService extends PlanningDayService {
         this.loading = false;
         this.dayMenuDataChanged.next(plainToClass(DayMenuModel, dayMenus.menus));
       });
-  }
-
-  /**
-   * Method that will publish the actual week.
-   * @param startDateValue The start of the week.
-   */
-  publishWeek(startDateValue) {
-    this.loading = true;
-    return this.requestService.post('/usermenus/publishdaymenus/', {
-      startDate: startDateValue
-    });
   }
 
 }

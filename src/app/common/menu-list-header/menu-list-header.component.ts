@@ -24,14 +24,14 @@ export class MenuListHeaderComponent implements OnInit {
    * Method that returns a formatted previous date.
    */
   private getPreviousDate() {
-    return DateHelper.getFormattedDate(DateHelper.getPreviousDate(this.actualDate));
+    return DateHelper.getFormattedDate(DateHelper.getPreviousDay(this.actualDate));
   }
 
   /**
    * Method that returns a formatted next date.
    */
   private getNextDate() {
-    return DateHelper.getFormattedDate(DateHelper.getNextDate(this.actualDate));
+    return DateHelper.getFormattedDate(DateHelper.getNextDay(this.actualDate));
   }
 
   /**
