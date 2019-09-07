@@ -15,6 +15,7 @@ import {DayMenuModel} from '../../../models/day-menu.model';
 })
 export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
 
+  @Input()  selectedMeal: string;
   @Input()  selectedMenu: MenuModel;
   @Input()  dayMenu: DayMenuModel;
 
@@ -54,11 +55,16 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
     this.subscriptions.push(menusSubs);
   }
 
+  /**
+   * Method that will set all the default values.
+   */
   private validateSelectedMenu() {
     if (this.selectedMenu !== undefined && this.selectedMenu !== null) {
       this.uploadMenuForm.mealUploadId.setValue(this.selectedMenu.mealId);
       this.uploadMenuForm.categoryUploadId.setValue(this.selectedMenu.categoryId);
       this.uploadMenuForm.menuUploadId.setValue(this.selectedMenu.id);
+    } else if (this.selectedMeal !== undefined && this.selectedMeal !== '') {
+      this.uploadMenuForm.mealUploadId.setValue(this.selectedMeal);
     }
   }
 
@@ -69,11 +75,17 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
     this.uploadMenuFormGroup.controls.menuUploadId.reset();
   }
 
+  /**
+   * Method that will dismiss the alert and delete the day menu.
+   */
   protected cancelAction() {
     super.cancelAction();
     this.deleteDayMenu();
   }
 
+  /**
+   * Method that validates the menu to upload.
+   */
   protected validate() {
     const menuUploadId = this.uploadMenuForm.menuUploadId;
     if (menuUploadId.invalid || menuUploadId.value === null) {
@@ -82,6 +94,10 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
     this.uploadMenu(this.allMenusDict[menuUploadId.value]);
   }
 
+  /**
+   * Method that uploads the selected menu.
+   * @param menu Menu to upload.
+   */
   private uploadMenu(menu: MenuModel) {
     this.menuFormsService.uploadMenu(this.dayMenu, menu).subscribe((uploadMenuResponse) => {
       this.menuFormsService.loading = false;
@@ -104,6 +120,9 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
     }
   }
 
+  /**
+   * Method that will delete the day menu.
+   */
   private deleteDayMenu() {
     if (this.dayMenu.menus === undefined || this.dayMenu.menus.length === 0) {
       this.menuFormsService.deleteDayMenu(this.dayMenu);

@@ -26,6 +26,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   dayMenu: DayMenuModel = null;
 
   selectedMenus = {};
+  selectedTab = '';
 
   subscriptions = [];
 
@@ -139,6 +140,14 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
+   * Method that sets the actual tab.
+   * @param tabId Actual tab ID.
+   */
+  onTabChanged(tabId) {
+    this.selectedTab = tabId;
+  }
+
+  /**
    * Method that has the listener if date was changed in child.
    * @param date Date changed.
    */
@@ -228,6 +237,9 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const actualDayOfWeek = DateHelper.getDayOfWeek(actualDate);
     const actualTime = actualDate.hours();
+
+    // TODO : remove
+    return false;
 
     if ((actualDayOfWeek > 2 && actualDayOfWeek < 5)
       && (actualTime > 6 && actualTime < 23)) {

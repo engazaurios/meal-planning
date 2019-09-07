@@ -73,6 +73,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
   onUploadMenuClick(dayMenu: DayMenuModel, menuToUpload?: MenuModel) {
     const uploadModalRef = this.modalService.open(MenuUploadComponent, { size: 'lg' });
     uploadModalRef.componentInstance.dayMenu = dayMenu;
+    uploadModalRef.componentInstance.selectedMeal = this.selectedTab;
     uploadModalRef.componentInstance.selectedMenu = menuToUpload;
     uploadModalRef.result.then((menu: MenuModel) => {
       if (menu !== null && menu !== undefined) {
@@ -81,6 +82,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
           `El menu "${menu.title}" ha sido agregado correctamente.`
         );
         this.reloadMenuItems();
+        this.selectedTab = menu.meal.id;
       }
     }, () => {});
   }

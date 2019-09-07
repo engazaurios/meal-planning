@@ -29,16 +29,18 @@ export class ManageTableComponent implements OnInit, OnDestroy {
     {title: 'Categ.', id: 'category.name'},
   ];
   tableSortDesc = false;
+  tableSelected = '';
 
   tableDisplayValues = Constants.displayTypes;
-  tableDisplayType = this.tableDisplayValues.DAY;
+  tableDisplayType = this.tableDisplayValues.WEEK;
 
   dayMenus: DayMenuModel[] = [];
 
   subscriptions = [];
 
-  isNotPublished  = (status: string) => status !== Constants.statusTypes.OPEN.key;
-  isPublished     = (status: string) => status === Constants.statusTypes.OPEN.key;
+  isAvailable     = (status: string) => status === Constants.statusTypes.OPEN.key;
+  isPending       = (status: string) => status === Constants.statusTypes.PENDING.key;
+  isPublished     = (status: string) => status === Constants.statusTypes.APPROVED.key;
   statusText      = (status: string) => Constants.statusTypes[`${status.toUpperCase()}`].message;
 
   constructor(
@@ -80,11 +82,27 @@ export class ManageTableComponent implements OnInit, OnDestroy {
         const actualDayMenu = dayMenuResult === undefined ?
           new DayMenuModel(Constants.statusTypes.OPEN.key, date)
           : dayMenuResult;
-        this.sortData(actualDayMenu.menus, 'title');
+        this.sortData(actualDayMenu.menus, 'meal.name');
         this.dayMenus.push(actualDayMenu);
       }
     });
     this.subscriptions.push(dayMenusSubs);
+  }
+
+  /**
+   * Method that will retrieve a day menu from specific date .
+   */
+  private getSpecifiedDate(date) {
+    this.unsubscribe();
+
+    this.manageDayService.getDayMenu(DateHelper.getDate(date));
+    const simpleDayMenuSubs = this.manageDayService.simpleDayMenuDataChanged.subscribe((dayMenu: DayMenuModel) => {
+      const indexOldDayMenu = this.dayMenus.findIndex(dMenu =>
+        DateHelper.getFormattedDate(dMenu.date) === DateHelper.getFormattedDate(dayMenu.date));
+      this.dayMenus[indexOldDayMenu] = dayMenu;
+    });
+
+    this.subscriptions.push(simpleDayMenuSubs);
   }
 
   /**
@@ -116,6 +134,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
           `El menu "${menu.title}" ha sido creado correctamente.`
         );
         if (dayMenu !== null && dayMenu !== undefined) {
+          this.getSpecifiedDate(dayMenu.date);
           this.onUploadMenuClick(dayMenu, menu);
         }
       }
@@ -137,7 +156,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
           'success',
           `El menu "${menu.title}" ha sido agregado correctamente al día ${DateHelper.getFormattedDate(dayMenu.date)}.`
         );
-        this.getSpecifiedDates();
+        this.getSpecifiedDate(dayMenu.date);
       }
     }, () => {});
   }
@@ -164,7 +183,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
           'success',
           `El menu "${menu.title}" ha sido eliminado correctamente del día ${DateHelper.getFormattedDate(dayMenu.date)}.`
         );
-        this.getSpecifiedDates();
+        this.getSpecifiedDate(dayMenu.date);
       });
     }, () => {});
   }
@@ -206,17 +225,11 @@ export class ManageTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * Method that will set the dates based on the table to display.
-   */
   private getPreviousDate() {
     this.actualDate = DateHelper.getPreviousDateType(this.actualDate, this.tableDisplayType);
     this.getSpecifiedDates();
   }
 
-  /**
-   * Method that will set the dates based on the table to display.
-   */
   private getNextDate() {
     this.actualDate = DateHelper.getNextDateType(this.actualDate, this.tableDisplayType);
     this.getSpecifiedDates();
@@ -235,6 +248,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
    */
   private unsubscribeItems() {
     this.dayMenus = [];
+    this.unsubscribe();
+  }
+
+  private unsubscribe() {
     for (const subscription of this.subscriptions) {
       subscription.unsubscribe();
     }

@@ -8,8 +8,9 @@
       <h3 class="text-capitalize">
         {{ getActualDate(dayMenu) }}
         <small class="float-right"
-               [class.text-success]="isPublished(dayMenu.status)"
-               [class.text-warning]="isNotPublished(dayMenu.status)">{{ statusText(dayMenu.status) }}</small>
+               [class.planning-detail-available]="isAvailable(dayMenu.status)"
+               [class.planning-detail-pending]="isPending(dayMenu.status)"
+               [class.planning-detail-published]="isPublished(dayMenu.status)">{{ statusText(dayMenu.status) }}</small>
       </h3>
 
       <table class="table table-responsive-md">

@@ -4,8 +4,8 @@
     [actualDate]="actualDate"
     [userMenu]="userMenu"></app-menu-list-header>
 
-  <ngb-tabset *ngIf="showItems" [justify]="'justified'" class="overflow-auto">
-    <ngb-tab *ngFor="let meal of this.mealConstants">
+  <ngb-tabset [activeId]="defaultTab" *ngIf="showItems" [justify]="'justified'" class="overflow-auto" (tabChange)="onTabChanged($event)">
+    <ngb-tab *ngFor="let meal of this.mealConstants" id="{{getMealIDByCode(meal)}}">
       <ng-template ngbTabTitle>
         <b><i>{{ getMealNameByCode(meal) }}</i></b>
       </ng-template>

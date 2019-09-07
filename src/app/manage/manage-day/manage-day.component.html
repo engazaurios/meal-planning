@@ -9,6 +9,9 @@
     (dateChanged)="onDateChanged($event)"
     (itemClickedEvent)="onItemClicked($event)"
 
+    (tabClickedEvent)="onTabChanged($event)"
+    [defaultTab]="selectedTab"
+
     [showHeader]="userMenuExists && !planningDetailService.loading"
     [showItems]="dayMenuExists && userMenuExistsAndAvailable"
 
