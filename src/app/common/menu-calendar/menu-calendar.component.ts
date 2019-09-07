@@ -28,8 +28,8 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   planningServiceSubscription: any;
 
   isNA        = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.NA.key) || this.isAction(date);
-  isPublished = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.OPEN.key);
   isSent      = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.SENT.key);
+  isApproved  = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.APPROVED.key);
   isPending   = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.PENDING.key);
 
   isAction    = (date: NgbDate) => DateHelper.getDayOfWeek(this.formatDate(date)) === 6;

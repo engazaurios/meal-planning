@@ -36,15 +36,7 @@ export class ManageCalendarComponent extends MenuCalendarComponent implements On
    * @param dayMenu Actual day menu.
    */
   protected setDayMenuStatus(dayMenu): any {
-    if (dayMenu.dayMenu !== null) {
-      if (dayMenu.userMenu !== null) {
-        return Constants.statusTypes.OPEN.key;
-      } else {
-        return Constants.statusTypes.PENDING.key;
-      }
-    } else {
-      return Constants.statusTypes.APPROVED.key;
-    }
+    return dayMenu.status;
   }
 
   /**

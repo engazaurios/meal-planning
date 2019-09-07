@@ -31,7 +31,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
   tableSortDesc = false;
 
   tableDisplayValues = Constants.displayTypes;
-  tableDisplayType = this.tableDisplayValues.WEEK;
+  tableDisplayType = this.tableDisplayValues.DAY;
 
   dayMenus: DayMenuModel[] = [];
 

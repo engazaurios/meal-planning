@@ -38,16 +38,12 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
    */
   protected selectDefaultUserMenus() {
     let status;
-    if (this.dayMenu !== null) {
-      if (this.userMenu !== null) {
-        status = Constants.statusTypes.OPEN.key;
-      } else {
-        status = Constants.statusTypes.PENDING.key;
-      }
-    } else {
+    if (this.dayMenu === null) {
       status = Constants.statusTypes.OPEN.key;
+      this.dayMenu = new DayMenuModel(status, this.actualDate);
+    } else {
+      status = this.dayMenu.status;
     }
-    this.dayMenu = this.dayMenu === null ? new DayMenuModel(status, this.actualDate) : this.dayMenu;
     this.userMenu = new UserMenuModel(status);
   }
 
