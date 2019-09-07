@@ -34,3 +34,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     - https://github.com/nileshpatel17/ng-multiselect-dropdown
 - file-saver
     - Repo: https://github.com/eligrey/FileSaver.js
+
+## Refences
+- File upload
+    - Ref: https://w3path.com/new-angular-8-file-upload-or-image-upload/

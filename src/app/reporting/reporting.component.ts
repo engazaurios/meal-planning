@@ -8,6 +8,7 @@ import { User } from '../users/user.model';
 import { Department } from '../users/department.model';
 import { ReportingServie } from './reporting.service';
 import { saveAs } from 'file-saver';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-reporting',
@@ -19,8 +20,26 @@ export class ReportingComponent implements OnInit, OnDestroy {
   allUsers: User[];
   allDepartments: Department[];
   usersSubscription: Subscription;
+  reportTypes = [
+    {
+      key: 'UNIFIED',
+      name: 'Unificado',
+    },
+    {
+      key: 'TABS',
+      name: 'Separado',
+    },
+    {
+      key: 'RAW_DATA',
+      name: 'Plano'
+    }
+  ];
 
-  constructor(private reporting: ReportingServie, private usersService: UsersService) {
+  constructor(
+    private reporting: ReportingServie,
+    private usersService: UsersService,
+    private notifier: NotifierService
+  ) {
     const startMonth = moment().startOf('month');
     const endMonth = moment().endOf('month');
 
@@ -37,6 +56,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
       ), Validators.required),
       departments: new FormControl([]),
       users: new FormControl([]),
+      reportType: new FormControl('UNIFIED', Validators.required),
     });
   }
 
@@ -44,12 +64,12 @@ export class ReportingComponent implements OnInit, OnDestroy {
     this.allUsers = [];
     this.allDepartments = [];
     this.usersService.fetchAll();
-    
+
     this.usersSubscription = this.usersService.listChanged
       .subscribe((users: User[]) => {
         this.allUsers = users;
       });
-    
+
     this.usersService.fetchDepartments()
       .subscribe((departments: Department[]) => {
         this.allDepartments = departments;
@@ -63,7 +83,9 @@ export class ReportingComponent implements OnInit, OnDestroy {
   onSubmit() {
     const filters = this.filterForm.value;
 
-    if (!filters.fromNgbDate || !filters.toNgbDate) {
+    if (!filters.fromNgbDate || !filters.toNgbDate || !filters.reportType) {
+      this.notifier.notify('error', 'Parámetros incompletos.');
+
       return;
     }
 
@@ -82,6 +104,8 @@ export class ReportingComponent implements OnInit, OnDestroy {
         const blob = new Blob([response], { type: contentType });
 
         saveAs(blob, 'Reporte-Comidas.xlsx');
+      }, (error) => {
+        this.notifier.notify('error', 'No se pudo generar el reporte. Recargue la página.');
       });
   }
 }
