@@ -81,22 +81,25 @@ export class ReportingComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const filters = this.filterForm.value;
+    const values = this.filterForm.value;
 
-    if (!filters.fromNgbDate || !filters.toNgbDate || !filters.reportType) {
+    if (!values.fromNgbDate || !values.toNgbDate || !values.reportType) {
       this.notifier.notify('error', 'Parámetros incompletos.');
 
       return;
     }
 
-    const fromNgbDate = <NgbDate>filters.fromNgbDate;
-    const toNgbDate = <NgbDate>filters.toNgbDate;
+    let filters = {
+      users: values.users,
+      departments: values.departments,
+      reportType: values.reportType,
+    };
 
-    filters.from = new Date(fromNgbDate.year, fromNgbDate.month - 1, fromNgbDate.day).toISOString();
-    filters.to = new Date(toNgbDate.year, toNgbDate.month - 1, toNgbDate.day).toISOString();
+    const fromNgbDate = <NgbDate>values.fromNgbDate;
+    const toNgbDate = <NgbDate>values.toNgbDate;
 
-    delete filters.fromNgbDate;
-    delete filters.toNgbDate;
+    filters['from'] = new Date(fromNgbDate.year, fromNgbDate.month - 1, fromNgbDate.day).toISOString();
+    filters['to'] = new Date(toNgbDate.year, toNgbDate.month - 1, toNgbDate.day).toISOString();
 
     this.reporting.downloadReport(filters)
       .subscribe((response: Blob) => {
