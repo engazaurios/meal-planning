@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router, Data } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -9,6 +9,7 @@ import { User } from '../user.model';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploaderService } from 'src/app/file-uploader.service';
 import { HttpEventType } from '@angular/common/http';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-user-edit',
@@ -21,15 +22,18 @@ export class UserEditComponent implements OnInit {
   userForm: FormGroup;
   departments: Department[];
   roles: Role[];
-  profilePictureFile: File = null;
+
+  profilePictureFile: File;
   profilePicturePreviewUrl: any;
-  profilePictureUploadProgress: string = null;
+  profilePictureFileExist: boolean;
+  @ViewChild('imageInput', { static: false }) profilePictureFileInput: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private usersService: UsersService,
-    private fileUploader: FileUploaderService
+    private fileUploader: FileUploaderService,
+    private notifier: NotifierService
   ) { }
 
   ngOnInit() {
@@ -43,6 +47,9 @@ export class UserEditComponent implements OnInit {
 
     this.departments = this.route.snapshot.data.model.departments;
     this.roles = this.route.snapshot.data.model.roles;
+
+    this.profilePictureFile = null;
+    this.profilePictureFileExist = true;
   }
 
   initForm() {
@@ -60,7 +67,7 @@ export class UserEditComponent implements OnInit {
       password: new FormControl(user.password, user.id ? null : Validators.required),
     });
 
-    this.profilePicturePreviewUrl = this.fileUploader.downloadUrl + this.id;
+    this.profilePicturePreviewUrl = this.editMode ? (this.fileUploader.downloadUrl + this.id) : null;
   }
 
   onSubmit() {
@@ -90,41 +97,63 @@ export class UserEditComponent implements OnInit {
       });
   }
 
-  fileProgress(fileInput: any) {
+  profilePictureSelected(fileInput: any) {
+    if (!fileInput.target.files.length) {
+      this.profilePictureFile = null;
+      this.profilePictureFileInput.nativeElement.value = null;
+
+      return;
+    }
+
+    if (fileInput.target.files[0].type.match(/image\/*/) == null) {
+      this.notifier.notify('error', 'Archivo inválido.');
+      this.profilePictureFileInput.nativeElement.value = null;
+
+      return;
+    }
+
     this.profilePictureFile = new File([fileInput.target.files[0]], this.id);
-    this.previewProfilePicture();
+
+    // TODO: Fix this feature. Doesn't work at now.
+    // this.previewProfilePicture();
   }
 
   previewProfilePicture() {
-    // Show preview 
-    if (this.profilePictureFile.type.match(/image\/*/) == null) {
+    if (!this.profilePictureFile) {
       return;
     }
- 
+
     var reader = new FileReader();      
 
     reader.readAsDataURL(this.profilePictureFile); 
     reader.onload = (_event) => {
-      this.profilePicturePreviewUrl = reader.result; 
+      this.profilePicturePreviewUrl = reader.result;
     }
   }
 
   uploadProfilePicture() {
     if (!this.profilePictureFile) {
+      this.notifier.notify('error', 'Ninguna imagen seleccionada.');
+
       return;
     }
 
     return this.fileUploader.uploadFile(this.profilePictureFile)
       .subscribe(event => {
-        this.profilePictureUploadProgress = '0%';
-
         if(event['type'] === HttpEventType.UploadProgress) {
-          this.profilePictureUploadProgress = Math.round(event['loaded'] / event['total'] * 100) + '%';
+          console.log('Loaded:', Math.round(event['loaded'] / event['total'] * 100) + '%');
         } else if(event['type'] === HttpEventType.Response) {
-          this.profilePictureUploadProgress = '';
-          this.profilePicturePreviewUrl = this.fileUploader.downloadUrl + this.id;
+          this.profilePictureFile = null;
+          this.profilePictureFileInput.nativeElement.value = null;
+          this.profilePicturePreviewUrl = this.fileUploader.downloadUrl + this.id + '?' + (new Date()).getTime();
+          this.profilePictureFileExist = true;
         }
       });
+  }
+
+  userProfilePictureNotFound() {
+    this.profilePicturePreviewUrl = this.fileUploader.downloadUrl + 'man.png';
+    this.profilePictureFileExist = false;
   }
 
   onCancel() {
