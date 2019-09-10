@@ -14,6 +14,7 @@ import { ManageTableComponent } from './manage/manage-table/manage-table.compone
 import { ManageComponent } from './manage/manage.component';
 import { RoleGuard } from './_helpers/role.guard';
 import {Constants} from './_helpers/constants';
+import { AttendanceComponent } from './login/attendance/attendance.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'login-qr',
     component: LoginQrComponent
+  },
+  {
+    path: 'attendance',
+    component: AttendanceComponent
   },
   {
     path: '',
