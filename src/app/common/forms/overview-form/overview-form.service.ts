@@ -17,7 +17,7 @@ export class OverviewFormService {
    */
   publishWeek(startDateValue) {
     this.loading = true;
-    return this.requestService.post('/usermenus/publishdaymenus/', {
+    return this.requestService.post('/daymenus/publishdaymenus/', {
       startDate: startDateValue
     });
   }
@@ -25,12 +25,13 @@ export class OverviewFormService {
   /**
    * Method that will confirm the actual week.
    * @param startDateValue The start of the week.
-   * TODO : finish method.
+   * @param userID User ID to confirm.
    */
-  confirmWeek(startDateValue) {
+  confirmWeek(startDateValue, userID) {
     this.loading = true;
-    return this.requestService.post('', {
-      startDate: startDateValue
+    return this.requestService.post('/usermenus/approve', {
+      startDate: startDateValue,
+      userId: userID
     });
   }
 

@@ -20,7 +20,7 @@ export class UserMenuModel {
   }
 
   getStatus() {
-    return this.status.toLowerCase();
+    return this.status;
   }
 
   getStatusTitle() {

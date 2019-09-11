@@ -30,6 +30,9 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subscriptions = [];
 
+  isApproved = () => this.userMenu.status === Constants.statusTypes.APPROVED.key;
+  isButtonDisabled = () => this.userMenu && (this.isApproved() || !this.menusReady(2));
+
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
@@ -69,7 +72,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   protected selectDefaultUserMenus() {
     if (this.userMenuExists && this.dayMenuExists) {
       for (const userMenu of this.userMenu.menus) {
-        this.onItemClicked(userMenu);
+        this.onItemClicked(userMenu, true);
       }
     } else {
       this.userMenu = new UserMenuModel(Constants.statusTypes.NA.key);
@@ -160,8 +163,9 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * Method that adds the menu to the selected list.
    * @param menu MenuModel clicked.
+   * @param settingDefault Flag to check if this is a default fill.
    */
-  protected onItemClicked(menu) {
+  protected onItemClicked(menu, settingDefault?) {
     const menuId = menu.id;
     const mealId = menu.meal.code;
 
@@ -175,13 +179,15 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    if (menuIndex === -1) {
-      selectedMenus.push(menuId);
-    } else {
-      selectedMenus.splice(menuIndex, 1);
-    }
+    if (settingDefault !== undefined || !this.isApproved()) {
+      if (menuIndex === -1) {
+        selectedMenus.push(menuId);
+      } else {
+        selectedMenus.splice(menuIndex, 1);
+      }
 
-    this.selectedMenus[`${mealId}`] = selectedMenus;
+      this.selectedMenus[`${mealId}`] = selectedMenus;
+    }
   }
 
   /**
@@ -206,7 +212,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    if (this.validateTime()) {
+    if (this.validateTime() || this.isApproved()) {
       return;
     }
 

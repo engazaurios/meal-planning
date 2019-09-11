@@ -4,6 +4,7 @@ import {DateHelper} from '../../../../_helpers/date-helper';
 import {DayMenuModel} from '../../../models/day-menu.model';
 import {OverviewFormService} from '../overview-form.service';
 import {NotifierService} from 'angular-notifier';
+import {AuthenticationService} from '../../../../_services';
 
 @Component({
   selector: 'app-overview-form-planning',
@@ -20,6 +21,7 @@ export class OverviewFormPlanningComponent implements OnDestroy {
   subscriptions = [];
 
   constructor(
+    protected authenticationService: AuthenticationService,
     protected activeModal: NgbActiveModal,
     protected overviewService: OverviewFormService,
     protected notifier: NotifierService
@@ -34,7 +36,7 @@ export class OverviewFormPlanningComponent implements OnDestroy {
   }
 
   protected onConfirmWeek() {
-    this.overviewService.confirmWeek(this.startOfWeek).subscribe((response) => {
+    this.overviewService.confirmWeek(this.startOfWeek, this.authenticationService.currentUserValue.userId).subscribe((response) => {
       console.log(response);
       this.notifier.notify(
         'success',

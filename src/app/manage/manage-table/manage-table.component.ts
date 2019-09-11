@@ -29,7 +29,6 @@ export class ManageTableComponent implements OnInit, OnDestroy {
     {title: 'Categ.', id: 'category.name'},
   ];
   tableSortDesc = false;
-  tableSelected = '';
 
   tableDisplayValues = Constants.displayTypes;
   tableDisplayType = this.tableDisplayValues.WEEK;
@@ -92,14 +91,16 @@ export class ManageTableComponent implements OnInit, OnDestroy {
   /**
    * Method that will retrieve a day menu from specific date .
    */
-  private getSpecifiedDate(date) {
+  private getSpecifiedDate(dateStart, dateEnd?) {
     this.unsubscribe();
 
-    this.manageDayService.getDayMenu(DateHelper.getDate(date));
-    const simpleDayMenuSubs = this.manageDayService.simpleDayMenuDataChanged.subscribe((dayMenu: DayMenuModel) => {
-      const indexOldDayMenu = this.dayMenus.findIndex(dMenu =>
-        DateHelper.getFormattedDate(dMenu.date) === DateHelper.getFormattedDate(dayMenu.date));
-      this.dayMenus[indexOldDayMenu] = dayMenu;
+    this.manageDayService.getDayMenu(DateHelper.getDate(dateStart, dateEnd));
+    const simpleDayMenuSubs = this.manageDayService.simpleDayMenuDataChanged.subscribe((dayMenus: DayMenuModel[]) => {
+      for (const dayMenu of dayMenus) {
+        const indexOldDayMenu = this.dayMenus.findIndex(dMenu =>
+          DateHelper.getFormattedDate(dMenu.date) === DateHelper.getFormattedDate(dayMenu.date));
+        this.dayMenus[indexOldDayMenu] = dayMenu;
+      }
     });
 
     this.subscriptions.push(simpleDayMenuSubs);
@@ -200,6 +201,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
     publishModalRef.componentInstance.startOfWeek = this.startDate;
     publishModalRef.componentInstance.endOfWeek = this.endDate;
     publishModalRef.componentInstance.dayMenus = this.dayMenus;
+
+    publishModalRef.result.then(() => {
+      this.getSpecifiedDate(this.startDate, this.endDate);
+    }, () => {});
   }
 
   /**
