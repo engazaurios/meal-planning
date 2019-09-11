@@ -16,10 +16,15 @@ export class UsersComponent implements OnInit, OnDestroy {
   listSubscription: Subscription;
   pageActions: Array<Object> = [
     {
+      text: 'Centros de C.',
+      buttonType: 'btn btn-info',
+      route: '/cost-centers',
+    },
+    {
       text: 'Agregar',
       buttonType: 'btn btn-success',
       icon: 'fa fa-plus',
-      route: '/users/new'
+      route: '/users/new',
     }
   ];
 

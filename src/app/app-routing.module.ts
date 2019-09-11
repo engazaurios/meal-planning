@@ -9,6 +9,7 @@ import { UserEditResolverService } from './users/user-edit/user-edit-resolver.se
 import { PlanningComponent } from './planning/planning.component';
 import { PlanningDetailComponent } from './planning/planning-detail/planning-detail.component';
 import { MenuListComponent } from './shared/menu-list/menu-list.component';
+import { CostCentersComponent } from './cost-centers/cost-centers.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
     resolve: {
       model: UserEditResolverService
     }
+  },
+  {
+    path: 'cost-centers',
+    component: CostCentersComponent,
   },
   {
     path: 'planning/:year/:month/:day',

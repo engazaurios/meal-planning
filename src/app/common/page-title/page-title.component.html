@@ -3,9 +3,9 @@
     <h2 class="page-header {{ centerTitle ? 'text-center' : '' }}">
       {{ title }}
 
-      <div class="float-right">
+      <div class="float-right" style="display: flex;">
         <div *ngFor="let action of actions;">
-          <button class="btn {{ action.buttonType }}" routerLink={{action.route}}>
+          <button class="btn {{ action.buttonType }}" routerLink={{action.route}} style="margin-left: 10px;">
             <span *ngIf="action.icon" class="{{ action.icon }}"></span>
             {{ action.text }}
           </button>

@@ -1,0 +1,18 @@
+<app-page-title title="Centros de costo" [actions]="pageActions"></app-page-title>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nombre</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let costCenter of costCenters; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>
+      {{ costCenter.name }}
+    </td>
+  </tr>
+  </tbody>
+</table>
