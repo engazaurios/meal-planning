@@ -44,6 +44,15 @@ export class CostCentersComponent implements OnInit, OnDestroy {
     this.costCenterModal.openModal();
   }
 
+  onEdit(id: string) {
+    console.log('TODO: Implement edit.', id);
+  }
+
+  onDelete(id: string) {
+    this.dataService.delete(id)
+      .subscribe(() => this.dataService.listChanged.next(true));
+  }
+
   ngOnDestroy() {
     this.listSubscription.unsubscribe();
   }

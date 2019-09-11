@@ -35,6 +35,8 @@ export class EditCostCenterComponent implements OnInit {
 
     if (!value.code || !value.name) {
       this.notifier.notify('error', 'Datos incompletos.');
+
+      return;
     }
 
     this.costCentersService.create(value)

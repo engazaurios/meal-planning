@@ -39,6 +39,12 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="onSubmit()">Save</button>
+    <button
+      type="button"
+      class="btn btn-success"
+      [disabled]="!costCenterForm.valid"
+      (click)="onSubmit()">
+      Guardar
+    </button>
   </div>
 </ng-template>

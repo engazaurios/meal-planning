@@ -27,4 +27,8 @@ export class CostCentersService {
   create(costCenterDef: Data) {
     return this.request.post('/CostCenters', costCenterDef);
   }
+
+  delete(id: string) {
+    return this.request.delete(`/CostCenters/${id}`);
+  }
 }
