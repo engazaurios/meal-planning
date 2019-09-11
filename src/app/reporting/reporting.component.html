@@ -5,10 +5,10 @@
     <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <label for="fromNgbDate">Fecha inicio</label>
           </div>
-          <div class="col-sm-9">
+          <div class="col-sm-8">
             <input
               id="fromNgbDate"
               type="date"
@@ -23,10 +23,10 @@
 
       <div class="form-group">
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <label for="toNgbDate">Fecha fin</label>
           </div>
-          <div class="col-sm-9">
+          <div class="col-sm-8">
             <input
               id="toNgbDate"
               type="date"
@@ -41,16 +41,16 @@
 
       <div class="form-group">
         <div class="row">
-          <div class="col-sm-3">
-            <label for="departments">Departamentos</label>
+          <div class="col-sm-4">
+            <label for="costCenters">Centros de costo</label>
           </div>
-          <div class="col-sm-9">
+          <div class="col-sm-8">
             <ng-select
-              id="departments"
+              id="costCenters"
               [multiple]="true"
-              formControlName="departments">
-              <ng-option *ngFor="let department of allDepartments" [value]="department.id">
-                {{ department.name }}
+              formControlName="costCenters">
+              <ng-option *ngFor="let costCenter of allCostCenters" [value]="costCenter.id">
+                {{ costCenter.name }}
               </ng-option>
             </ng-select>
           </div>
@@ -59,10 +59,10 @@
 
       <div class="form-group">
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <label for="users">Usuarios</label>
           </div>
-          <div class="col-sm-9">
+          <div class="col-sm-8">
             <ng-select
               id="users"
               [multiple]="true"
@@ -77,10 +77,10 @@
 
       <div class="form-group">
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <label for="reportType">Tipo</label>
           </div>
-          <div class="col-sm-9">
+          <div class="col-sm-8">
             <ng-select
               id="reportType"
               formControlName="reportType">

@@ -3,12 +3,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import { UsersService } from '../users/users.service';
-import { User } from '../users/user.model';
-import { Department } from '../users/department.model';
-import { ReportingServie } from './reporting.service';
 import { saveAs } from 'file-saver';
 import { NotifierService } from 'angular-notifier';
+
+import { UsersService } from '../users/users.service';
+import { ReportingServie } from './reporting.service';
+import { User } from '../users/user.model';
+import { CostCenter } from '../users/cost-center.model';
 
 @Component({
   selector: 'app-reporting',
@@ -18,7 +19,7 @@ import { NotifierService } from 'angular-notifier';
 export class ReportingComponent implements OnInit, OnDestroy {
   filterForm: FormGroup;
   allUsers: User[];
-  allDepartments: Department[];
+  allCostCenters: CostCenter[];
   usersSubscription: Subscription;
   reportTypes = [
     {
@@ -54,7 +55,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
         endMonth.month() + 1,
         endMonth.date()
       ), Validators.required),
-      departments: new FormControl([]),
+      costCenters: new FormControl([]),
       users: new FormControl([]),
       reportType: new FormControl('UNIFIED', Validators.required),
     });
@@ -62,7 +63,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.allUsers = [];
-    this.allDepartments = [];
+    this.allCostCenters = [];
     this.usersService.fetchAll();
 
     this.usersSubscription = this.usersService.listChanged
@@ -70,9 +71,9 @@ export class ReportingComponent implements OnInit, OnDestroy {
         this.allUsers = users;
       });
 
-    this.usersService.fetchDepartments()
-      .subscribe((departments: Department[]) => {
-        this.allDepartments = departments;
+    this.usersService.fetchCostCenters()
+      .subscribe((costCenters: CostCenter[]) => {
+        this.allCostCenters = costCenters;
       });
   }
 
@@ -91,7 +92,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
 
     let filters = {
       users: values.users,
-      departments: values.departments,
+      costCenters: values.costCenters,
       reportType: values.reportType,
     };
 

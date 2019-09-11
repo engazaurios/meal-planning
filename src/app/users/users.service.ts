@@ -5,9 +5,10 @@ import { map } from 'rxjs/operators';
 
 import { RequestService } from '../_services/request.service';
 import { DataHelperService } from '../_services/data.helper.service';
-import { Department } from './department.model';
 import { Role } from './role.model';
 import { User } from './user.model';
+import { Department } from './department.model';
+import { CostCenter } from './cost-center.model';
 
 @Injectable()
 export class UsersService {
@@ -48,6 +49,13 @@ export class UsersService {
     return this.request.get('/Departments')
       .pipe(map((departmentData: Data[]) =>
         this.dataHelper.createModelArray(Department, departmentData)
+      ));
+  }
+
+  fetchCostCenters() {
+    return this.request.get('/CostCenters')
+      .pipe(map((costCentersData: Data[]) =>
+        this.dataHelper.createModelArray(CostCenter, costCentersData)
       ));
   }
 
