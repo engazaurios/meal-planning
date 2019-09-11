@@ -221,7 +221,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     confirmationAlert.componentInstance.content = {
       title: '¿Deseas continuar?',
       description:
-        `<b>Las comidas no podrán ser cambiadas.</b> Elige con cuidado.`,
+        `<b>Por favor revisa tus comidas.</b> Elige con cuidado.`,
       cancelText: 'Cancelar',
       confirmationText: 'Continuar'
     };

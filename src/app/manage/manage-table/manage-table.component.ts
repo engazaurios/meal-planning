@@ -74,6 +74,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
       for (
         const date = DateHelper.getDate(this.startDate); date.isBefore(this.endDate); date.add(1, 'days')
       ) {
+        if (date.weekday() === 5 || date.weekday() === 6) {
+          continue;
+        }
+
         const dayMenuResult = dayMenus.find(
           (dayMenu: DayMenuModel) => DateHelper.getDate(dayMenu.date).dayOfYear() === date.dayOfYear()
         );
@@ -94,7 +98,11 @@ export class ManageTableComponent implements OnInit, OnDestroy {
   private getSpecifiedDate(dateStart, dateEnd?) {
     this.unsubscribe();
 
-    this.manageDayService.getDayMenu(DateHelper.getDate(dateStart, dateEnd));
+    if (dateEnd === undefined) {
+      dateEnd = dateStart;
+    }
+
+    this.manageDayService.getDayMenu(DateHelper.getDate(dateStart), DateHelper.getDate(dateEnd));
     const simpleDayMenuSubs = this.manageDayService.simpleDayMenuDataChanged.subscribe((dayMenus: DayMenuModel[]) => {
       for (const dayMenu of dayMenus) {
         const indexOldDayMenu = this.dayMenus.findIndex(dMenu =>
