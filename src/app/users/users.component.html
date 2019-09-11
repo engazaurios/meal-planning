@@ -33,9 +33,12 @@
         <div class="col-sm-4 col-md-3 col-lg-2 text-center">
           <img
             class="btn-md"
-            src="https://previews.123rf.com/images/prettyvectors/prettyvectors1309/prettyvectors130900060/22545994-user-profile-avatar-man-icon.jpg"
-            alt=""
-            style="width: 100px; border-radius:50%;">
+            [src]="fileUploader.downloadUrl + user.id + '?' + currentTime"
+            alt="profile-image"
+            (error)="userProfilePictureNotFound($event)"
+            width="100"
+            height="100"
+            style="border-radius:50%;">
 
           <div class="actions text-center">
             <button class="action btn btn-outline-info" (click)="onEdit(user.id)">
