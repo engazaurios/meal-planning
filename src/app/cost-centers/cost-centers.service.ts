@@ -28,6 +28,14 @@ export class CostCentersService {
     return this.request.post('/CostCenters', costCenterDef);
   }
 
+  fetchById(id: string) {
+    return this.request.get(`/CostCenters/${id}`);
+  }
+
+  update(id: string, updates: Data) {
+    return this.request.patch(`/CostCenters/${id}`, updates);
+  }
+
   delete(id: string) {
     return this.request.delete(`/CostCenters/${id}`);
   }

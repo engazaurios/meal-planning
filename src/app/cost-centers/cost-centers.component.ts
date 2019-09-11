@@ -41,11 +41,14 @@ export class CostCentersComponent implements OnInit, OnDestroy {
   }
 
   createCostCenter() {
-    this.costCenterModal.openModal();
+    this.costCenterModal.openModal(null);
   }
 
   onEdit(id: string) {
-    console.log('TODO: Implement edit.', id);
+    this.dataService.fetchById(id)
+      .subscribe((costCenter: CostCenter) => {
+        this.costCenterModal.openModal(costCenter);
+      });
   }
 
   onDelete(id: string) {

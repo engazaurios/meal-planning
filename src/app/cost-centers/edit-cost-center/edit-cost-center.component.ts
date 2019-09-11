@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierService } from 'angular-notifier';
 import { CostCentersService } from '../cost-centers.service';
+import { CostCenter } from '../cost-center.model';
 
 @Component({
   selector: 'app-edit-cost-center',
@@ -11,6 +12,7 @@ import { CostCentersService } from '../cost-centers.service';
 })
 export class EditCostCenterComponent implements OnInit {
   costCenterForm: FormGroup;
+  idEdit: string | null;
   @ViewChild('content', { static: true }) modal: ElementRef;
 
   constructor(
@@ -19,14 +21,26 @@ export class EditCostCenterComponent implements OnInit {
     private costCentersService: CostCentersService
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  initForm() {
     this.costCenterForm = new FormGroup({
       code: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
     });
   }
 
-  openModal() {
+  openModal(costCenter: CostCenter | null) {
+    this.idEdit = null;
+    this.initForm();
+
+    if (costCenter) {
+      this.costCenterForm.controls['code'].setValue(costCenter.code);
+      this.costCenterForm.controls['name'].setValue(costCenter.name);
+
+      this.idEdit = costCenter.id;
+    }
+
     this.modalService.open(this.modal);
   }
 
@@ -39,15 +53,21 @@ export class EditCostCenterComponent implements OnInit {
       return;
     }
 
-    this.costCentersService.create(value)
-      .subscribe(
-        () => {
-          this.modalService.dismissAll();
-          this.costCentersService.listChanged.next(true);
-        },
-        (error) => {
-          this.notifier.notify('error', 'No se pudo crear el registro.');
-        }
-      );
+    const request = this.idEdit
+      ? this.costCentersService.update(this.idEdit, value)
+      : this.costCentersService.create(value);
+
+    request.subscribe(
+      () => {
+        this.modalService.dismissAll();
+        this.costCentersService.listChanged.next(true);
+      },
+      () => {
+        this.notifier.notify(
+          'error',
+          `No se pudo ${this.idEdit ? 'actualizar' : 'crear' } el registro.`
+        );
+      }
+    );
   }
 }
