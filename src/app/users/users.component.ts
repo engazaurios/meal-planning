@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User } from './user.model';
-import { Department } from './department.model';
-import { Role } from './role.model';
-import { UsersService } from './users.service';
-import { Router, Data } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UsersService } from './users.service';
+import { FileUploaderService } from '../file-uploader.service';
+import { User } from './user.model';
 
 @Component({
   selector: 'app-users',
@@ -12,6 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./users.component.less']
 })
 export class UsersComponent implements OnInit, OnDestroy {
+  currentTime: number;
   users: User[];
   listSubscription: Subscription;
   pageActions: Array<Object> = [
@@ -23,9 +23,14 @@ export class UsersComponent implements OnInit, OnDestroy {
     }
   ];
 
-  constructor(private router: Router, private usersService: UsersService) { }
+  constructor(
+    private router: Router,
+    private usersService: UsersService,
+    private fileUploader: FileUploaderService
+  ) { }
 
   ngOnInit() {
+    this.currentTime = (new Date()).getTime();
     this.users = [];
     this.usersService.fetchAll();
 
@@ -37,6 +42,10 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   onEdit(id: string) {
     this.router.navigate([`/users/${id}`]);
+  }
+
+  userProfilePictureNotFound(event) {
+    event.target.src = this.fileUploader.downloadUrl + 'man.png';
   }
 
   onDelete(id: string) {
