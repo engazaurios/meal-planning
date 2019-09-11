@@ -31,6 +31,7 @@ import { MenuListComponent } from './shared/menu-list/menu-list.component';
 import { MenuListHeaderComponent } from './shared/menu-list-header/menu-list-header.component';
 import { PlanningCalendarComponent } from './shared/planning-calendar/planning-calendar.component';
 import { CostCentersComponent } from './cost-centers/cost-centers.component';
+import { EditCostCenterComponent } from './cost-centers/edit-cost-center/edit-cost-center.component';
 
 registerLocaleData (localeEs, 'es-GT', localeEsExtra);
 
@@ -49,7 +50,8 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     MenuListItemComponent,
     MenuListHeaderComponent,
     PlanningCalendarComponent,
-    CostCentersComponent
+    CostCentersComponent,
+    EditCostCenterComponent
   ],
   imports: [
     BrowserModule,

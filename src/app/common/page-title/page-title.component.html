@@ -5,10 +5,23 @@
 
       <div class="float-right" style="display: flex;">
         <div *ngFor="let action of actions;">
-          <button class="btn {{ action.buttonType }}" routerLink={{action.route}} style="margin-left: 10px;">
+          <button
+            *ngIf="action.route"
+            class="btn {{ action.buttonType }}"
+            routerLink={{action.route}}
+            style="margin-left: 10px;">
             <span *ngIf="action.icon" class="{{ action.icon }}"></span>
             {{ action.text }}
           </button>
+
+          <button
+            *ngIf="action.callMethod"
+            class="btn {{ action.buttonType }}"
+            (click)="action.callMethod()"
+            style="margin-left: 10px;">
+              <span *ngIf="action.icon" class="{{ action.icon }}"></span>
+              {{ action.text }}
+            </button>
         </div>
       </div>
     </h2>
