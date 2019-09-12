@@ -9,7 +9,7 @@ import {UserMenuModel} from 'src/app/common/models/user-menu.model';
 import {Constants} from '../../_helpers/constants';
 import {MenuModel} from '../../common/models/menu.model';
 import {DayMenuModel} from 'src/app/common/models/day-menu.model';
-import {MenuCreateComponent} from 'src/app/common/forms/menu-forms/menu-add/menu-create.component';
+import {MenuCreateComponent} from 'src/app/common/forms/menu-forms/menu-create/menu-create.component';
 import {MenuUploadComponent} from 'src/app/common/forms/menu-forms/menu-upload/menu-upload.component';
 import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
 import {DateHelper} from '../../_helpers/date-helper';

@@ -34,7 +34,7 @@ import { ManageComponent } from './manage/manage.component';
 import { ManageDayComponent } from './manage/manage-day/manage-day.component';
 import { ManageCalendarComponent } from './manage/manage-calendar/manage-calendar.component';
 import { ManageTableComponent } from './manage/manage-table/manage-table.component';
-import { MenuCreateComponent } from './common/forms/menu-forms/menu-add/menu-create.component';
+import { MenuCreateComponent } from './common/forms/menu-forms/menu-create/menu-create.component';
 import { MenuUploadComponent } from './common/forms/menu-forms/menu-upload/menu-upload.component';
 import { AlertSimpleComponent } from './common/forms/common-forms/alert-simple/alert-simple.component';
 import { MenuViewComponent } from './common/forms/menu-forms/menu-view/menu-view.component';
