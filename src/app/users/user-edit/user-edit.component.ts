@@ -10,6 +10,7 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploaderService } from 'src/app/file-uploader.service';
 import { HttpEventType } from '@angular/common/http';
 import { NotifierService } from 'angular-notifier';
+import { CostCenter } from 'src/app/cost-centers/cost-center.model';
 
 @Component({
   selector: 'app-user-edit',
@@ -21,6 +22,7 @@ export class UserEditComponent implements OnInit {
   editMode: boolean;
   userForm: FormGroup;
   departments: Department[];
+  costCenters: CostCenter[];
   roles: Role[];
 
   profilePictureFile: File;
@@ -46,6 +48,7 @@ export class UserEditComponent implements OnInit {
       });
 
     this.departments = this.route.snapshot.data.model.departments;
+    this.costCenters = this.route.snapshot.data.model.costCenters;
     this.roles = this.route.snapshot.data.model.roles;
 
     this.profilePictureFile = null;
@@ -60,6 +63,7 @@ export class UserEditComponent implements OnInit {
       lastName: new FormControl(user.lastName, Validators.required),
       birthdayNgbDate: new FormControl(user.birthdayNgbDate),
       departmentId: new FormControl(user.departmentId, Validators.required),
+      costCenterId: new FormControl(user.costCenterId, Validators.required),
       roleId: new FormControl(user.roleId, Validators.required),
       email: new FormControl(user.email, [Validators.required, Validators.email]),
       username: new FormControl(user.username, Validators.required),
