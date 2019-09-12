@@ -53,8 +53,7 @@ export class PlanningDayService {
    * TODO : verify why is deleting the menu and not deleting it from the day menu.
    */
   deleteMenu(dayMenu: DayMenuModel, menu: MenuModel) {
-    this.loading = true;
-    return this.requestService.delete(`/daymenus/${dayMenu.id}/menus/${menu.id}`);
+    return this.requestService.delete(`/daymenus/${dayMenu.id}/menus/rel/${menu.id}`);
   }
 
 }

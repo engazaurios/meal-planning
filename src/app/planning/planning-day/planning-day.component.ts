@@ -31,7 +31,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   subscriptions = [];
 
   isApproved = () => this.userMenu.status === Constants.statusTypes.APPROVED.key;
-  isButtonDisabled = () => this.userMenu && (this.isApproved() || !this.menusReady(2));
+  isButtonDisabled = () => this.userMenu && (this.isApproved() || !this.menusReady(1));
 
   constructor(
     protected route: ActivatedRoute,
@@ -48,6 +48,15 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    this.unsubscribe();
+    this.getDayMenus();
+    for (const constantKey of Constants.mealConstants) { this.selectedMenus[`${constantKey}`] = []; }
+  }
+
+  /**
+   * Method to get user menus.
+   */
+  protected getDayMenus() {
     this.planningDetailService.getDayMenu(this.currentUser.userId, this.actualDate);
 
     const planningSubscription = this.planningDetailService.dayMenuDataChanged.subscribe((dayMenuResult: any) => {
@@ -56,8 +65,6 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this.selectDefaultUserMenus();
     });
-
-    for (const constantKey of Constants.mealConstants) { this.selectedMenus[`${constantKey}`] = []; }
 
     this.subscriptions.push(planningSubscription);
   }
@@ -157,6 +164,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   protected onDateChanged(date) {
     this.actualDate = date;
     this.router.navigate([`/planning/${DateHelper.getFormattedDate(date)}`]);
+
     this.ngOnInit();
   }
 
@@ -201,7 +209,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     const amountOfMenus = amountBreakfast + amountLunches + amountDinners;
 
     // TODO : verify if we need to validate breakfast/lunches/dinners above 2.
-    if (amountOfMenus !== 2) {
+    if (amountOfMenus > 2) {
       const errorAlert = this.modalService.open(AlertSimpleComponent, {size: 'lg'});
       errorAlert.componentInstance.content = {
         title: 'No has seleccionado tus 2 comidas.',
@@ -269,10 +277,14 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     return true;
   }
 
-  ngOnDestroy(): void {
+  private unsubscribe() {
     for (const subscription of this.subscriptions) {
       subscription.unsubscribe();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe();
   }
 
 }

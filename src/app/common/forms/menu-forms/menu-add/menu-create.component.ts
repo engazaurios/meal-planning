@@ -30,7 +30,7 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      price: ['', Validators.required],
+      price: ['24.00', Validators.required],
       meal: ['', Validators.required],
       category: ['', Validators.required]
     });

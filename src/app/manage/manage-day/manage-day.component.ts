@@ -11,9 +11,11 @@ import {MenuModel} from '../../common/models/menu.model';
 import {DayMenuModel} from 'src/app/common/models/day-menu.model';
 import {MenuCreateComponent} from 'src/app/common/forms/menu-forms/menu-add/menu-create.component';
 import {MenuUploadComponent} from 'src/app/common/forms/menu-forms/menu-upload/menu-upload.component';
-import {PlanningDayService} from '../../planning/planning-day/planning-day.service';
 import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
 import {DateHelper} from '../../_helpers/date-helper';
+import {ManageService} from '../manage.service';
+
+import {plainToClass} from 'class-transformer';
 
 @Component({
   selector: 'app-manage-day',
@@ -28,8 +30,22 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
               router: Router,
               authenticationService: AuthenticationService,
               modalService: NgbModal, notifier: NotifierService,
-              planningDetailService: PlanningDayService) {
-    super(route, router, authenticationService, planningDetailService, modalService, notifier);
+              protected manageService: ManageService) {
+    super(route, router, authenticationService, manageService, modalService, notifier);
+  }
+
+  /**
+   * Method to get day menus.
+   */
+  protected getDayMenus() {
+    this.manageService.getDayMenus(this.actualDate, this.actualDate);
+
+    const planningSubscription = this.manageService.dayMenuDataChanged.subscribe((dayMenuResult: DayMenuModel[]) => {
+      this.dayMenu = dayMenuResult[0];
+      this.selectDefaultUserMenus();
+    });
+
+    this.subscriptions.push(planningSubscription);
   }
 
   /**
@@ -38,7 +54,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
    */
   protected selectDefaultUserMenus() {
     let status;
-    if (this.dayMenu === null) {
+    if (this.dayMenu === null || this.dayMenu === undefined) {
       status = Constants.statusTypes.OPEN.key;
       this.dayMenu = new DayMenuModel(status, this.actualDate);
     } else {
