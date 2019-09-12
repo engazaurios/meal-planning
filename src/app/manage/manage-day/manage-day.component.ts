@@ -26,6 +26,9 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
 
   selectedMenu: MenuModel;
 
+  isApproved = () => this.dayMenu.status === Constants.statusTypes.APPROVED.key;
+  isButtonDisabled = () => this.dayMenu && this.isApproved();
+
   constructor(route: ActivatedRoute,
               router: Router,
               authenticationService: AuthenticationService,
@@ -50,7 +53,6 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
 
   /**
    * Method that will select the default user menus.
-   * // TODO : change status: OPEN/APPROVED
    */
   protected selectDefaultUserMenus() {
     let status;
@@ -148,7 +150,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
     const alreadySelected = this.selectedMenus[`${menu.meal.code}`].indexOf(menu.id) !== -1;
     for (const constantKey of Constants.mealConstants) { this.selectedMenus[`${constantKey}`] = []; }
     this.selectedMenu = null;
-    if (!alreadySelected) {
+    if (!alreadySelected && !this.isApproved()) {
       this.selectedMenus[`${menu.meal.code}`] = [menu.id];
       this.selectedMenu = menu;
     }
