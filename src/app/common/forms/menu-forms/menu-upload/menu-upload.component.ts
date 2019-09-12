@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MenuCreateComponent} from '../menu-add/menu-create.component';
+import {MenuCreateComponent} from '../menu-create/menu-create.component';
 import {MenuModel} from '../../../models/menu.model';
 import {MenuFormsService} from '../menu-forms.service';
 import {DateHelper} from 'src/app/_helpers/date-helper';
 import {Constants} from '../../../../_helpers/constants';
 import {DayMenuModel} from '../../../models/day-menu.model';
+import {MenuCreateImagesService} from '../menu-create/menu-create-images.service';
 
 @Component({
   selector: 'app-menu-upload',
@@ -27,9 +28,10 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
   constructor(
     protected activeModal: NgbActiveModal,
     protected formBuilder: FormBuilder,
-    protected menuUploadService: MenuFormsService
+    protected menuUploadService: MenuFormsService,
+    protected menuImages: MenuCreateImagesService
   ) {
-    super(activeModal, formBuilder, menuUploadService);
+    super(activeModal, formBuilder, menuUploadService, menuImages);
 
     this.uploadMenuFormGroup = this.formBuilder.group({
       mealUploadId: ['', Validators.required],

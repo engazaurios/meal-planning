@@ -25,18 +25,20 @@
 
   <button
     class="btn btn-danger float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-delete"
-    [class.btn-static-ready]="menusReady(1)"
+    [class.btn-static-ready]="menusReady(1) && !isApproved()"
     (click)="onDeleteMenuClick(dayMenu, selectedMenu)"
-    [disabled]="!menusReady(1)">Borrar menú</button>
+    [disabled]="!menusReady(1) || isApproved()">Borrar menú</button>
 
   <button
-    class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-ready"
+    class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static"
     (click)="onAddMenuClick(dayMenu)"
-    [disabled]="planningDetailService.loading">Crear menú</button>
+    [class.btn-static-ready]="!isButtonDisabled"
+    [disabled]="planningDetailService.loading || isApproved()">Crear menú</button>
 
   <button
-    class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-ready btn-static-upload"
+    class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-upload"
     (click)="onUploadMenuClick(dayMenu)"
-    [disabled]="planningDetailService.loading">Subir menú</button>
+    [class.btn-static-ready]="!isButtonDisabled"
+    [disabled]="planningDetailService.loading || isApproved()">Subir menú</button>
 
 </div>

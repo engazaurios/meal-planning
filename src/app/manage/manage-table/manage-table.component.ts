@@ -4,7 +4,7 @@ import {DayMenuModel} from '../../common/models/day-menu.model';
 import {MenuModel} from '../../common/models/menu.model';
 import {Constants} from '../../_helpers/constants';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {MenuCreateComponent} from '../../common/forms/menu-forms/menu-add/menu-create.component';
+import {MenuCreateComponent} from '../../common/forms/menu-forms/menu-create/menu-create.component';
 import {MenuUploadComponent} from '../../common/forms/menu-forms/menu-upload/menu-upload.component';
 import {NotifierService} from 'angular-notifier';
 import {ManageService} from '../manage.service';
@@ -41,6 +41,8 @@ export class ManageTableComponent implements OnInit, OnDestroy {
   isPending       = (status: string) => status === Constants.statusTypes.PENDING.key;
   isPublished     = (status: string) => status === Constants.statusTypes.APPROVED.key;
   statusText      = (status: string) => Constants.statusTypes[`${status.toUpperCase()}`].message;
+
+  isActionDisabled = (dayMenu: DayMenuModel) => dayMenu.status === Constants.statusTypes.APPROVED.key;
 
   constructor(
     private modalService: NgbModal,
@@ -135,6 +137,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
    * @param dayMenu Day menu to add from.
    */
   private onCreateAndAddMenuClick(dayMenu: DayMenuModel) {
+    if (this.isActionDisabled(dayMenu)) {
+      return;
+    }
+
     const addModalRef = this.modalService.open(MenuCreateComponent, { size: 'lg' });
     addModalRef.result.then((menu: MenuModel) => {
       if (menu !== null && menu !== undefined) {
@@ -156,6 +162,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
    * @param selectedMenu Selected menu to upload from.
    */
   private onUploadMenuClick(dayMenu: DayMenuModel, selectedMenu?: MenuModel) {
+    if (this.isActionDisabled(dayMenu)) {
+      return;
+    }
+
     const uploadModalRef = this.modalService.open(MenuUploadComponent, { size: 'lg' });
     uploadModalRef.componentInstance.dayMenu = dayMenu;
     uploadModalRef.componentInstance.selectedMenu = selectedMenu;
@@ -176,6 +186,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
    * @param menu Menu to delete.
    */
   private onDeleteMenuClick(dayMenu: DayMenuModel, menu: MenuModel) {
+    if (this.isActionDisabled(dayMenu)) {
+      return;
+    }
+
     const deleteMenuRef = this.modalService.open(AlertSimpleComponent, { size: 'lg' });
     deleteMenuRef.componentInstance.content = {
       title: '¿Borrar menú?',

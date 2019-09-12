@@ -30,8 +30,8 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subscriptions = [];
 
-  isApproved = () => this.userMenu.status === Constants.statusTypes.APPROVED.key;
-  isButtonDisabled = () => this.userMenu && (this.isApproved() || !this.menusReady(1));
+  protected isApproved = () => this.userMenu.status === Constants.statusTypes.APPROVED.key;
+  protected isButtonDisabled = () => this.userMenu && (this.isApproved() || !this.menusReady(1));
 
   constructor(
     protected route: ActivatedRoute,
