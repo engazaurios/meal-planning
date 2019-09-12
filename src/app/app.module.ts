@@ -4,6 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotifierModule } from 'angular-notifier';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
@@ -32,6 +33,7 @@ import { MenuListHeaderComponent } from './shared/menu-list-header/menu-list-hea
 import { PlanningCalendarComponent } from './shared/planning-calendar/planning-calendar.component';
 import { CostCentersComponent } from './cost-centers/cost-centers.component';
 import { EditCostCenterComponent } from './cost-centers/edit-cost-center/edit-cost-center.component';
+import { ReportingComponent } from './reporting/reporting.component';
 
 registerLocaleData (localeEs, 'es-GT', localeEsExtra);
 
@@ -51,7 +53,8 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     MenuListHeaderComponent,
     PlanningCalendarComponent,
     CostCentersComponent,
-    EditCostCenterComponent
+    EditCostCenterComponent,
+    ReportingComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     NgbModule,
     NotifierModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgSelectModule,
   ],
   providers: [
     RequestService,

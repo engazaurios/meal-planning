@@ -10,6 +10,7 @@ import { PlanningComponent } from './planning/planning.component';
 import { PlanningDetailComponent } from './planning/planning-detail/planning-detail.component';
 import { MenuListComponent } from './shared/menu-list/menu-list.component';
 import { CostCentersComponent } from './cost-centers/cost-centers.component';
+import { ReportingComponent } from './reporting/reporting.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,11 @@ const routes: Routes = [
   {
     path: 'menu-list',
     component: MenuListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'reporting',
+    component: ReportingComponent,
     canActivate: [AuthGuard]
   },
   {
