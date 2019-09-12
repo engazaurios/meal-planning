@@ -1,5 +1,7 @@
 export class Constants {
 
+  public static imageContainer = 'menus';
+
   public static mealsTypes = {
     BREAKFAST: {
       key: 'breakfast'

@@ -8,6 +8,7 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {plainToClass} from 'class-transformer';
 import {MenuFormsService} from '../menu-forms.service';
 import {MenuCreateImagesService} from './menu-create-images.service';
+import {Constants} from '../../../../_helpers/constants';
 
 @Component({
   selector: 'app-menu-add',
@@ -20,7 +21,7 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
   meals: MealModel[] = [];
 
   images: string[] = [];
-  imageContainer = 'menus';
+  imageContainer = Constants.imageContainer;
   imageSelected: string;
 
   formGroup: FormGroup;
@@ -79,7 +80,8 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
 
     const newMenu = new MenuModel(
       newMenuTitle, newMenuDescription, newMenuPrice,
-      newMenuMealId, newMenuCategoryId
+      newMenuMealId, newMenuCategoryId,
+      this.imageSelected
     );
 
     this.menuFormsService.createMenu(newMenu).subscribe((createMenuResponse) => {
