@@ -7,8 +7,8 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {plainToClass} from 'class-transformer';
 import {MenuFormsService} from '../menu-forms.service';
-import {MenuCreateImagesService} from './menu-create-images.service';
 import {Constants} from '../../../../_helpers/constants';
+import {FileUploaderService} from '../../../../file-uploader.service';
 
 @Component({
   selector: 'app-menu-add',
@@ -32,7 +32,7 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
     protected activeModal: NgbActiveModal,
     protected formBuilder: FormBuilder,
     protected menuFormsService: MenuFormsService,
-    protected menuImages: MenuCreateImagesService
+    protected fileUploaderService: FileUploaderService
   ) {
     this.formGroup = this.formBuilder.group({
       title: ['', Validators.required],
@@ -46,20 +46,20 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.menuFormsService.getMeals();
     this.menuFormsService.getCategories();
-    this.menuImages.getImagesFromContainer(this.imageContainer);
 
+    const imagesSubs = this.fileUploaderService.getImages(this.imageContainer).subscribe((images: any[]) => {
+      for (const image of images) {
+        this.images.push(image.name);
+      }
+      this.imageSelected = images[0].name;
+    });
     const categorySubs = this.menuFormsService.categoriesDataChanged.subscribe((categories: CategoryModel[]) => {
       this.categories = plainToClass(CategoryModel, categories);
     });
     const mealSubs = this.menuFormsService.mealDataChanged.subscribe((meals: MealModel[]) => {
       this.meals = plainToClass(MealModel, meals);
     });
-    const imagesSubs = this.menuImages.imagesDataChanged.subscribe((images: any[]) => {
-      for (const image of images) {
-        this.images.push(image.name);
-      }
-      this.imageSelected = images[0].name;
-    });
+
     this.subscriptions.push(categorySubs, mealSubs, imagesSubs);
   }
 

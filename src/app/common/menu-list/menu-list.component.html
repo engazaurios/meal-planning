@@ -13,7 +13,7 @@
         <div class="mt-md-4 card-deck">
           <div class="d-flex card text-left planning-detail" *ngFor="let menu of dayMenu.getMealsByMealCode(meal); let i = index"
                (click)="onMenuClicked(menu)">
-            <app-menu-item [index]="i" [menu]="menu" [isSelected]="isSelected(menu)"></app-menu-item>
+            <app-menu-item [menu]="menu" [isSelected]="isSelected(menu)"></app-menu-item>
           </div>
         </div>
       </ng-template>

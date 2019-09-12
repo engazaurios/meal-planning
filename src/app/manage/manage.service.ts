@@ -6,7 +6,6 @@ import {DayMenuModel} from 'src/app/common/models/day-menu.model';
 import {plainToClass} from 'class-transformer';
 import {Subject} from 'rxjs';
 
-// TODO : remove
 @Injectable({ providedIn : 'root'})
 export class ManageService extends PlanningDayService {
 

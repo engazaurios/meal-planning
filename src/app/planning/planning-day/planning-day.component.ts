@@ -212,7 +212,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     if (amountOfMenus > 2) {
       const errorAlert = this.modalService.open(AlertSimpleComponent, {size: 'lg'});
       errorAlert.componentInstance.content = {
-        title: 'No has seleccionado tus 2 comidas.',
+        title: 'Solo puedes seleccionar hasta 2 comidas.',
         description: 'Revisa tus comidas, por favor.',
         cancelText: 'OK',
         confirmationText: ''

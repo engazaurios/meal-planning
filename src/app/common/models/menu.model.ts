@@ -17,8 +17,11 @@ export class MenuModel {
   category: CategoryModel;
   categoryId: string;
 
+  image: string;
+
   constructor(title: string, description: string, price: number,
-              mealId: string, categoryId: string) {
+              mealId: string, categoryId: string,
+              image: string) {
     this.title = title;
     this.description = description;
     this.price = price;
@@ -26,6 +29,7 @@ export class MenuModel {
     this.meal = new MealModel(this.mealId);
     this.categoryId = categoryId;
     this.category = new CategoryModel(this.categoryId);
+    this.image = image;
   }
 
   getElementByID(idPath: string): string {
@@ -48,7 +52,8 @@ export class MenuModel {
       mealId: this.mealId,
       categoryId: this.categoryId,
       meal: this.meal.toJson(),
-      category: this.category.toJson()
+      category: this.category.toJson(),
+      image: this.image
     };
   }
 

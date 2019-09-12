@@ -7,7 +7,7 @@ import {MenuFormsService} from '../menu-forms.service';
 import {DateHelper} from 'src/app/_helpers/date-helper';
 import {Constants} from '../../../../_helpers/constants';
 import {DayMenuModel} from '../../../models/day-menu.model';
-import {MenuCreateImagesService} from '../menu-create/menu-create-images.service';
+import {FileUploaderService} from '../../../../file-uploader.service';
 
 @Component({
   selector: 'app-menu-upload',
@@ -29,9 +29,9 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
     protected activeModal: NgbActiveModal,
     protected formBuilder: FormBuilder,
     protected menuUploadService: MenuFormsService,
-    protected menuImages: MenuCreateImagesService
+    protected fileUploaderService: FileUploaderService
   ) {
-    super(activeModal, formBuilder, menuUploadService, menuImages);
+    super(activeModal, formBuilder, menuUploadService, fileUploaderService);
 
     this.uploadMenuFormGroup = this.formBuilder.group({
       mealUploadId: ['', Validators.required],
