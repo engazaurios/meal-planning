@@ -19,8 +19,8 @@ export class UsersComponent implements OnInit, OnDestroy {
       text: 'Agregar',
       buttonType: 'btn btn-success',
       icon: 'fa fa-plus',
-      route: '/users/new'
-    }
+      route: '/users/new',
+    },
   ];
 
   constructor(
