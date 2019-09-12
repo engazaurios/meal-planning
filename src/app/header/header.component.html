@@ -24,6 +24,12 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/users">Usuarios</a>
       </li>
+      <li *ngIf="session.user.isAdmin" class="nav-item">
+        <a class="nav-link" routerLink="/cost-centers">Centros de Costo</a>
+      </li>
+      <li *ngIf="session.user.isAdmin" class="nav-item">
+        <a class="nav-link" routerLink="/reporting">Reporte</a>
+      </li>
     </ul>
     <ul *ngSwitchDefault class="navbar-nav navbar-collapse">
       <a class="nav-link" routerLink="/">Calendario</a>

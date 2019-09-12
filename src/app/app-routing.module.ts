@@ -13,7 +13,9 @@ import { ManageDayComponent } from './manage/manage-day/manage-day.component';
 import { ManageTableComponent } from './manage/manage-table/manage-table.component';
 import { ManageComponent } from './manage/manage.component';
 import { RoleGuard } from './_helpers/role.guard';
-import {Constants} from './_helpers/constants';
+import { Constants } from './_helpers/constants';
+import { CostCentersComponent } from './cost-centers/cost-centers.component';
+import { ReportingComponent } from './reporting/reporting.component';
 
 const routes: Routes = [
   {
@@ -83,6 +85,15 @@ const routes: Routes = [
     },
     canActivate: [AuthGuard, RoleGuard],
     data: { expectedRoles: Constants.adminUserTypes }
+  },
+  {
+    path: 'cost-centers',
+    component: CostCentersComponent,
+  },
+  {
+    path: 'reporting',
+    component: ReportingComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
