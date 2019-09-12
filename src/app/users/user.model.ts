@@ -1,4 +1,5 @@
 import { Department } from './department.model';
+import { CostCenter } from '../cost-centers/cost-center.model';
 import { Role } from './role.model';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import {Constants} from '../_helpers/constants';
@@ -12,6 +13,8 @@ export class User {
     public birthdayNgbDate: NgbDate;
     public department: Department;
     public departmentId: string;
+    public costCenter: CostCenter;
+    public costCenterId: string;
     public roles: Role[];
     public roleId: string;
     public email: string;
@@ -30,6 +33,8 @@ export class User {
         birthday?: Date,
         department?: Department,
         departmentId?: string,
+        costCenter?: CostCenter,
+        costCenterId?: string,
         roles?: Role[],
         roleId?: string,
         email?: string,
@@ -46,6 +51,8 @@ export class User {
         this.birthday = birthday || null;
         this.department = department || null;
         this.departmentId = departmentId || null;
+        this.costCenter = costCenter || null;
+        this.costCenterId = costCenterId || null;
         this.roles = roles || null;
         this.roleId = roleId || null;
         this.email = email || null;
