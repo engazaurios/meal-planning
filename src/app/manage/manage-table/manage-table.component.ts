@@ -46,7 +46,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private modalService: NgbModal,
-    private manageDayService: ManageService,
+    public manageDayService: ManageService,
     private notifier: NotifierService
   ) { }
 
@@ -128,7 +128,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
   /**
    * Method that will display the Create Modal Form.
    */
-  private onCreateMenuClick() {
+  public onCreateMenuClick() {
     this.onCreateAndAddMenuClick(undefined);
   }
 
@@ -233,7 +233,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
    * Method that will display the data based on the DisplayType.
    * @param displayType Display Type to display data: DAY, WEEK, MONTH, YEAR.
    */
-  private displayData(displayType) {
+  public displayData(displayType) {
     this.tableDisplayType = displayType;
     this.getSpecifiedDates();
   }
@@ -252,12 +252,12 @@ export class ManageTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getPreviousDate() {
+  public getPreviousDate() {
     this.actualDate = DateHelper.getPreviousDateType(this.actualDate, this.tableDisplayType);
     this.getSpecifiedDates();
   }
 
-  private getNextDate() {
+  public getNextDate() {
     this.actualDate = DateHelper.getNextDateType(this.actualDate, this.tableDisplayType);
     this.getSpecifiedDates();
   }

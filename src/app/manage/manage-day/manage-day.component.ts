@@ -136,7 +136,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
    * Method that will change the url and reload its content when next/previous button is clicked.
    * @param date Date changed.
    */
-  protected onDateChanged(date) {
+  public onDateChanged(date) {
       this.actualDate = date;
       this.router.navigate([`/manage/${DateHelper.getFormattedDate(date)}`]);
       this.reloadMenuItems();
@@ -146,7 +146,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
    * Method that will do an action when an item is clicked.
    * @param menu Menu item clicked.
    */
-  protected onItemClicked(menu) {
+  public onItemClicked(menu) {
     const alreadySelected = this.selectedMenus[`${menu.meal.code}`].indexOf(menu.id) !== -1;
     for (const constantKey of Constants.mealConstants) { this.selectedMenus[`${constantKey}`] = []; }
     this.selectedMenu = null;

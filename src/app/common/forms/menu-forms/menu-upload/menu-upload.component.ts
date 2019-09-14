@@ -28,7 +28,7 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
   constructor(
     protected activeModal: NgbActiveModal,
     protected formBuilder: FormBuilder,
-    protected menuUploadService: MenuFormsService,
+    public menuUploadService: MenuFormsService,
     protected fileUploaderService: FileUploaderService
   ) {
     super(activeModal, formBuilder, menuUploadService, fileUploaderService);
@@ -80,7 +80,7 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
   /**
    * Method that will dismiss the alert and delete the day menu.
    */
-  protected cancelAction() {
+  public cancelAction() {
     super.cancelAction();
     this.deleteDayMenu();
   }
@@ -88,7 +88,7 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
   /**
    * Method that validates the menu to upload.
    */
-  protected validate() {
+  public validate() {
     const menuUploadId = this.uploadMenuForm.menuUploadId;
     if (menuUploadId.invalid || menuUploadId.value === null) {
       return;

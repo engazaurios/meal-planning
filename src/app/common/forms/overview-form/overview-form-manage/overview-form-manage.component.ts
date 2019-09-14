@@ -8,7 +8,7 @@ import {OverviewFormPlanningComponent} from '../overview-form-view/overview-form
 })
 export class OverviewFormManageComponent extends OverviewFormPlanningComponent {
 
-  protected onConfirmWeek() {
+  public onConfirmWeek() {
     this.overviewService.publishWeek(this.startOfWeek).subscribe((response) => {
       console.log(response);
       this.notifier.notify(
@@ -20,7 +20,7 @@ export class OverviewFormManageComponent extends OverviewFormPlanningComponent {
   }
 
 
-  protected get getConfirmMessage() {
+  public get getConfirmMessage() {
     return `¿Publicas la semana <i><b>${this.getActualDateRange}</b></i>?`;
   }
 

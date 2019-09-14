@@ -22,7 +22,7 @@ export class OverviewFormPlanningComponent implements OnDestroy {
 
   constructor(
     protected authenticationService: AuthenticationService,
-    protected activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal,
     protected overviewService: OverviewFormService,
     protected notifier: NotifierService
   ) {}
@@ -35,7 +35,7 @@ export class OverviewFormPlanningComponent implements OnDestroy {
     return `${DateHelper.getFormattedDate(this.startOfWeek)} al ${DateHelper.getFormattedDate(this.endOfWeek)}`;
   }
 
-  protected onConfirmWeek() {
+  public onConfirmWeek() {
     this.overviewService.confirmWeek(this.startOfWeek, this.authenticationService.currentUserValue.userId).subscribe((response) => {
       console.log(response);
       this.notifier.notify(
@@ -46,7 +46,7 @@ export class OverviewFormPlanningComponent implements OnDestroy {
     });
   }
 
-  protected get getConfirmMessage() {
+  public get getConfirmMessage() {
     return `¿Confirmas la semana <i><b>${this.getActualDateRange}</b></i>?`;
   }
 

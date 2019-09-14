@@ -31,7 +31,7 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
   constructor(
     protected activeModal: NgbActiveModal,
     protected formBuilder: FormBuilder,
-    protected menuFormsService: MenuFormsService,
+    public menuFormsService: MenuFormsService,
     protected fileUploaderService: FileUploaderService
   ) {
     this.formGroup = this.formBuilder.group({
@@ -67,7 +67,7 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
    * Method that will validate the menus and upload it.
    * TODO : do a more deeply validation.
    */
-  protected validate() {
+  public validate() {
     if (this.formGroup.invalid) {
       return;
     }
@@ -90,7 +90,7 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  protected cancelAction() {
+  public cancelAction() {
     this.activeModal.dismiss('cancel');
   }
 

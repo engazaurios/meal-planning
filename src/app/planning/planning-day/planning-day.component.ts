@@ -31,13 +31,13 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   subscriptions = [];
 
   protected isApproved = () => this.userMenu.status === Constants.statusTypes.APPROVED.key;
-  protected isButtonDisabled = () => this.userMenu && (this.isApproved() || !this.menusReady(1));
+  public isButtonDisabled = () => this.userMenu && (this.isApproved() || !this.menusReady(1));
 
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
     protected authenticationService: AuthenticationService,
-    protected planningDetailService: PlanningDayService,
+    public planningDetailService: PlanningDayService,
     protected modalService: NgbModal,
     protected readonly notifier: NotifierService
   ) {
@@ -141,7 +141,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * Method that checks if 2 and above menus are selected.
    */
-  private menusReady(menusRequired) {
+  public menusReady(menusRequired) {
     let amountMenus = 0;
     for (const mealId of Constants.mealConstants) {
       amountMenus += this.selectedMenus[mealId].length;
@@ -161,7 +161,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
    * Method that has the listener if date was changed in child.
    * @param date Date changed.
    */
-  protected onDateChanged(date) {
+  public onDateChanged(date) {
     this.actualDate = date;
     this.router.navigate([`/planning/${DateHelper.getFormattedDate(date)}`]);
 
@@ -173,7 +173,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param menu MenuModel clicked.
    * @param settingDefault Flag to check if this is a default fill.
    */
-  protected onItemClicked(menu, settingDefault?) {
+  public onItemClicked(menu, settingDefault?) {
     const menuId = menu.id;
     const mealId = menu.meal.code;
 
@@ -201,7 +201,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * Method that validates the selected dayMenus.
    */
-  protected validateUploadMenus() {
+  public validateUploadMenus() {
     const amountBreakfast = this.selectedMenus[`${Constants.mealsTypes.BREAKFAST.key}`].length;
     const amountLunches = this.selectedMenus[`${Constants.mealsTypes.LUNCH.key}`].length;
     const amountDinners = this.selectedMenus[`${Constants.mealsTypes.DINNER.key}`].length;

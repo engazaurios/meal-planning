@@ -37,7 +37,7 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   isAction    = (date: NgbDate) => DateHelper.getDayOfWeek(this.formatDate(date)) === 6;
 
   constructor(
-    protected planningService: MenuCalendarService,
+    public planningService: MenuCalendarService,
     protected modalService: NgbModal,
     protected router: Router
   ) { }
