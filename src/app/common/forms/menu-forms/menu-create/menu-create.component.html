@@ -50,7 +50,7 @@
       </select>
     </div>
     <div class="card">
-      <div class="text-center">
+      <div class="text-center" *ngIf="imageSelected">
         <img src="{{fileUploaderService.getImage(imageContainer, imageSelected)}}"
              class="dropdown-toggle card-image-selected" data-toggle="dropdown">
         <div class="dropdown-menu" aria-labelledby="buttonActions">
