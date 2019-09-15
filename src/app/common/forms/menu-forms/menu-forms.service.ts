@@ -7,7 +7,7 @@ import {DayMenuModel} from '../../models/day-menu.model';
 import {Constants} from 'src/app/_helpers/constants';
 import {DateHelper} from 'src/app/_helpers/date-helper';
 
-@Injectable({ providedIn : 'root'})
+@Injectable({providedIn: 'root'})
 export class MenuFormsService extends MenuListService {
 
   allMenusLoading = false;
@@ -39,11 +39,11 @@ export class MenuFormsService extends MenuListService {
   createDayMenu(actualDate) {
     this.dayMenuLoading = true;
     return this.requestService.post(
-      '/daymenus', { date: DateHelper.getSlashFormattedDate(actualDate), status: Constants.statusTypes.PENDING.key }
-      )
+      '/daymenus', {date: DateHelper.getSlashFormattedDate(actualDate), status: Constants.statusTypes.PENDING.key}
+    )
       .subscribe((newDayMenu: DayMenuModel) => {
         this.dayMenuDataChanged.next(newDayMenu);
-    });
+      });
   }
 
   /**

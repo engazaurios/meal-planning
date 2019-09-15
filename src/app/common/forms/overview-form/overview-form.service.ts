@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {RequestService} from '../../../_services/request.service';
+import {DateHelper} from 'src/app/_helpers/date-helper';
 
 @Injectable({providedIn: 'root'})
 export class OverviewFormService {
@@ -18,7 +19,7 @@ export class OverviewFormService {
   publishWeek(startDateValue) {
     this.loading = true;
     return this.requestService.post('/daymenus/publishdaymenus/', {
-      startDate: startDateValue
+      startDate: DateHelper.getSlashFormattedDate(startDateValue)
     });
   }
 
@@ -30,7 +31,7 @@ export class OverviewFormService {
   confirmWeek(startDateValue, userID) {
     this.loading = true;
     return this.requestService.post('/usermenus/approve', {
-      startDate: startDateValue,
+      startDate: DateHelper.getSlashFormattedDate(startDateValue),
       userId: userID
     });
   }

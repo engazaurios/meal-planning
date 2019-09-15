@@ -5,7 +5,7 @@ import {DateHelper} from '../../_helpers/date-helper';
 import {DayMenuModel} from 'src/app/common/models/day-menu.model';
 import {MenuModel} from 'src/app/common/models/menu.model';
 
-@Injectable({ providedIn : 'root'})
+@Injectable({providedIn: 'root'})
 export class PlanningDayService {
 
   loading = false;
@@ -14,7 +14,8 @@ export class PlanningDayService {
 
   constructor(
     protected requestService: RequestService
-  ) {}
+  ) {
+  }
 
   /**
    * Method that returns the day menu, based on the users Id and DateHelper.
@@ -25,7 +26,9 @@ export class PlanningDayService {
     this.loading = true;
 
     date = DateHelper.getSlashFormattedDate(date);
-    this.requestService.get(`/usermenus/menusperdate/${userId}/${date}/${date}`).subscribe((dayMenuJson: any) => {
+    this.requestService.get(
+      `/usermenus/menusperdate/${userId}/${date}/${date}`
+    ).subscribe((dayMenuJson: any) => {
       this.loading = false;
       this.dayMenuDataChanged.next(dayMenuJson.menus[0]);
     });
