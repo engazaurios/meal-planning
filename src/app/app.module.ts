@@ -4,6 +4,7 @@ import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotifierModule } from 'angular-notifier';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
@@ -35,13 +36,16 @@ import { ManageComponent } from './manage/manage.component';
 import { ManageDayComponent } from './manage/manage-day/manage-day.component';
 import { ManageCalendarComponent } from './manage/manage-calendar/manage-calendar.component';
 import { ManageTableComponent } from './manage/manage-table/manage-table.component';
-import { MenuCreateComponent } from './common/forms/menu-forms/menu-add/menu-create.component';
+import { MenuCreateComponent } from './common/forms/menu-forms/menu-create/menu-create.component';
 import { MenuUploadComponent } from './common/forms/menu-forms/menu-upload/menu-upload.component';
 import { AlertSimpleComponent } from './common/forms/common-forms/alert-simple/alert-simple.component';
 import { MenuViewComponent } from './common/forms/menu-forms/menu-view/menu-view.component';
 import { OverviewFormManageComponent } from './common/forms/overview-form/overview-form-manage/overview-form-manage.component';
 import { OverviewFormPlanningComponent } from './common/forms/overview-form/overview-form-view/overview-form-planning.component';
 import { AttendanceComponent } from './login/attendance/attendance.component';
+import { CostCentersComponent } from './cost-centers/cost-centers.component';
+import { EditCostCenterComponent } from './cost-centers/edit-cost-center/edit-cost-center.component';
+import { ReportingComponent } from './reporting/reporting.component';
 
 registerLocaleData (localeEs, 'es-GT', localeEsExtra);
 
@@ -70,16 +74,20 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     AlertSimpleComponent,
     MenuViewComponent,
     OverviewFormManageComponent,
-    OverviewFormPlanningComponent
+    OverviewFormPlanningComponent,
+    CostCentersComponent,
+    EditCostCenterComponent,
+    ReportingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     NgbModule,
     NotifierModule,
-    FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgSelectModule,
   ],
   entryComponents: [
     AlertSimpleComponent,

@@ -9,7 +9,7 @@
   </div>
 
   <form *ngIf="!menuUploadService.allMenusLoading" class="col-md text-left" [formGroup]="uploadMenuFormGroup">
-    <div>
+    <div class="div-form">
       <label for="uploadMenuMealId">Tipo:</label>
       <select class="form-control"
               id="uploadMenuMealId"
@@ -19,7 +19,7 @@
       </select>
     </div>
 
-    <div>
+    <div class="div-form">
       <label for="uploadMenuCategoryId">Categoría:</label>
       <select class="form-control"
               id="uploadMenuCategoryId"
@@ -29,7 +29,7 @@
       </select>
     </div>
 
-    <div *ngIf="uploadMenuMealId !== '' && uploadMenuCategoryId !== ''">
+    <div *ngIf="uploadMenuMealId !== '' && uploadMenuCategoryId !== ''" class="div-form">
 
       <label for="menuUploadId">Menús disponibles:</label>
       <select class="form-control"
@@ -44,8 +44,7 @@
     <app-menu-item
       *ngIf="isMenuSelected"
       [isSelected]="false"
-      [menu]="getUploadMenuSelected(uploadMenuForm.menuUploadId.value)"
-      [index]="0">
+      [menu]="getUploadMenuSelected(uploadMenuForm.menuUploadId.value)">
     </app-menu-item>
   </form>
 

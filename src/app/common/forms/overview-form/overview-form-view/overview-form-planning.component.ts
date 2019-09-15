@@ -4,6 +4,7 @@ import {DateHelper} from '../../../../_helpers/date-helper';
 import {DayMenuModel} from '../../../models/day-menu.model';
 import {OverviewFormService} from '../overview-form.service';
 import {NotifierService} from 'angular-notifier';
+import {AuthenticationService} from '../../../../_services';
 
 @Component({
   selector: 'app-overview-form-planning',
@@ -20,7 +21,8 @@ export class OverviewFormPlanningComponent implements OnDestroy {
   subscriptions = [];
 
   constructor(
-    protected activeModal: NgbActiveModal,
+    protected authenticationService: AuthenticationService,
+    public activeModal: NgbActiveModal,
     protected overviewService: OverviewFormService,
     protected notifier: NotifierService
   ) {}
@@ -33,8 +35,8 @@ export class OverviewFormPlanningComponent implements OnDestroy {
     return `${DateHelper.getFormattedDate(this.startOfWeek)} al ${DateHelper.getFormattedDate(this.endOfWeek)}`;
   }
 
-  protected onConfirmWeek() {
-    this.overviewService.confirmWeek(this.startOfWeek).subscribe((response) => {
+  public onConfirmWeek() {
+    this.overviewService.confirmWeek(this.startOfWeek, this.authenticationService.currentUserValue.userId).subscribe((response) => {
       console.log(response);
       this.notifier.notify(
         'success',
@@ -44,7 +46,7 @@ export class OverviewFormPlanningComponent implements OnDestroy {
     });
   }
 
-  protected get getConfirmMessage() {
+  public get getConfirmMessage() {
     return `¿Confirmas la semana <i><b>${this.getActualDateRange}</b></i>?`;
   }
 

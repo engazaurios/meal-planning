@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MenuCreateComponent} from '../menu-add/menu-create.component';
+import {MenuCreateComponent} from '../menu-create/menu-create.component';
 import {MenuModel} from '../../../models/menu.model';
 import {MenuFormsService} from '../menu-forms.service';
 import {DateHelper} from 'src/app/_helpers/date-helper';
 import {Constants} from '../../../../_helpers/constants';
 import {DayMenuModel} from '../../../models/day-menu.model';
+import {FileUploaderService} from '../../../../file-uploader.service';
 
 @Component({
   selector: 'app-menu-upload',
@@ -27,9 +28,10 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
   constructor(
     protected activeModal: NgbActiveModal,
     protected formBuilder: FormBuilder,
-    protected menuUploadService: MenuFormsService
+    public menuUploadService: MenuFormsService,
+    protected fileUploaderService: FileUploaderService
   ) {
-    super(activeModal, formBuilder, menuUploadService);
+    super(activeModal, formBuilder, menuUploadService, fileUploaderService);
 
     this.uploadMenuFormGroup = this.formBuilder.group({
       mealUploadId: ['', Validators.required],
@@ -78,7 +80,7 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
   /**
    * Method that will dismiss the alert and delete the day menu.
    */
-  protected cancelAction() {
+  public cancelAction() {
     super.cancelAction();
     this.deleteDayMenu();
   }
@@ -86,7 +88,7 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
   /**
    * Method that validates the menu to upload.
    */
-  protected validate() {
+  public validate() {
     const menuUploadId = this.uploadMenuForm.menuUploadId;
     if (menuUploadId.invalid || menuUploadId.value === null) {
       return;

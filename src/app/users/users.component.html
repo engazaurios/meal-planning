@@ -1,54 +1,48 @@
 <app-page-title title="Usuarios" [actions]="pageActions"></app-page-title>
 
-<div class="user-container" *ngFor="let user of users;">
-  <div class="card card-inverse">
-    <div class="card-block">
-      <div class="row">
-        <div class="col-sm-8 col-md-9 col-lg-10">
-          <h2 class="card-title">
-            {{ user.fullName }}
-          </h2>
-          <div class="row">
-            <div class="col-sm-12 col-lg-6">
-              <p>
-                <strong>Departamento:</strong>
-                {{ user.department ? user.department.name : ''}}</p>
-              <p>
-                <strong>Rol:</strong>
-                {{ user.roles && user.roles.length ? user.roles[0].name : ''}}
-              </p>
-            </div>
-            <div class="col-sm-12 col-lg-6">
-              <p>
-                <strong>Usuario:</strong>
-                {{ user.username }}
-              </p>
-              <p>
-                <strong>Correo:</strong>
-                {{ user.email }}
-              </p>
-            </div>
+<div class="table-warapper">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Departamento</th>
+        <th scope="col">Centro Costo</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Foto</th>
+        <th scope="col" class="actions text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users;">
+        <td class="align-middle">{{ user.fullName }}</td>
+        <td class="align-middle">{{ user.username }}</td>
+        <td class="align-middle">{{ user.department ? user.department.name : ''}}</td>
+        <td class="align-middle">{{ user.costCenter ? user.costCenter.name : ''}}</td>
+        <td class="align-middle">{{ user.email }}</td>
+        <td>
+          <div class="img-container">
+            <img
+              class="btn-md"
+              [src]="fileUploader.downloadUrl + user.id + '?' + currentTime"
+              (error)="userProfilePictureNotFound($event)"
+              alt="profile-image"
+              width="60"
+              height="60"
+              style="border-radius:50%;">
           </div>
-        </div>
-        <div class="col-sm-4 col-md-3 col-lg-2 text-center">
-          <img
-            class="btn-md"
-            src="https://previews.123rf.com/images/prettyvectors/prettyvectors1309/prettyvectors130900060/22545994-user-profile-avatar-man-icon.jpg"
-            alt=""
-            style="width: 100px; border-radius:50%;">
-
-          <div class="actions text-center">
-            <button class="action btn btn-outline-info" (click)="onEdit(user.id)">
-              <i class="fas fa-pencil-alt"></i>
-            </button>
-            <button class="action btn btn-outline-danger" (click)="onDelete(user.id)">
-              <i class="fas fa-trash"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+        </td>
+        <td class="actions align-middle text-center">
+          <button class="action btn btn-outline-info" (click)="onEdit(user.id)">
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <button class="action btn btn-outline-danger" (click)="onDelete(user.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <div class="placeholder" *ngIf="!users.length">

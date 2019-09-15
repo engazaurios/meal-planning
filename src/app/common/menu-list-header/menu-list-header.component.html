@@ -3,7 +3,7 @@
      data-toggle="tooltip" title="{{ getPreviousDate() }}" (click)="clickOnArrow('previous')"></i>
   <div>
     <h1 class="text-capitalize font-weight-bold h1">{{ getFormattedDate() }}</h1>
-    <h2 class="text-uppercase h4 planning-detail-{{ userMenu.getStatus() }}">{{ userMenu.getStatusTitle() }}</h2>
+    <h2 class="text-uppercase h4 planning-detail-{{ userMenu.getStatus().toLowerCase() }}">{{ userMenu.getStatusTitle() }}</h2>
   </div>
   <i class="align-self-center m-lg-4 fa fas fa-chevron-circle-right clickable-grow text-dark"
      data-toggle="tooltip" title="{{ getNextDate() }}" (click)="clickOnArrow('next')"></i>

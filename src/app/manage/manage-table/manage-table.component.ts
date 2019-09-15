@@ -4,7 +4,7 @@ import {DayMenuModel} from '../../common/models/day-menu.model';
 import {MenuModel} from '../../common/models/menu.model';
 import {Constants} from '../../_helpers/constants';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {MenuCreateComponent} from '../../common/forms/menu-forms/menu-add/menu-create.component';
+import {MenuCreateComponent} from '../../common/forms/menu-forms/menu-create/menu-create.component';
 import {MenuUploadComponent} from '../../common/forms/menu-forms/menu-upload/menu-upload.component';
 import {NotifierService} from 'angular-notifier';
 import {ManageService} from '../manage.service';
@@ -29,7 +29,6 @@ export class ManageTableComponent implements OnInit, OnDestroy {
     {title: 'Categ.', id: 'category.name'},
   ];
   tableSortDesc = false;
-  tableSelected = '';
 
   tableDisplayValues = Constants.displayTypes;
   tableDisplayType = this.tableDisplayValues.WEEK;
@@ -43,9 +42,11 @@ export class ManageTableComponent implements OnInit, OnDestroy {
   isPublished     = (status: string) => status === Constants.statusTypes.APPROVED.key;
   statusText      = (status: string) => Constants.statusTypes[`${status.toUpperCase()}`].message;
 
+  isActionDisabled = (dayMenu: DayMenuModel) => dayMenu.status === Constants.statusTypes.APPROVED.key;
+
   constructor(
     private modalService: NgbModal,
-    private manageDayService: ManageService,
+    public manageDayService: ManageService,
     private notifier: NotifierService
   ) { }
 
@@ -75,6 +76,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
       for (
         const date = DateHelper.getDate(this.startDate); date.isBefore(this.endDate); date.add(1, 'days')
       ) {
+        if (date.weekday() === 5 || date.weekday() === 6) {
+          continue;
+        }
+
         const dayMenuResult = dayMenus.find(
           (dayMenu: DayMenuModel) => DateHelper.getDate(dayMenu.date).dayOfYear() === date.dayOfYear()
         );
@@ -92,14 +97,20 @@ export class ManageTableComponent implements OnInit, OnDestroy {
   /**
    * Method that will retrieve a day menu from specific date .
    */
-  private getSpecifiedDate(date) {
+  private getSpecifiedDate(dateStart, dateEnd?) {
     this.unsubscribe();
 
-    this.manageDayService.getDayMenu(DateHelper.getDate(date));
-    const simpleDayMenuSubs = this.manageDayService.simpleDayMenuDataChanged.subscribe((dayMenu: DayMenuModel) => {
-      const indexOldDayMenu = this.dayMenus.findIndex(dMenu =>
-        DateHelper.getFormattedDate(dMenu.date) === DateHelper.getFormattedDate(dayMenu.date));
-      this.dayMenus[indexOldDayMenu] = dayMenu;
+    if (dateEnd === undefined) {
+      dateEnd = dateStart;
+    }
+
+    this.manageDayService.getDayMenu(dateStart, dateEnd);
+    const simpleDayMenuSubs = this.manageDayService.simpleDayMenuDataChanged.subscribe((dayMenus: DayMenuModel[]) => {
+      for (const dayMenu of dayMenus) {
+        const indexOldDayMenu = this.dayMenus.findIndex(dMenu =>
+          DateHelper.getFormattedDate(dMenu.date) === DateHelper.getFormattedDate(dayMenu.date));
+        this.dayMenus[indexOldDayMenu] = dayMenu;
+      }
     });
 
     this.subscriptions.push(simpleDayMenuSubs);
@@ -117,7 +128,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
   /**
    * Method that will display the Create Modal Form.
    */
-  private onCreateMenuClick() {
+  public onCreateMenuClick() {
     this.onCreateAndAddMenuClick(undefined);
   }
 
@@ -126,6 +137,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
    * @param dayMenu Day menu to add from.
    */
   private onCreateAndAddMenuClick(dayMenu: DayMenuModel) {
+    if (this.isActionDisabled(dayMenu)) {
+      return;
+    }
+
     const addModalRef = this.modalService.open(MenuCreateComponent, { size: 'lg' });
     addModalRef.result.then((menu: MenuModel) => {
       if (menu !== null && menu !== undefined) {
@@ -147,6 +162,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
    * @param selectedMenu Selected menu to upload from.
    */
   private onUploadMenuClick(dayMenu: DayMenuModel, selectedMenu?: MenuModel) {
+    if (this.isActionDisabled(dayMenu)) {
+      return;
+    }
+
     const uploadModalRef = this.modalService.open(MenuUploadComponent, { size: 'lg' });
     uploadModalRef.componentInstance.dayMenu = dayMenu;
     uploadModalRef.componentInstance.selectedMenu = selectedMenu;
@@ -167,6 +186,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
    * @param menu Menu to delete.
    */
   private onDeleteMenuClick(dayMenu: DayMenuModel, menu: MenuModel) {
+    if (this.isActionDisabled(dayMenu)) {
+      return;
+    }
+
     const deleteMenuRef = this.modalService.open(AlertSimpleComponent, { size: 'lg' });
     deleteMenuRef.componentInstance.content = {
       title: '¿Borrar menú?',
@@ -200,13 +223,17 @@ export class ManageTableComponent implements OnInit, OnDestroy {
     publishModalRef.componentInstance.startOfWeek = this.startDate;
     publishModalRef.componentInstance.endOfWeek = this.endDate;
     publishModalRef.componentInstance.dayMenus = this.dayMenus;
+
+    publishModalRef.result.then(() => {
+      this.getSpecifiedDate(this.startDate, this.endDate);
+    }, () => {});
   }
 
   /**
    * Method that will display the data based on the DisplayType.
    * @param displayType Display Type to display data: DAY, WEEK, MONTH, YEAR.
    */
-  private displayData(displayType) {
+  public displayData(displayType) {
     this.tableDisplayType = displayType;
     this.getSpecifiedDates();
   }
@@ -225,12 +252,12 @@ export class ManageTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getPreviousDate() {
+  public getPreviousDate() {
     this.actualDate = DateHelper.getPreviousDateType(this.actualDate, this.tableDisplayType);
     this.getSpecifiedDates();
   }
 
-  private getNextDate() {
+  public getNextDate() {
     this.actualDate = DateHelper.getNextDateType(this.actualDate, this.tableDisplayType);
     this.getSpecifiedDates();
   }

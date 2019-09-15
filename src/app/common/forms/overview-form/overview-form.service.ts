@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {RequestService} from '../../../_services/request.service';
+import {DateHelper} from 'src/app/_helpers/date-helper';
 
 @Injectable({providedIn: 'root'})
 export class OverviewFormService {
@@ -17,20 +18,21 @@ export class OverviewFormService {
    */
   publishWeek(startDateValue) {
     this.loading = true;
-    return this.requestService.post('/usermenus/publishdaymenus/', {
-      startDate: startDateValue
+    return this.requestService.post('/daymenus/publishdaymenus/', {
+      startDate: DateHelper.getSlashFormattedDate(startDateValue)
     });
   }
 
   /**
    * Method that will confirm the actual week.
    * @param startDateValue The start of the week.
-   * TODO : finish method.
+   * @param userID User ID to confirm.
    */
-  confirmWeek(startDateValue) {
+  confirmWeek(startDateValue, userID) {
     this.loading = true;
-    return this.requestService.post('', {
-      startDate: startDateValue
+    return this.requestService.post('/usermenus/approve', {
+      startDate: DateHelper.getSlashFormattedDate(startDateValue),
+      userId: userID
     });
   }
 

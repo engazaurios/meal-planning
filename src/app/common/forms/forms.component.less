@@ -1,9 +1,7 @@
 form {
   div {
     margin: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
     label {
       font-style: italic;
       margin-right: 10px;
@@ -19,21 +17,48 @@ form {
       align-self: normal;
     }
   }
+  .div-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 .table-list {
   margin: 15px;
 }
 
+.card-image-selected {
+  height: 150px;
+  width: 150px;
+  margin: 15px;
+}
+
+.card-image-selector {
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card-image {
+  height: 120px;
+  width: 120px;
+}
+
 @media (max-width: 575.98px) {
   form {
     div {
-      display: inherit;
       label, input, select {
         align-self: normal;
         text-align: left;
         width: 100%;
       }
+    }
+    .div-form {
+      display: inherit;
+    }
+    .card-image {
+      height: 80px;
+      width: 80px;
     }
   }
 }

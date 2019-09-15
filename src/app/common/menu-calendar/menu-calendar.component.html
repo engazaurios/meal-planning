@@ -11,9 +11,9 @@
            [class.custom-day-out-month]="date.month !== currentMonth"
            [class.custom-day-na]="isNA(date) && date.month === currentMonth"
            [class.custom-day-sent]="isSent(date) || isApproved(date)"
+           [class.custom-day-approved]="isApproved(date)"
            [class.custom-day-pending]="isPending(date)">
-        <i *ngIf="isAction(date); else dayNumber"
-           (click)="onConfirmWeek(date)" class="fas fa-eye icon-hover custom-day-friday"></i>
+        <i *ngIf="isAction(date); else dayNumber" (click)="onConfirmWeek(date)" class="fas fa-check-circle icon-hover custom-day-action"></i>
         <ng-template #dayNumber><p>{{ date.day }}</p></ng-template>
       </div>
   </ng-template>

@@ -7,6 +7,8 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {plainToClass} from 'class-transformer';
 import {MenuFormsService} from '../menu-forms.service';
+import {Constants} from '../../../../_helpers/constants';
+import {FileUploaderService} from '../../../../file-uploader.service';
 
 @Component({
   selector: 'app-menu-add',
@@ -18,6 +20,10 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
   categories: CategoryModel[] = [];
   meals: MealModel[] = [];
 
+  images: string[] = [];
+  imageContainer = Constants.imageContainer;
+  imageSelected: string;
+
   formGroup: FormGroup;
 
   subscriptions = [];
@@ -25,12 +31,13 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
   constructor(
     protected activeModal: NgbActiveModal,
     protected formBuilder: FormBuilder,
-    protected menuFormsService: MenuFormsService
+    public menuFormsService: MenuFormsService,
+    protected fileUploaderService: FileUploaderService
   ) {
     this.formGroup = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      price: ['', Validators.required],
+      price: ['24.00', Validators.required],
       meal: ['', Validators.required],
       category: ['', Validators.required]
     });
@@ -40,20 +47,27 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
     this.menuFormsService.getMeals();
     this.menuFormsService.getCategories();
 
+    const imagesSubs = this.fileUploaderService.getImages(this.imageContainer).subscribe((images: any[]) => {
+      for (const image of images) {
+        this.images.push(image.name);
+      }
+      this.imageSelected = images[0].name;
+    });
     const categorySubs = this.menuFormsService.categoriesDataChanged.subscribe((categories: CategoryModel[]) => {
       this.categories = plainToClass(CategoryModel, categories);
     });
     const mealSubs = this.menuFormsService.mealDataChanged.subscribe((meals: MealModel[]) => {
       this.meals = plainToClass(MealModel, meals);
     });
-    this.subscriptions.push(categorySubs, mealSubs);
+
+    this.subscriptions.push(categorySubs, mealSubs, imagesSubs);
   }
 
   /**
    * Method that will validate the menus and upload it.
    * TODO : do a more deeply validation.
    */
-  protected validate() {
+  public validate() {
     if (this.formGroup.invalid) {
       return;
     }
@@ -66,7 +80,8 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
 
     const newMenu = new MenuModel(
       newMenuTitle, newMenuDescription, newMenuPrice,
-      newMenuMealId, newMenuCategoryId
+      newMenuMealId, newMenuCategoryId,
+      this.imageSelected
     );
 
     this.menuFormsService.createMenu(newMenu).subscribe((createMenuResponse) => {
@@ -75,7 +90,7 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  protected cancelAction() {
+  public cancelAction() {
     this.activeModal.dismiss('cancel');
   }
 

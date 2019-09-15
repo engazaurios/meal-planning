@@ -21,7 +21,8 @@ export class UserEditResolverService implements Resolve<UserEditData> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     let queries : Observable<any>[] = [
       this.userService.fetchDepartments(),
-      this.userService.fetchRoles()
+      this.userService.fetchCostCenters(),
+      this.userService.fetchRoles(),
     ];
 
     if (route.params.id) {
@@ -30,13 +31,14 @@ export class UserEditResolverService implements Resolve<UserEditData> {
 
     return forkJoin(queries).pipe(
       map(data => {
-        let userObject = data[2]
-          ? this.dataHelper.createUserFromObject(data[2])
+        let userObject = data[3]
+          ? this.dataHelper.createUserFromObject(data[3])
           : new User();
 
         return {
           departments: <Department[]>data[0],
-          roles: <Role[]>data[1],
+          costCenters: <Department[]>data[1],
+          roles: <Role[]>data[2],
           user: userObject
         };
       })

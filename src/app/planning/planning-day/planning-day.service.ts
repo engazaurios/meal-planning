@@ -5,7 +5,7 @@ import {DateHelper} from '../../_helpers/date-helper';
 import {DayMenuModel} from 'src/app/common/models/day-menu.model';
 import {MenuModel} from 'src/app/common/models/menu.model';
 
-@Injectable({ providedIn : 'root'})
+@Injectable({providedIn: 'root'})
 export class PlanningDayService {
 
   loading = false;
@@ -14,7 +14,8 @@ export class PlanningDayService {
 
   constructor(
     protected requestService: RequestService
-  ) {}
+  ) {
+  }
 
   /**
    * Method that returns the day menu, based on the users Id and DateHelper.
@@ -24,8 +25,10 @@ export class PlanningDayService {
   getDayMenu(userId, date) {
     this.loading = true;
 
-    date = DateHelper.getDate(date).toISOString();
-    this.requestService.get(`/usermenus/menusperdate/${userId}/${date}/${date}`).subscribe((dayMenuJson: any) => {
+    date = DateHelper.getSlashFormattedDate(date);
+    this.requestService.get(
+      `/usermenus/menusperdate/${userId}/${date}/${date}`
+    ).subscribe((dayMenuJson: any) => {
       this.loading = false;
       this.dayMenuDataChanged.next(dayMenuJson.menus[0]);
     });
@@ -41,7 +44,7 @@ export class PlanningDayService {
     this.loading = true;
     return this.requestService.post('/usermenus/savemenus', {
       userId: userIdValue,
-      date: dateValue,
+      date: DateHelper.getSlashFormattedDate(dateValue),
       menusId: menusValue
     });
   }
@@ -50,11 +53,9 @@ export class PlanningDayService {
    * Method that will delete the menu.
    * @param dayMenu DayMenu to delete.
    * @param menu Menu to delete.
-   * TODO : verify why is deleting the menu and not deleting it from the day menu.
    */
   deleteMenu(dayMenu: DayMenuModel, menu: MenuModel) {
-    this.loading = true;
-    return this.requestService.delete(`/daymenus/${dayMenu.id}/menus/${menu.id}`);
+    return this.requestService.delete(`/daymenus/${dayMenu.id}/menus/rel/${menu.id}`);
   }
 
 }

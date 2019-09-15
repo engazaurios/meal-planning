@@ -6,7 +6,7 @@
     </span>
   </div>
   <div [class.planning-detail-selected-description]="isSelected" class="card-body clickable bold font-italic text-center">
-    <img class="planning-detail-card-image" src="{{ getRandomImage() }}">
+    <img class="planning-detail-card-image" src="{{fileUploaderService.getImage(imageContainer, menu.image)}}">
     <p class="card-text">{{menu.description}}</p>
   </div>
 </div>

@@ -1,5 +1,7 @@
 export class Constants {
 
+  public static imageContainer = 'menus';
+
   public static mealsTypes = {
     BREAKFAST: {
       key: 'breakfast'
@@ -56,23 +58,23 @@ export class Constants {
    */
   public static statusTypes = {
     NA: {
-      key: 'na',
+      key: 'NA',
       message: 'No disponible'
     },
     SENT: {
-      key: 'sent',
+      key: 'SENT',
       message: 'Enviado'
     },
     PENDING: {
-      key: 'pending',
+      key: 'PENDING',
       message: 'Pendiente'
     },
     OPEN: {
-      key: 'open',
+      key: 'OPEN',
       message: 'Disponible'
     },
     APPROVED: {
-      key: 'approved',
+      key: 'APPROVED',
       message: 'Aprobado'
     }
   };

@@ -15,25 +15,25 @@
   <form *ngIf="!menuFormsService.loading"
         class="col-md"
         [formGroup]="formGroup">
-    <div>
+    <div class="div-form">
       <label for="newMenuTitle">Título:</label>
       <input type="text" placeholder="Título"
              id="newMenuTitle"
              class="form-control" formControlName="title"/>
     </div>
-    <div>
+    <div class="div-form">
       <label for="newMenuDescription">Descripción:</label>
       <input type="text" placeholder="Descripción"
              id="newMenuDescription"
              class="form-control" formControlName="description"/>
     </div>
-    <div>
+    <div class="div-form">
       <label for="newMenuPrice">Precio:</label>
       <input type="number" placeholder="Precio" value="24.00"
              id="newMenuPrice"
              class="form-control" formControlName="price"/>
     </div>
-    <div>
+    <div class="div-form">
       <label for="newMenuMealId">Tipo:</label>
       <select class="form-control"
               id="newMenuMealId"
@@ -41,13 +41,26 @@
         <option *ngFor="let meal of meals" value="{{ meal.id }}">{{ meal.name }}</option>
       </select>
     </div>
-    <div>
+    <div class="div-form">
       <label for="newMenuCategoryId">Categoría:</label>
       <select class="form-control"
               id="newMenuCategoryId"
               name="categories" formControlName="category">
         <option *ngFor="let category of categories" value="{{ category.id }}">{{ category.name }}</option>
       </select>
+    </div>
+    <div class="card">
+      <div class="text-center" *ngIf="imageSelected">
+        <img src="{{fileUploaderService.getImage(imageContainer, imageSelected)}}"
+             class="dropdown-toggle card-image-selected" data-toggle="dropdown">
+        <div class="dropdown-menu" aria-labelledby="buttonActions">
+          <div class="d-flex card-image-selector">
+            <img *ngFor="let image of images" class="dropdown-item card-image"
+                 src="{{fileUploaderService.getImage(imageContainer, image)}}"
+                 (click)="imageSelected = image">
+          </div>
+        </div>
+      </div>
     </div>
   </form>
 

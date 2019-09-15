@@ -30,11 +30,14 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
 
   subscriptions = [];
 
+  protected isApproved = () => this.userMenu.status === Constants.statusTypes.APPROVED.key;
+  public isButtonDisabled = () => this.userMenu && (this.isApproved() || !this.menusReady(1));
+
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
     protected authenticationService: AuthenticationService,
-    protected planningDetailService: PlanningDayService,
+    public planningDetailService: PlanningDayService,
     protected modalService: NgbModal,
     protected readonly notifier: NotifierService
   ) {
@@ -45,6 +48,15 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    this.unsubscribe();
+    this.getDayMenus();
+    for (const constantKey of Constants.mealConstants) { this.selectedMenus[`${constantKey}`] = []; }
+  }
+
+  /**
+   * Method to get user menus.
+   */
+  protected getDayMenus() {
     this.planningDetailService.getDayMenu(this.currentUser.userId, this.actualDate);
 
     const planningSubscription = this.planningDetailService.dayMenuDataChanged.subscribe((dayMenuResult: any) => {
@@ -53,8 +65,6 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this.selectDefaultUserMenus();
     });
-
-    for (const constantKey of Constants.mealConstants) { this.selectedMenus[`${constantKey}`] = []; }
 
     this.subscriptions.push(planningSubscription);
   }
@@ -69,7 +79,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   protected selectDefaultUserMenus() {
     if (this.userMenuExists && this.dayMenuExists) {
       for (const userMenu of this.userMenu.menus) {
-        this.onItemClicked(userMenu);
+        this.onItemClicked(userMenu, true);
       }
     } else {
       this.userMenu = new UserMenuModel(Constants.statusTypes.NA.key);
@@ -131,7 +141,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * Method that checks if 2 and above menus are selected.
    */
-  private menusReady(menusRequired) {
+  public menusReady(menusRequired) {
     let amountMenus = 0;
     for (const mealId of Constants.mealConstants) {
       amountMenus += this.selectedMenus[mealId].length;
@@ -151,17 +161,19 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
    * Method that has the listener if date was changed in child.
    * @param date Date changed.
    */
-  protected onDateChanged(date) {
+  public onDateChanged(date) {
     this.actualDate = date;
     this.router.navigate([`/planning/${DateHelper.getFormattedDate(date)}`]);
+
     this.ngOnInit();
   }
 
   /**
    * Method that adds the menu to the selected list.
    * @param menu MenuModel clicked.
+   * @param settingDefault Flag to check if this is a default fill.
    */
-  protected onItemClicked(menu) {
+  public onItemClicked(menu, settingDefault?) {
     const menuId = menu.id;
     const mealId = menu.meal.code;
 
@@ -175,19 +187,21 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    if (menuIndex === -1) {
-      selectedMenus.push(menuId);
-    } else {
-      selectedMenus.splice(menuIndex, 1);
-    }
+    if (settingDefault !== undefined || !this.isApproved()) {
+      if (menuIndex === -1) {
+        selectedMenus.push(menuId);
+      } else {
+        selectedMenus.splice(menuIndex, 1);
+      }
 
-    this.selectedMenus[`${mealId}`] = selectedMenus;
+      this.selectedMenus[`${mealId}`] = selectedMenus;
+    }
   }
 
   /**
    * Method that validates the selected dayMenus.
    */
-  protected validateUploadMenus() {
+  public validateUploadMenus() {
     const amountBreakfast = this.selectedMenus[`${Constants.mealsTypes.BREAKFAST.key}`].length;
     const amountLunches = this.selectedMenus[`${Constants.mealsTypes.LUNCH.key}`].length;
     const amountDinners = this.selectedMenus[`${Constants.mealsTypes.DINNER.key}`].length;
@@ -195,10 +209,10 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     const amountOfMenus = amountBreakfast + amountLunches + amountDinners;
 
     // TODO : verify if we need to validate breakfast/lunches/dinners above 2.
-    if (amountOfMenus !== 2) {
+    if (amountOfMenus > 2) {
       const errorAlert = this.modalService.open(AlertSimpleComponent, {size: 'lg'});
       errorAlert.componentInstance.content = {
-        title: 'No has seleccionado tus 2 comidas.',
+        title: 'Solo puedes seleccionar hasta 2 comidas.',
         description: 'Revisa tus comidas, por favor.',
         cancelText: 'OK',
         confirmationText: ''
@@ -206,7 +220,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
 
-    if (this.validateTime()) {
+    if (this.validateTime() || this.isApproved()) {
       return;
     }
 
@@ -215,7 +229,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     confirmationAlert.componentInstance.content = {
       title: '¿Deseas continuar?',
       description:
-        `<b>Las comidas no podrán ser cambiadas.</b> Elige con cuidado.`,
+        `<b>Por favor revisa tus comidas.</b> Elige con cuidado.`,
       cancelText: 'Cancelar',
       confirmationText: 'Continuar'
     };
@@ -263,10 +277,14 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     return true;
   }
 
-  ngOnDestroy(): void {
+  private unsubscribe() {
     for (const subscription of this.subscriptions) {
       subscription.unsubscribe();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe();
   }
 
 }

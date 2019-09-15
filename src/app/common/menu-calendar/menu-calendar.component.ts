@@ -19,6 +19,8 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   @Input() startOfWeek: any;
   @Input() endOfWeek: any;
 
+  actualMonth: any;
+
   minDate: any;
   maxDate: any;
 
@@ -35,7 +37,7 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   isAction    = (date: NgbDate) => DateHelper.getDayOfWeek(this.formatDate(date)) === 6;
 
   constructor(
-    protected planningService: MenuCalendarService,
+    public planningService: MenuCalendarService,
     protected modalService: NgbModal,
     protected router: Router
   ) { }
@@ -57,6 +59,35 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
     });
 
     this.planningService.getUserDayMenus(this.currentUser.userId, this.startOfWeek.toISOString(), this.endOfWeek.toISOString());
+  }
+
+  /**
+   * Method to get only the updated week.
+   * @param startOfWeek Start of week.
+   * @param endOfWeek End of week.
+   * TODO : update only week confirmed/published.
+   */
+  protected getDayMenusUpdate(startOfWeek, endOfWeek) {
+    this.planningServiceSubscription = this.planningService.userUpdatedDayMenusDataChanged.subscribe((dayMenusResponse: DayMenuModel[]) => {
+
+      for (const dayMenuResponse of dayMenusResponse) {
+        // const oldDayMenuIndex = this.dayMenusList.findIndex(dMenu => dMenu.id === dayMenuResponse.id);
+        // console.log(this.dayMenusList);
+        // console.log(dayMenuResponse);
+        // console.log(this.dayMenusList[oldDayMenuIndex]);
+        // this.dayMenusList[oldDayMenuIndex] = dayMenuResponse;
+        // console.log(this.dayMenusList[oldDayMenuIndex]);
+      }
+
+      console.log(dayMenusResponse);
+
+      this.dayMenus = this.menusToJson(dayMenusResponse);
+
+      // TODO : finish the update to actual month.
+      this.actualMonth = {year: startOfWeek.year(), month: startOfWeek.month()};
+    });
+
+    this.planningService.getUpdatedUserMenu(this.currentUser.userId, startOfWeek.toISOString(), endOfWeek.toISOString());
   }
 
   /**
@@ -103,6 +134,11 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
     publishModalRef.componentInstance.startOfWeek = startDate;
     publishModalRef.componentInstance.endOfWeek = endDate;
     publishModalRef.componentInstance.dayMenus = weekDayMenus;
+
+    publishModalRef.result.then(() => {
+      // this.getDayMenusUpdate(startDate, endDate);
+      this.getDayMenus();
+    }, () => {});
   }
 
   /**
@@ -119,6 +155,10 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
    * @param expectedStatus The expected status to compare.
    */
   private isDateWithStatus(date, expectedStatus) {
+    if (this.isAction(date)) {
+      return false;
+    }
+
     const formattedDate = this.formatDate(date);
     if (this.dayMenus === null || this.dayMenus === undefined) {
       return false;
@@ -152,7 +192,7 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   protected setDayMenuStatus(dayMenu) {
     let status = Constants.statusTypes.NA.key;
     if (dayMenu.userMenu !== null && dayMenu.userMenu !== undefined && dayMenu.dayMenu !== null && dayMenu.dayMenu !== undefined) {
-      status = dayMenu.userMenu.status.toLowerCase();
+      status = dayMenu.userMenu.status;
       if (status === undefined || status === null) {
         status = Constants.statusTypes.NA.key;
       }

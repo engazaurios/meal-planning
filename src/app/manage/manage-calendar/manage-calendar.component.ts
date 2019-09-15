@@ -36,7 +36,7 @@ export class ManageCalendarComponent extends MenuCalendarComponent implements On
    * @param dayMenu Actual day menu.
    */
   protected setDayMenuStatus(dayMenu): any {
-    return dayMenu.status;
+    return dayMenu.status.toUpperCase();
   }
 
   /**
@@ -63,6 +63,11 @@ export class ManageCalendarComponent extends MenuCalendarComponent implements On
     publishModalRef.componentInstance.startOfWeek = startDate;
     publishModalRef.componentInstance.endOfWeek = endDate;
     publishModalRef.componentInstance.dayMenus = weekDayMenus;
+
+    publishModalRef.result.then(() => {
+      // this.getDayMenusUpdate(startDate, endDate);
+      this.getDayMenus();
+    }, () => {});
   }
 
 }
