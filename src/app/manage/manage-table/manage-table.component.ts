@@ -104,7 +104,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
       dateEnd = dateStart;
     }
 
-    this.manageDayService.getDayMenu(DateHelper.getDate(dateStart), DateHelper.getDate(dateEnd));
+    this.manageDayService.getDayMenu(dateStart, dateEnd);
     const simpleDayMenuSubs = this.manageDayService.simpleDayMenuDataChanged.subscribe((dayMenus: DayMenuModel[]) => {
       for (const dayMenu of dayMenus) {
         const indexOldDayMenu = this.dayMenus.findIndex(dMenu =>

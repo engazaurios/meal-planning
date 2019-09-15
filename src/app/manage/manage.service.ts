@@ -5,8 +5,9 @@ import {DayMenuModel} from 'src/app/common/models/day-menu.model';
 
 import {plainToClass} from 'class-transformer';
 import {Subject} from 'rxjs';
+import {DateHelper} from '../_helpers/date-helper';
 
-@Injectable({ providedIn : 'root'})
+@Injectable({providedIn: 'root'})
 export class ManageService extends PlanningDayService {
 
   simpleDayMenuDataChanged = new Subject<any>();
@@ -23,7 +24,9 @@ export class ManageService extends PlanningDayService {
   getDayMenus(startDate, endDate) {
     this.loading = true;
 
-    this.requestService.get(`/daymenus/menusperdate/${startDate}/${endDate}`)
+    this.requestService.get(
+      `/daymenus/menusperdate/${DateHelper.getSlashFormattedDate(startDate)}/${DateHelper.getSlashFormattedDate(endDate)}`
+    )
       .subscribe((dayMenus: any) => {
         this.loading = false;
         this.dayMenuDataChanged.next(plainToClass(DayMenuModel, dayMenus.menus));
@@ -38,7 +41,9 @@ export class ManageService extends PlanningDayService {
       dateEnd = date;
     }
 
-    this.requestService.get(`/daymenus/menusperdate/${date}/${dateEnd}`)
+    this.requestService.get(
+      `/daymenus/menusperdate/${DateHelper.getSlashFormattedDate(date)}/${DateHelper.getSlashFormattedDate(dateEnd)}`
+    )
       .subscribe((dayMenus: any) => {
         this.simpleDayMenuDataChanged.next(plainToClass(DayMenuModel, dayMenus.menus));
       });

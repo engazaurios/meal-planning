@@ -19,6 +19,10 @@ export class DateHelper {
     return actualDate.format('YYYY/M/DD');
   }
 
+  static getSlashFormattedDate(actualDate) {
+    return this.getDate(actualDate).format('YYYY-MM-DD');
+  }
+
   static getLongFormattedDate(actualDate) {
     return this.getDate(actualDate).format('dddd DD MMMM, YYYY');
   }

@@ -24,7 +24,7 @@ export class PlanningDayService {
   getDayMenu(userId, date) {
     this.loading = true;
 
-    date = DateHelper.getDate(date).toISOString();
+    date = DateHelper.getSlashFormattedDate(date);
     this.requestService.get(`/usermenus/menusperdate/${userId}/${date}/${date}`).subscribe((dayMenuJson: any) => {
       this.loading = false;
       this.dayMenuDataChanged.next(dayMenuJson.menus[0]);
@@ -41,7 +41,7 @@ export class PlanningDayService {
     this.loading = true;
     return this.requestService.post('/usermenus/savemenus', {
       userId: userIdValue,
-      date: dateValue,
+      date: DateHelper.getSlashFormattedDate(dateValue),
       menusId: menusValue
     });
   }
