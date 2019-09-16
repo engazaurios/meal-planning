@@ -2,10 +2,10 @@
   <span class="sr-only">Cargando...</span>
 </div>
 
-<div *ngIf="!manageDayService.loading">
-  <div *ngFor="let dayMenu of dayMenus" class="card m-lg-4">
+<div *ngIf="!manageDayService.loading" class="table-content">
+  <div *ngFor="let dayMenu of dayMenus" class="card m-lg-4 day-content">
     <div class="card-body">
-      <h3 class="text-capitalize">
+      <h3 class="text-capitalize day-information">
         {{ getActualDate(dayMenu) }}
         <small class="float-right"
                [class.planning-detail-available]="isAvailable(dayMenu.status)"

@@ -52,11 +52,75 @@
 }
 
 .planning-detail-available {
-
 }
 .planning-detail-pending {
   color: @orange-color;
 }
 .planning-detail-published {
   color: green;
+}
+
+.day-information {
+  font-weight: bold;
+  small {
+    width: 100%;
+    margin: 10px 0;
+    font-style: italic;
+  }
+}
+
+.day-content {
+  margin: 15px;
+}
+
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .table-content {
+    margin-bottom: 200px;
+    font-size: 0.7em;
+  }
+  .actions-group {
+    button, div {
+      width: 100%;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .table-content {
+    margin-bottom: 200px;
+    font-size: 0.8em;
+  }
+  .actions-group {
+    button, div {
+      width: 100%;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .table-content {
+    margin-bottom: 200px;
+    font-size: 0.8em;
+  }
+  .actions-group {
+    button, div {
+      width: 100%;
+    }
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .table-content {
+    margin-bottom: 200px;
+  }
+  .actions-group {
+    button, div {
+      width: 100%;
+    }
+  }
 }
