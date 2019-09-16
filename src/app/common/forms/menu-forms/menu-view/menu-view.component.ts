@@ -11,9 +11,13 @@ export class MenuViewComponent implements OnInit {
 
   @Input()  selectedMenu: MenuModel;
 
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor(protected activeModal: NgbActiveModal) { }
 
   ngOnInit() {
+  }
+
+  public close(reason) {
+    this.activeModal.close(reason);
   }
 
 }

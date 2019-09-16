@@ -48,19 +48,19 @@ const routes: Routes = [
     path: 'manage',
     component: ManageComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { expectedRoles: Constants.adminUserTypes }
+    data: { expectedRoles: Constants.providerUserTypes }
   },
   {
     path: 'manage/table',
     component: ManageTableComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { expectedRoles: Constants.adminUserTypes }
+    data: { expectedRoles: Constants.providerUserTypes }
   },
   {
     path: 'manage/:year/:month/:day',
     component: ManageDayComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { expectedRoles: Constants.adminUserTypes }
+    data: { expectedRoles: Constants.providerUserTypes }
   },
   {
     path: 'users',
@@ -89,11 +89,15 @@ const routes: Routes = [
   {
     path: 'cost-centers',
     component: CostCentersComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
   },
   {
     path: 'reporting',
     component: ReportingComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
+
   },
   {
     path: '**',

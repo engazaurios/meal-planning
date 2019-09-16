@@ -44,6 +44,8 @@ import { OverviewFormPlanningComponent } from './common/forms/overview-form/over
 import { CostCentersComponent } from './cost-centers/cost-centers.component';
 import { EditCostCenterComponent } from './cost-centers/edit-cost-center/edit-cost-center.component';
 import { ReportingComponent } from './reporting/reporting.component';
+import { LoaderComponent } from './common/loader/loader.component';
+import {LoaderService} from './common/loader/loader.service';
 
 registerLocaleData (localeEs, 'es-GT', localeEsExtra);
 
@@ -74,7 +76,8 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     OverviewFormPlanningComponent,
     CostCentersComponent,
     EditCostCenterComponent,
-    ReportingComponent
+    ReportingComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -98,6 +101,7 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     RequestService,
     DataHelperService,
     UsersService,
+    LoaderService,
     NgbActiveModal,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }

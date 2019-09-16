@@ -1,10 +1,6 @@
 <!-- Main content -->
 <div class="text-center mt-4" xmlns="http://www.w3.org/1999/html">
 
-  <div *ngIf="planningDetailService.loading" class="spinner-grow text-info mt-5" role="status">
-    <span class="sr-only">Cargando...</span>
-  </div>
-
   <app-menu-list
     (dateChanged)="onDateChanged($event)"
     (itemClickedEvent)="onItemClicked($event)"
@@ -12,7 +8,7 @@
     (tabClickedEvent)="onTabChanged($event)"
     [defaultTab]="selectedTab"
 
-    [showHeader]="userMenuExists && !planningDetailService.loading"
+    [showHeader]="userMenuExists"
     [showItems]="dayMenuExists && userMenuExistsAndAvailable"
 
     [currentUser]="currentUser"
@@ -33,12 +29,12 @@
     class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static"
     (click)="onAddMenuClick(dayMenu)"
     [class.btn-static-ready]="!isButtonDisabled"
-    [disabled]="planningDetailService.loading || isApproved()">Crear menú</button>
+    [disabled]="isApproved()">Crear menú</button>
 
   <button
     class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-upload"
     (click)="onUploadMenuClick(dayMenu)"
     [class.btn-static-ready]="!isButtonDisabled"
-    [disabled]="planningDetailService.loading || isApproved()">Subir menú</button>
+    [disabled]="isApproved()">Subir menú</button>
 
 </div>

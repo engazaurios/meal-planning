@@ -28,7 +28,7 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
   constructor(
     protected activeModal: NgbActiveModal,
     protected formBuilder: FormBuilder,
-    public menuUploadService: MenuFormsService,
+    protected menuUploadService: MenuFormsService,
     protected fileUploaderService: FileUploaderService
   ) {
     super(activeModal, formBuilder, menuUploadService, fileUploaderService);
@@ -73,7 +73,7 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
   /**
    * Method that will reset the addMenuForm.
    */
-  private onFormChange() {
+  public onFormChange() {
     this.uploadMenuFormGroup.controls.menuUploadId.reset();
   }
 
@@ -102,7 +102,6 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
    */
   private uploadMenu(menu: MenuModel) {
     this.menuFormsService.uploadMenu(this.dayMenu, menu).subscribe((uploadMenuResponse) => {
-      this.menuFormsService.loading = false;
       this.activeModal.close(menu);
     });
   }
@@ -115,7 +114,6 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
     if (this.dayMenu.status === Constants.statusTypes.OPEN.key) {
       this.menuFormsService.createDayMenu(DateHelper.getDate(this.dayMenu.date));
       const dayMenuSubs = this.menuFormsService.dayMenuDataChanged.subscribe((dayMenu: DayMenuModel) => {
-        this.menuFormsService.dayMenuLoading = false;
         this.dayMenu = dayMenu;
       });
       this.subscriptions.push(dayMenuSubs);
@@ -136,7 +134,7 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
    * @param mealId Meal name to filter.
    * @param categoryId Category name to filter.
    */
-  private getUploadMenusByFilter(mealId, categoryId) {
+  public getUploadMenusByFilter(mealId, categoryId) {
     const newMenus = [];
     for (const menu of this.allMenus) {
       if (menu.meal.id === mealId && menu.category.id === categoryId) {
@@ -150,7 +148,7 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
    * Method that will return the Menu information.
    * @param id Menu ID.
    */
-  private getUploadMenuSelected(id) {
+  public getUploadMenuSelected(id) {
     return this.allMenusDict[id];
   }
 

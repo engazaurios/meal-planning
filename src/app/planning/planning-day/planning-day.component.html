@@ -1,13 +1,9 @@
 <div class="text-center mt-4">
-  <div *ngIf="planningDetailService.loading" class="spinner-grow text-info mt-5" role="status">
-    <span class="sr-only">Cargando...</span>
-  </div>
-
   <app-menu-list
     (dateChanged)="onDateChanged($event)"
     (itemClickedEvent)="onItemClicked($event)"
 
-    [showHeader]="userMenuExists && !planningDetailService.loading"
+    [showHeader]="userMenuExists"
     [showItems]="dayMenuExists && userMenuExistsAndAvailable"
 
     [currentUser]="currentUser"

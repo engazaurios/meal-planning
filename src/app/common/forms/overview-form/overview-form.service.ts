@@ -5,8 +5,6 @@ import {DateHelper} from 'src/app/_helpers/date-helper';
 @Injectable({providedIn: 'root'})
 export class OverviewFormService {
 
-  loading = false;
-
   constructor(
     private requestService: RequestService
   ) {
@@ -17,7 +15,6 @@ export class OverviewFormService {
    * @param startDateValue The start of the week.
    */
   publishWeek(startDateValue) {
-    this.loading = true;
     return this.requestService.post('/daymenus/publishdaymenus/', {
       startDate: DateHelper.getSlashFormattedDate(startDateValue)
     });
@@ -29,7 +26,6 @@ export class OverviewFormService {
    * @param userID User ID to confirm.
    */
   confirmWeek(startDateValue, userID) {
-    this.loading = true;
     return this.requestService.post('/usermenus/approve', {
       startDate: DateHelper.getSlashFormattedDate(startDateValue),
       userId: userID

@@ -22,7 +22,7 @@ export class OverviewFormPlanningComponent implements OnDestroy {
 
   constructor(
     protected authenticationService: AuthenticationService,
-    public activeModal: NgbActiveModal,
+    protected activeModal: NgbActiveModal,
     protected overviewService: OverviewFormService,
     protected notifier: NotifierService
   ) {}
@@ -44,6 +44,10 @@ export class OverviewFormPlanningComponent implements OnDestroy {
       );
       this.activeModal.close();
     });
+  }
+
+  public dismiss(value: boolean) {
+    this.activeModal.dismiss(value);
   }
 
   public get getConfirmMessage() {

@@ -4,11 +4,7 @@
 
 <div class="modal-body text-center">
 
-  <div *ngIf="menuUploadService.allMenusLoading" class="spinner-grow text-info mt-5" role="status">
-    <span class="sr-only">Cargando...</span>
-  </div>
-
-  <form *ngIf="!menuUploadService.allMenusLoading" class="col-md text-left" [formGroup]="uploadMenuFormGroup">
+  <form class="col-md text-left" [formGroup]="uploadMenuFormGroup">
     <div class="div-form">
       <label for="uploadMenuMealId">Tipo:</label>
       <select class="form-control"
@@ -49,10 +45,7 @@
   </form>
 
 </div>
-<div *ngIf="!menuFormsService.dayMenuLoading" class="modal-footer">
+<div class="modal-footer">
   <button type="button" class="btn btn-danger" (click)="cancelAction()">Cancelar</button>
   <button type="button" ngbAutofocus class="btn btn-success" (click)="validate()">Subir Menú</button>
-</div>
-<div *ngIf="menuFormsService.dayMenuLoading" class="modal-footer spinner-grow text-info mt-5" role="status">
-  <span class="sr-only">Cargando...</span>
 </div>

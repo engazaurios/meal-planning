@@ -46,7 +46,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private modalService: NgbModal,
-    public manageDayService: ManageService,
+    private manageDayService: ManageService,
     private notifier: NotifierService
   ) { }
 

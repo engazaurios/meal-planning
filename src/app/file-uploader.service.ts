@@ -26,7 +26,7 @@ export class FileUploaderService {
     return this.request.get(`/attachments/${containerName}/files`);
   }
 
-  getImage(containerName: string, imageName: string) {
+  public getImage(containerName: string, imageName: string) {
     return `${this.request.host}/attachments/${containerName}/download/${imageName}`;
   }
 }

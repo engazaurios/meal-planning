@@ -8,8 +8,6 @@ import {DateHelper} from 'src/app/_helpers/date-helper';
 @Injectable({ providedIn : 'root'})
 export class MenuCalendarService {
 
-  loading = false;
-
   userDayMenusDataChanged = new Subject<any>();
   userUpdatedDayMenusDataChanged = new Subject<any>();
   dayMenuDataChanged = new Subject<any>();
@@ -25,12 +23,9 @@ export class MenuCalendarService {
    * @param endDate End date of the day dayMenus to display.
    */
   getUserDayMenus(userId, startDate, endDate) {
-    this.loading = true;
-
     this.requestService.get(
       `/usermenus/menusperdate/${userId}/${DateHelper.getSlashFormattedDate(startDate)}/${DateHelper.getSlashFormattedDate(endDate)}`
     ).subscribe((data: any) => {
-      this.loading = false;
       this.userDayMenusDataChanged.next(plainToClass(DayMenuModel, data.menus));
     });
   }
@@ -53,13 +48,10 @@ export class MenuCalendarService {
    * Method that gets all the meals ID and Names.
    */
   getDayMenus(startDate, endDate) {
-    this.loading = true;
-
     this.requestService.get(
       `/daymenus/menusperdate/${DateHelper.getSlashFormattedDate(startDate)}/${DateHelper.getSlashFormattedDate(endDate)}`
     )
       .subscribe((dayMenus: any) => {
-        this.loading = false;
         this.dayMenuDataChanged.next(plainToClass(DayMenuModel, dayMenus.menus));
       });
   }
