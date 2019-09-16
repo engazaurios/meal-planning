@@ -94,7 +94,7 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
    * Action to do when next/previous day menu is selected.
    * @param event Event to trigger.
    */
-  protected onSelect(event) {
+  public onSelect(event) {
     if (!this.isAction(event)) {
       this.router.navigate([`/planning/${this.formatDate(event)}`]);
     }
