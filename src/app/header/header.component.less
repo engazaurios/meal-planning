@@ -5,3 +5,47 @@
 .navbar-light .navbar-nav .nav-link {
   color: #002e5a;
 }
+
+.navbar-content {
+  justify-content: space-between;
+  * {
+    text-align: right;
+  }
+}
+
+.navbar-actions {
+
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .navbar-actions {
+    flex-direction: row;
+    justify-content: end;
+    .user-avatar, .user-name {
+      margin-right: 5px;
+    }
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .navbar-actions {
+    flex-direction: row;
+    justify-content: end;
+    .user-avatar, .user-name {
+      margin-right: 5px;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .navbar-actions {
+    flex-direction: row;
+    justify-content: end;
+    .user-avatar, .user-name {
+      margin-right: 5px;
+    }
+  }
+}

@@ -86,6 +86,16 @@ export class User {
         return adminRole ? true : false;
     }
 
+    get isProvider() : boolean {
+        if (!this.roles || !this.roles.length) {
+          return false;
+        }
+
+        let providerRole = this.roles.find(r => r.name === Constants.userTypes.PROVIDER.key);
+
+        return providerRole ? true : false;
+    }
+
     get permissions(): Array<string> {
         const admin = ['canManageUsers'];
         const employee = [];

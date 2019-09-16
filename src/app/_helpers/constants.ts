@@ -23,6 +23,9 @@ export class Constants {
     EMPLOYEE: {
       key: 'employee'
     },
+    PROVIDER: {
+      key: 'provider'
+    },
     GUEST: {
       key: 'guest'
     },

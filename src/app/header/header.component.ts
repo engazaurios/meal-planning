@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services';
 import { Router } from '@angular/router';
-import { User } from '../users/user.model';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,7 +11,6 @@ import { Observable } from 'rxjs';
 export class HeaderComponent implements OnInit {
   title = 'Planificación de Comidas';
 
-  isHeaderCollapsed = true;
   session: Observable<any>;
 
   constructor(
@@ -28,6 +26,20 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login-qr']);
+  }
+
+  get isAdmin() {
+    // @ts-ignore
+    return this.session.user.isAdmin;
+  }
+
+  get isProvider() {
+    // @ts-ignore
+    return this.session.user.isProvider;
+  }
+
+  get isEmployee() {
+    return !this.isAdmin && !this.isProvider;
   }
 
   ngOnInit(): void {
