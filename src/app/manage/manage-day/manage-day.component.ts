@@ -15,8 +15,6 @@ import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple
 import {DateHelper} from '../../_helpers/date-helper';
 import {ManageService} from '../manage.service';
 
-import {plainToClass} from 'class-transformer';
-
 @Component({
   selector: 'app-manage-day',
   templateUrl: './manage-day.component.html',

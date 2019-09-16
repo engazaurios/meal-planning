@@ -5,7 +5,8 @@
 </div>
 
 <div class="modal-body">
-  <form class="col-md"
+  <form *ngIf="meals && categories"
+        class="col-md"
         [formGroup]="formGroup">
     <div class="div-form">
       <label for="newMenuTitle">Título:</label>

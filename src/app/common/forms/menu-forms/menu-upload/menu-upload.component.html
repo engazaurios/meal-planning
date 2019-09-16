@@ -2,7 +2,7 @@
   <h3 class="modal-title">Agrega un nuevo menú al día <b class="text-capitalize">{{formattedDate}}</b></h3>
 </div>
 
-<div class="modal-body text-center">
+<div *ngIf="allMenus && meals && categories" class="modal-body text-center">
 
   <form class="col-md text-left" [formGroup]="uploadMenuFormGroup">
     <div class="div-form">

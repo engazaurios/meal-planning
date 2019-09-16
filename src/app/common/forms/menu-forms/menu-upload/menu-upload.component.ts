@@ -23,7 +23,7 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
   uploadMenuFormGroup: FormGroup;
 
   allMenusDict: any     = {};
-  allMenus: MenuModel[] = [];
+  allMenus: MenuModel[];
 
   constructor(
     protected activeModal: NgbActiveModal,

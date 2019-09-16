@@ -22,6 +22,6 @@ export class MenuListItemComponent implements OnInit {
   }
 
   public getImage(container: string, fileName: string) {
-    this.fileUploaderService.getImage(container, fileName);
+    return this.fileUploaderService.getImage(container, fileName);
   }
 }

@@ -17,8 +17,8 @@ import {FileUploaderService} from '../../../../file-uploader.service';
 })
 export class MenuCreateComponent implements OnInit, OnDestroy {
 
-  categories: CategoryModel[] = [];
-  meals: MealModel[] = [];
+  categories: CategoryModel[];
+  meals: MealModel[];
 
   images: string[] = [];
   imageContainer = Constants.imageContainer;
