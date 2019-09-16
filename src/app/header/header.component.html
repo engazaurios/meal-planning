@@ -12,22 +12,23 @@
 
   <div class="collapse navbar-collapse navbar-content" id="mainNavBar">
     <ul class="navbar-nav">
-      <li *ngIf="isAdmin || isProvider" class="nav-item" data-toggle="collapse" data-target="#mainNavBar">
+      <!--      <li *ngIf="isAdmin || isProvider" class="nav-item" data-toggle="collapse" data-target="#mainNavBar">-->
+      <li *ngIf="isAdmin || isProvider" class="nav-item">
         <a class="nav-link font-italic" routerLink="/manage">Calendario</a>
       </li>
-      <li *ngIf="isAdmin || isProvider" class="nav-item" data-toggle="collapse" data-target="#mainNavBar">
+      <li *ngIf="isAdmin || isProvider" class="nav-item">
         <a class="nav-link font-italic" routerLink="/manage/table">Tabla</a>
       </li>
-      <li *ngIf="isAdmin" class="nav-item" data-toggle="collapse" data-target="#mainNavBar">
+      <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link font-italic" routerLink="/users">Usuarios</a>
       </li>
-      <li *ngIf="isAdmin" class="nav-item" data-toggle="collapse" data-target="#mainNavBar">
+      <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link font-italic" routerLink="/cost-centers">Centros de Costo</a>
       </li>
-      <li *ngIf="isAdmin" class="nav-item" data-toggle="collapse" data-target="#mainNavBar">
+      <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link font-italic" routerLink="/reporting">Reporte</a>
       </li>
-      <li *ngIf="isEmployee" class="nav-item" data-toggle="collapse" data-target="#mainNavBar">
+      <li *ngIf="isEmployee" class="nav-item">
         <a class="nav-link font-italic" routerLink="/">Calendario</a>
       </li>
     </ul>
