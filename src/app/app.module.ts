@@ -41,11 +41,12 @@ import { AlertSimpleComponent } from './common/forms/common-forms/alert-simple/a
 import { MenuViewComponent } from './common/forms/menu-forms/menu-view/menu-view.component';
 import { OverviewFormManageComponent } from './common/forms/overview-form/overview-form-manage/overview-form-manage.component';
 import { OverviewFormPlanningComponent } from './common/forms/overview-form/overview-form-view/overview-form-planning.component';
+import { DepartmentsComponent } from './departments/departments.component';
 import { CostCentersComponent } from './cost-centers/cost-centers.component';
 import { EditCostCenterComponent } from './cost-centers/edit-cost-center/edit-cost-center.component';
 import { ReportingComponent } from './reporting/reporting.component';
 import { LoaderComponent } from './common/loader/loader.component';
-import {LoaderService} from './common/loader/loader.service';
+import { LoaderService } from './common/loader/loader.service';
 
 registerLocaleData (localeEs, 'es-GT', localeEsExtra);
 
@@ -74,6 +75,7 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     MenuViewComponent,
     OverviewFormManageComponent,
     OverviewFormPlanningComponent,
+    DepartmentsComponent,
     CostCentersComponent,
     EditCostCenterComponent,
     ReportingComponent,

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { CostCenter } from './cost-center.model';
 import { CostCentersService } from './cost-centers.service';
 import { EditCostCenterComponent } from './edit-cost-center/edit-cost-center.component';

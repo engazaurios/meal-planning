@@ -14,6 +14,7 @@ import { ManageTableComponent } from './manage/manage-table/manage-table.compone
 import { ManageComponent } from './manage/manage.component';
 import { RoleGuard } from './_helpers/role.guard';
 import { Constants } from './_helpers/constants';
+import { DepartmentsComponent } from './departments/departments.component';
 import { CostCentersComponent } from './cost-centers/cost-centers.component';
 import { ReportingComponent } from './reporting/reporting.component';
 
@@ -83,6 +84,12 @@ const routes: Routes = [
     resolve: {
       model: UserEditResolverService
     },
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
+  },
+  {
+    path: 'departments',
+    component: DepartmentsComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { expectedRoles: Constants.adminUserTypes }
   },

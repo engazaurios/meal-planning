@@ -26,6 +26,10 @@
       </li>
       <li *ngIf="isAdmin" class="nav-item"
           data-toggle="collapse" data-target="#mainNavBar">
+        <a class="nav-link font-italic" routerLink="/departments">Departamentos</a>
+      </li>
+      <li *ngIf="isAdmin" class="nav-item"
+          data-toggle="collapse" data-target="#mainNavBar">
         <a class="nav-link font-italic" routerLink="/cost-centers">Centros de Costo</a>
       </li>
       <li *ngIf="isAdmin" class="nav-item"
