@@ -1,5 +1,7 @@
-@color-loading: #555555;
-@color-base: #4CAF50;
+@color-base: #bdce1d;
+@color-success: #4CAF50;
+@color-error: #F44336;
+@color-loading: #2196F3;
 @font-color: #F5F5F5;
 @circle-width: 300px;
 @circle-height: 300px;
@@ -41,7 +43,7 @@
       border-radius: 50%;
       text-align: center;
       box-shadow: 0 0 8px rgba(0,0,0,.3);
-      animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -.4s infinite;
+      // animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -.4s infinite;
     }
   }
 
@@ -54,7 +56,37 @@
     }
   }
 
-  .content-text {
+  .error {
+    &:before {
+      background-color: @color-error;
+    }
+    &:after {
+      background-color: @color-error;
+    }
+  }
+
+  .success {
+    &:before {
+      background-color: @color-success;
+    }
+    &:after {
+      background-color: @color-success;
+    }
+  }
+
+  .content-text-big {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    box-sizing: border-box;
+    transform: translateX(-50%) translateY(-50%);
+    width: @circle-width * 0.6;
+    text-align: center;
+    color: @font-color;
+    font-size: 70px;
+  }
+
+  .content-text-small {
         position: absolute;
         left: 50%;
         top: 50%;
@@ -63,8 +95,11 @@
         width: @circle-width * 0.6;
         text-align: center;
         color: @font-color;
-        font-size: 40px;
+        font-size: 20px;
     }
+
+
+  
   
   @keyframes pulse-ring {
     0% {

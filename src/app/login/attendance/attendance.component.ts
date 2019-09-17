@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AttendanceService } from './attendance.service';
 import { HostListener } from '@angular/core';
 import { finalize } from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-attendance',
@@ -13,48 +14,114 @@ export class AttendanceComponent implements OnInit {
 
   meal: String;
   key: String;
-  cont: Number;
+  cont: String;
   loading: Boolean;
+  selectedMeal: Object;
+  attendance: Object;
+  attendanceForm: FormGroup;
+  statusClass: String;
+  statusMessage: String;
 
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
-    protected attendanceService: AttendanceService
+    protected attendanceService: AttendanceService,
+    protected formBuilder: FormBuilder
   ) {
     this.meal = "almuerzo";
-    this.cont = 0;
+    this.cont = "0";
     this.loading = false;
+    this.selectedMeal = {};
+    this.attendance = {};
+    this.statusClass = '';
+    this.statusMessage = '';
+  }
+
+  get form() {
+    return this.attendanceForm.controls;
   }
 
   ngOnInit() {
-    this.attendanceService.getCurrentMeal()
+    const todayDate = new Date();
+    this.attendanceForm = this.formBuilder.group({
+      qrCode: ['', Validators.required],
+      date: [this.attendanceService.formatDate(todayDate), Validators.required],
+      hour: [todayDate.getHours(), Validators.required],
+      minute: [todayDate.getMinutes(), Validators.required]
+    });
+
+    this.attendanceService.getAttendance(this.form.date.value, this.form.hour.value, this.form.minute.value)
     .subscribe(data => {
-      this.meal = data['result'].name;
+      console.log('data: ', data);
+      this.meal = (data['result'] && data['result']['selected'].name) || '----';
     }, error => {
       console.log(error);
     });
 
   }
 
-  @HostListener('document:keypress', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) { 
-    this.cont = 0;
+  // @HostListener('document:keypress', ['$event'])
+  // handleKeyboardEvent(event: KeyboardEvent) { 
+  //   this.cont = 0;
+  //   this.loading = true;
+  //   this.attendanceService.attendance({token: "6UYDDbefg7BiGIqQ00aAAouu7uy1DnbzlZ5omFTlfemHblbbYGVLHGzCKsaqP3d6"})
+  //   .pipe(finalize(()=>{
+  //     this.loading = false;
+  //   }))
+  //   .subscribe((data) => {
+  //     if (data['result'].attendance) {
+  //       this.cont = data['result'].attendance;
+  //     }
+  //   }, (error) => {
+  //     console.log(error);
+  //   });
+  // }
+
+  onSubmit() {
+    console.log(this.attendanceForm);
+    if (this.attendanceForm.invalid) {
+      this.showMessage('Codigo invalido', 'error');
+      return;
+    }
     this.loading = true;
-    this.attendanceService.attendance({token: "6UYDDbefg7BiGIqQ00aAAouu7uy1DnbzlZ5omFTlfemHblbbYGVLHGzCKsaqP3d6"})
-    .pipe(finalize(()=>{
+    this.statusMessage = 'Cargando...';
+
+    this.attendanceService.attendance({
+      qrCode: this.form.qrCode.value,
+      date: this.form.date.value,
+      hour: this.form.hour.value,
+      minute: this.form.minute.value
+    }).pipe(finalize(()=>{
       this.loading = false;
-    }))
-    .subscribe((data) => {
-      if (data['result'].attendance) {
-        this.cont = data['result'].attendance;
+    })).subscribe((data) => {
+      if (data['result']) {
+        const result = data['result'];
+        const status = result['status'];
+        if (status === 'SUCCESS') {
+          const selected =  result.selected;
+          if (selected) {
+            this.cont = result.attendance[selected.code];
+          } else {
+            this.cont = "---";
+          }
+        } else {
+          this.showMessage(result.message, status.toLowerCase());
+        }
+        
       }
     }, (error) => {
+      this.showMessage('Ocurrio un error!', 'error');
       console.log(error);
     });
   }
 
-  onSubmit() {
-
+  showMessage(statusMessage: String, statusClass: String) {
+    this.statusMessage = statusMessage;
+    this.statusClass = statusClass;
+    setTimeout(() => {
+      this.statusClass = '';
+      this.statusMessage = '';
+    }, 2000);
   }
 
 }
