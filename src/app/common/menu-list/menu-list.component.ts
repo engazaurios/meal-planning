@@ -4,7 +4,6 @@ import {UserMenuModel} from '../models/user-menu.model';
 import {Constants} from '../../_helpers/constants';
 import {MealModel} from '../models/meal.model';
 import {MenuListService} from './menu-list.service';
-import {NgbTabset} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-menu-list',
