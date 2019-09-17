@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class LoaderService {
 
   isLoading = new Subject<boolean>();
@@ -12,7 +10,7 @@ export class LoaderService {
   }
 
   show() {
-    this.isLoading.next(true);
+    this.isLoading.next(false);
   }
 
   hide() {

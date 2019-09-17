@@ -24,7 +24,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
 
   selectedMenu: MenuModel;
 
-  isApproved = () => this.dayMenu.status === Constants.statusTypes.APPROVED.key;
+  isApproved = () => this.dayMenu && this.dayMenu.status === Constants.statusTypes.APPROVED.key;
   isButtonDisabled = () => this.dayMenu && this.isApproved();
 
   constructor(route: ActivatedRoute,
