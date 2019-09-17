@@ -34,3 +34,6 @@ ssh engazaurio@67.205.147.22 'mv /var/www/trouw-nutrition.com/html/* ~/backup/me
 echo "Copying files to remote."
 # Copies all the files to specified directory
 scp -r dist/meal-planning/* engazaurio@67.205.147.22:/var/www/trouw-nutrition.com/html
+
+echo "Removing ./dist folder"
+rm -rf dist

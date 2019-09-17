@@ -24,8 +24,8 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   minDate: any;
   maxDate: any;
 
-  protected dayMenus: any;
-  protected dayMenusList: DayMenuModel[] = [];
+  dayMenus: any;
+  dayMenusList: DayMenuModel[] = [];
 
   planningServiceSubscription: any;
 
