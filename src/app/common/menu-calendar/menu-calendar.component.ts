@@ -35,6 +35,25 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   isPending   = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.PENDING.key);
 
   isAction    = (date: NgbDate) => DateHelper.getDayOfWeek(this.formatDate(date)) === 6;
+  isActionEnabled(date: NgbDate): boolean {
+    if (!this.isAction(date)) {
+      return false;
+    }
+
+    const actualDate = this.formatDate(date);
+    const actualStartDate = DateHelper.getStartOfType(actualDate, Constants.displayTypes.WEEK);
+    const actualEndDate = DateHelper.getEndOfType(actualDate, Constants.displayTypes.WEEK);
+
+    let actionEnabled = false;
+    for (const d = actualStartDate; d.isBefore(actualEndDate); d.add(1, 'days')) {
+      const status = this.dayMenus[DateHelper.getSimpleFormattedDate(d)];
+      if (status !== undefined && (status === Constants.statusTypes.SENT.key || status === Constants.statusTypes.PENDING.key)) {
+        actionEnabled = true;
+        break;
+      }
+    }
+    return actionEnabled;
+  }
 
   constructor(
     protected planningService: MenuCalendarService,
@@ -179,7 +198,7 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
 
     const menusJson = {};
     for (const dayMenu of dayMenus) {
-      const date = dayMenu.date.format('YYYY/M/D');
+      const date = DateHelper.getSimpleFormattedDate(dayMenu.date);
       menusJson[date] = this.setDayMenuStatus(dayMenu);
     }
     return menusJson;
