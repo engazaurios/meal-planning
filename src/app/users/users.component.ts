@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+
 import { UsersService } from './users.service';
 import { FileUploaderService } from '../file-uploader.service';
-import { User } from './user.model';
+import { User } from '../common/models/user.model';
 
 @Component({
   selector: 'app-users',

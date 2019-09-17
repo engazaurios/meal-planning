@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierService } from 'angular-notifier';
+
 import { CostCentersService } from '../cost-centers.service';
-import { CostCenter } from '../cost-center.model';
+import { CostCenter } from '../../common/models/cost-center.model';
 
 @Component({
   selector: 'app-edit-cost-center',
@@ -13,7 +14,7 @@ import { CostCenter } from '../cost-center.model';
 export class EditCostCenterComponent implements OnInit {
   costCenterForm: FormGroup;
   idEdit: string | null;
-  @ViewChild('content', { static: true }) modal: ElementRef;
+  @ViewChild('modalElm', { static: true }) modal: ElementRef;
 
   constructor(
     private modalService: NgbModal,
@@ -45,13 +46,13 @@ export class EditCostCenterComponent implements OnInit {
   }
 
   onSubmit() {
-    const value = this.costCenterForm.value;
-
-    if (!value.code || !value.name) {
+    if (!this.costCenterForm.valid) {
       this.notifier.notify('error', 'Datos incompletos.');
 
       return;
     }
+
+    const value = this.costCenterForm.value;
 
     const request = this.idEdit
       ? this.costCentersService.update(this.idEdit, value)

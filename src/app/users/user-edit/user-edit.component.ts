@@ -1,15 +1,16 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router, Data } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpEventType } from '@angular/common/http';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NotifierService } from 'angular-notifier';
 
 import { UsersService } from '../users.service';
-import { Department } from '../department.model';
-import { Role } from '../role.model';
-import { User } from '../user.model';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploaderService } from 'src/app/file-uploader.service';
-import { HttpEventType } from '@angular/common/http';
-import { NotifierService } from 'angular-notifier';
+import { User } from '../../common/models/user.model';
+import { Role } from '../../common/models/role.model';
+import { Department } from '../../common/models/department.model';
+import { CostCenter } from '../../common/models/cost-center.model';
 
 @Component({
   selector: 'app-user-edit',
@@ -21,6 +22,7 @@ export class UserEditComponent implements OnInit {
   editMode: boolean;
   userForm: FormGroup;
   departments: Department[];
+  costCenters: CostCenter[];
   roles: Role[];
 
   profilePictureFile: File;
@@ -46,6 +48,7 @@ export class UserEditComponent implements OnInit {
       });
 
     this.departments = this.route.snapshot.data.model.departments;
+    this.costCenters = this.route.snapshot.data.model.costCenters;
     this.roles = this.route.snapshot.data.model.roles;
 
     this.profilePictureFile = null;
@@ -60,6 +63,7 @@ export class UserEditComponent implements OnInit {
       lastName: new FormControl(user.lastName, Validators.required),
       birthdayNgbDate: new FormControl(user.birthdayNgbDate),
       departmentId: new FormControl(user.departmentId, Validators.required),
+      costCenterId: new FormControl(user.costCenterId, Validators.required),
       roleId: new FormControl(user.roleId, Validators.required),
       email: new FormControl(user.email, [Validators.required, Validators.email]),
       username: new FormControl(user.username, Validators.required),
@@ -123,9 +127,9 @@ export class UserEditComponent implements OnInit {
       return;
     }
 
-    var reader = new FileReader();      
+    var reader = new FileReader();
 
-    reader.readAsDataURL(this.profilePictureFile); 
+    reader.readAsDataURL(this.profilePictureFile);
     reader.onload = (_event) => {
       this.profilePicturePreviewUrl = reader.result;
     }

@@ -1,0 +1,30 @@
+<div class="mt-4">
+  <ng-template #customDay let-date let-currentMonth="currentMonth"
+               let-selected="selected" let-disabled="disabled" let-focused="focused">
+      <!--  TODO : Agregar un icono cuando no llego -->
+      <div class="custom-day"
+           [class.bg-primary]="selected"
+           [class.custom-day-out-month]="date.month !== currentMonth"
+           [class.custom-day-na]="isNA(date) && date.month === currentMonth"
+           [class.custom-day-sent]="isSent(date) || isApproved(date)"
+           [class.custom-day-approved]="isApproved(date)"
+           [class.custom-day-pending]="isPending(date)">
+
+        <i *ngIf="isAction(date) && isActionEnabled(date)" (click)="onConfirmWeek(date)"
+           class="fas fa-check-circle custom-day-action"></i>
+        <i *ngIf="isAction(date) && !isActionEnabled(date)"
+           class="fas fa-check-circle custom-day-action custom-day-disabled text-muted"></i>
+        <p *ngIf="!isAction(date)">{{ date.day }}</p>
+
+      </div>
+  </ng-template>
+
+  <ngb-datepicker [maxDate]="maxDate"
+                  [minDate]="minDate"
+                  [displayMonths]="1"
+                  [markDisabled]="isNA || isAction"
+                  [dayTemplate]="customDay"
+                  (select)="onSelect($event)"
+                  (navigate)="onNavigationChanged($event)"
+                  [navigation]="'arrows'"></ngb-datepicker>
+</div>

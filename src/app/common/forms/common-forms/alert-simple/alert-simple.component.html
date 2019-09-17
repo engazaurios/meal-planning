@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{ content.title }}</h3>
+</div>
+
+<div class="modal-body">
+  <p class="lead" [innerHTML]="content.description"></p>
+</div>
+
+<div class="modal-footer">
+  <button *ngIf="content.cancelText !== ''"
+          type="button" class="btn btn-danger"
+          (click)="activeModal.dismiss(false)">{{ content.cancelText }}</button>
+  <button *ngIf="content.confirmationText !== ''"
+          type="button" ngbAutofocus class="btn btn-success"
+          (click)="activeModal.close(true)">{{ content.confirmationText }}</button>
+</div>

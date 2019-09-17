@@ -96,6 +96,31 @@
       <div class="form-group">
         <div class="row">
           <div class="col-sm-3">
+            <label for="costCenterId">Centro de Costo</label>
+          </div>
+          <div class="col-sm-9">
+            <select
+              id="costCenterId"
+              class="form-control"
+              formControlName="costCenterId">
+              <option value="">Selecciona una opción</option>
+              <option value="{{costCenter.id}}" *ngFor="let costCenter of costCenters">
+                {{costCenter.name}}
+              </option>
+            </select>
+
+            <div
+              *ngIf="!userForm.get('costCenterId').valid && userForm.get('costCenterId').touched"
+              class="error-message small">
+              Campo requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
             <label for="roleId">Rol</label>
           </div>
           <div class="col-sm-9">

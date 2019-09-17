@@ -21,4 +21,12 @@ export class FileUploaderService {
       observe: 'events'
     });
   }
+
+  getImages(containerName: string) {
+    return this.request.get(`/attachments/${containerName}/files`);
+  }
+
+  public getImage(containerName: string, imageName: string) {
+    return `${this.request.host}/attachments/${containerName}/download/${imageName}`;
+  }
 }

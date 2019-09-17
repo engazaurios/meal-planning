@@ -1,0 +1,12 @@
+<div class="planning-detail-card">
+  <div [class.planning-detail-selected]="isSelected" class="card-header clickable d-flex planning-detail-card-header">
+    <b>{{menu.title}}</b>
+    <span class="float-md-right badge badge-pill align-self-center planning-detail-category-{{menu.category.code}}">
+      {{menu.category.name}}
+    </span>
+  </div>
+  <div [class.planning-detail-selected-description]="isSelected" class="card-body clickable bold font-italic text-center">
+    <img class="planning-detail-card-image" src="{{getImage(imageContainer, menu.image)}}">
+    <p class="card-text">{{menu.description}}</p>
+  </div>
+</div>

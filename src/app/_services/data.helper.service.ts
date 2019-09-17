@@ -1,6 +1,5 @@
 import { Data } from '@angular/router';
-import { User } from '../users/user.model';
-import { Department } from '../users/department.model';
+import { User } from '../common/models/user.model';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
@@ -31,7 +30,7 @@ export class DataHelperService {
 
       if (key === 'birthday') {
         let birthday = moment(data[key]);
-        
+
         if (birthday.isValid()) {
           user['birthday'] = birthday.toDate();
           user['birthdayNgbDate'] = new NgbDate(

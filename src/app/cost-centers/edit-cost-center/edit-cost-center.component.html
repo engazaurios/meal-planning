@@ -1,7 +1,7 @@
-<ng-template #content let-modal>
+<ng-template #modalElm let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Centro de costo</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <h4 class="modal-title">{{ idEdit ? 'Editar' : 'Crear'}} centro de costo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

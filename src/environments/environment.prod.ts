@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  host: 'http://67.205.147.22:3000/api'
 };
