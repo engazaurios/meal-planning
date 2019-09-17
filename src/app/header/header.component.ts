@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../_services';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { AuthenticationService } from '../_services';
 
 @Component({
   selector: 'app-header',

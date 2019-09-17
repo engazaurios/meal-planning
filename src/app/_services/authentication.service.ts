@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
-import { RequestService } from './request.service';
 
+import { RequestService } from './request.service';
 import { DataHelperService } from './data.helper.service';
-import { User } from '../users/user.model';
 
 interface LoginResponse {
   id: string,

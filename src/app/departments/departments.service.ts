@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { RequestService } from '../_services/request.service';
 import { DataHelperService } from '../_services/data.helper.service';
-import { Department } from '../users/department.model';
+import { Department } from '../common/models/department.model';
 
 @Injectable({
   providedIn: 'root'

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { DepartmentsService } from './departments.service';
-import { Department } from '../users/department.model';
+import { Department } from '../common/models/department.model';
 import { EditDepartmentComponent } from './edit-department/edit-department.component';
 
 @Component({

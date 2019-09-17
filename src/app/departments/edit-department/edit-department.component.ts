@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierService } from 'angular-notifier';
 
 import { DepartmentsService } from '../departments.service';
-import { Department } from 'src/app/users/department.model';
+import { Department } from '../../common/models/department.model';
 
 @Component({
   selector: 'app-edit-department',

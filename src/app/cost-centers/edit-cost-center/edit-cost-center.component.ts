@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierService } from 'angular-notifier';
 
 import { CostCentersService } from '../cost-centers.service';
-import { CostCenter } from '../cost-center.model';
+import { CostCenter } from '../../common/models/cost-center.model';
 
 @Component({
   selector: 'app-edit-cost-center',

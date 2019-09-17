@@ -1,8 +1,8 @@
 import { Department } from './department.model';
-import { CostCenter } from '../cost-centers/cost-center.model';
+import { CostCenter } from './cost-center.model';
 import { Role } from './role.model';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import {Constants} from '../_helpers/constants';
+import { Constants } from '../../_helpers/constants';
 
 
 export class User {
