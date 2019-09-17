@@ -4,14 +4,16 @@
     [actualDate]="actualDate"
     [userMenu]="userMenu"></app-menu-list-header>
 
-  <ngb-tabset [activeId]="defaultTab" *ngIf="showItems" [justify]="'justified'" class="overflow-auto" (tabChange)="onTabChanged($event)">
-    <ngb-tab *ngFor="let meal of this.mealConstants" id="{{getMealIDByCode(meal)}}">
+  <ngb-tabset [activeId]="defaultTab" *ngIf="showItems" [justify]="'justified'" class="overflow-auto"
+              (tabChange)="onTabChanged($event)">
+    <ngb-tab *ngFor="let meal of mealConstants" id="{{getMealIDByCode(meal)}}">
       <ng-template ngbTabTitle>
         <b><i>{{ getMealNameByCode(meal) }}</i></b>
       </ng-template>
       <ng-template ngbTabContent>
         <div class="mt-md-4 card-deck">
-          <div class="d-flex card text-left planning-detail" *ngFor="let menu of dayMenu.getMealsByMealCode(meal); let i = index"
+          <div class="d-flex card text-left planning-detail"
+               *ngFor="let menu of dayMenu.getMealsByMealCode(meal); let i = index"
                (click)="onMenuClicked(menu)">
             <app-menu-item [menu]="menu" [isSelected]="isSelected(menu)"></app-menu-item>
           </div>

@@ -44,15 +44,17 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
     const actualStartDate = DateHelper.getStartOfType(actualDate, Constants.displayTypes.WEEK);
     const actualEndDate = DateHelper.getEndOfType(actualDate, Constants.displayTypes.WEEK);
 
-    let actionEnabled = false;
     for (const d = actualStartDate; d.isBefore(actualEndDate); d.add(1, 'days')) {
+      if (this.dayMenus === undefined || this.dayMenus === null) {
+        return false;
+      }
       const status = this.dayMenus[DateHelper.getSimpleFormattedDate(d)];
-      if (status !== undefined && (status === Constants.statusTypes.SENT.key || status === Constants.statusTypes.PENDING.key)) {
-        actionEnabled = true;
-        break;
+      if (status !== undefined && status !== null
+        && (status === Constants.statusTypes.SENT.key || status === Constants.statusTypes.PENDING.key)) {
+        return true;
       }
     }
-    return actionEnabled;
+    return false;
   }
 
   constructor(
