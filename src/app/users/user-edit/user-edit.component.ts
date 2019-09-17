@@ -1,16 +1,16 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router, Data } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpEventType } from '@angular/common/http';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NotifierService } from 'angular-notifier';
 
 import { UsersService } from '../users.service';
-import { Department } from '../department.model';
-import { Role } from '../role.model';
-import { User } from '../user.model';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { FileUploaderService } from 'src/app/file-uploader.service';
-import { HttpEventType } from '@angular/common/http';
-import { NotifierService } from 'angular-notifier';
-import { CostCenter } from 'src/app/cost-centers/cost-center.model';
+import { User } from '../../common/models/user.model';
+import { Role } from '../../common/models/role.model';
+import { Department } from '../../common/models/department.model';
+import { CostCenter } from '../../common/models/cost-center.model';
 
 @Component({
   selector: 'app-user-edit',
@@ -127,9 +127,9 @@ export class UserEditComponent implements OnInit {
       return;
     }
 
-    var reader = new FileReader();      
+    var reader = new FileReader();
 
-    reader.readAsDataURL(this.profilePictureFile); 
+    reader.readAsDataURL(this.profilePictureFile);
     reader.onload = (_event) => {
       this.profilePicturePreviewUrl = reader.result;
     }

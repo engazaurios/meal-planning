@@ -5,14 +5,7 @@
 </div>
 
 <div class="modal-body">
-
-  <div *ngIf="menuFormsService.loading"
-       class="spinner-grow text-info mt-5"
-       role="status">
-    <span class="sr-only">Cargando...</span>
-  </div>
-
-  <form *ngIf="!menuFormsService.loading"
+  <form *ngIf="meals && categories"
         class="col-md"
         [formGroup]="formGroup">
     <div class="div-form">

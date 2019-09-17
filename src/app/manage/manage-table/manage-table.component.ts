@@ -46,7 +46,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private modalService: NgbModal,
-    public manageDayService: ManageService,
+    private manageDayService: ManageService,
     private notifier: NotifierService
   ) { }
 
@@ -66,6 +66,10 @@ export class ManageTableComponent implements OnInit, OnDestroy {
 
     this.startDate = DateHelper.getStartOfType(this.actualDate, this.tableDisplayType);
     this.endDate = DateHelper.getEndOfType(this.actualDate, this.tableDisplayType);
+
+    if (this.tableDisplayType === Constants.displayTypes.DAY) {
+      this.endDate = this.endDate.add(1, 'day');
+    }
 
     this.manageDayService.getDayMenus(this.startDate, this.endDate);
     const dayMenusSubs = this.manageDayService.dayMenuDataChanged.subscribe((dayMenus: DayMenuModel[]) => {

@@ -5,12 +5,12 @@ import { map } from 'rxjs/operators';
 
 import { RequestService } from '../_services/request.service';
 import { DataHelperService } from '../_services/data.helper.service';
-import { CostCenter } from '../common/models/cost-center.model';
+import { Department } from '../common/models/department.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CostCentersService {
+export class DepartmentsService {
   listChanged = new Subject<boolean>();
 
   constructor(
@@ -19,25 +19,25 @@ export class CostCentersService {
   ) {}
 
   fetchAll() {
-    return this.request.get('/CostCenters')
-      .pipe(map((costCenters: Data[]) =>
-        this.dataHelper.createModelArray(CostCenter, costCenters)
+    return this.request.get('/Departments')
+      .pipe(map((departments: Data[]) =>
+        this.dataHelper.createModelArray(Department, departments)
       ));
   }
 
   create(costCenterDef: Data) {
-    return this.request.post('/CostCenters', costCenterDef);
+    return this.request.post('/Departments', costCenterDef);
   }
 
   fetchById(id: string) {
-    return this.request.get(`/CostCenters/${id}`);
+    return this.request.get(`/Departments/${id}`);
   }
 
   update(id: string, updates: Data) {
-    return this.request.patch(`/CostCenters/${id}`, updates);
+    return this.request.patch(`/Departments/${id}`, updates);
   }
 
   delete(id: string) {
-    return this.request.delete(`/CostCenters/${id}`);
+    return this.request.delete(`/Departments/${id}`);
   }
 }

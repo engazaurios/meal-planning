@@ -43,7 +43,7 @@ export class ManageCalendarComponent extends MenuCalendarComponent implements On
    * Action to do when next/previous day menu is selected.
    * @param event Event to trigger.
    */
-  protected onSelect(event) {
+  public onSelect(event) {
     if (!this.isAction(event)) {
       this.router.navigate([`/manage/${this.formatDate(event)}`]);
     }

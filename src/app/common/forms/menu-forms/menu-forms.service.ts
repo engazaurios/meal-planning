@@ -10,8 +10,6 @@ import {DateHelper} from 'src/app/_helpers/date-helper';
 @Injectable({providedIn: 'root'})
 export class MenuFormsService extends MenuListService {
 
-  allMenusLoading = false;
-  dayMenuLoading = false;
   menusDataChanged = new Subject<MenuModel[]>();
   dayMenuDataChanged = new Subject<DayMenuModel>();
 
@@ -25,9 +23,7 @@ export class MenuFormsService extends MenuListService {
    * Method that gets all the menu objects.
    */
   getAllMenus() {
-    this.allMenusLoading = true;
     this.requestService.get('/menus').subscribe((menus: MenuModel[]) => {
-      this.allMenusLoading = false;
       this.menusDataChanged.next(menus);
     });
   }
@@ -37,7 +33,6 @@ export class MenuFormsService extends MenuListService {
    * @param actualDate Actual date to create.
    */
   createDayMenu(actualDate) {
-    this.dayMenuLoading = true;
     return this.requestService.post(
       '/daymenus', {date: DateHelper.getSlashFormattedDate(actualDate), status: Constants.statusTypes.PENDING.key}
     )
@@ -52,10 +47,7 @@ export class MenuFormsService extends MenuListService {
    */
   deleteDayMenu(dayMenu: DayMenuModel) {
     console.log(dayMenu);
-    this.dayMenuLoading = true;
-    this.requestService.delete(`/daymenus/${dayMenu.id}`, {}).subscribe((response) => {
-      this.dayMenuLoading = false;
-    });
+    this.requestService.delete(`/daymenus/${dayMenu.id}`, {}).subscribe((response) => {});
   }
 
   /**
@@ -63,7 +55,6 @@ export class MenuFormsService extends MenuListService {
    * @param menu Menu to create.
    */
   createMenu(menu: MenuModel) {
-    this.loading = true;
     return this.requestService.post('/menus', menu.toJson());
   }
 
@@ -73,7 +64,6 @@ export class MenuFormsService extends MenuListService {
    * @param menu Menu to add.
    */
   uploadMenu(dayMenu: DayMenuModel, menu: MenuModel) {
-    this.loading = true;
     return this.requestService.put(`/daymenus/${dayMenu.id}/menus/rel/${menu.id}`);
   }
 

@@ -34,11 +34,17 @@ export class RoleGuard implements CanActivate {
       }
     }
 
+    // TODO : verify when there's no role
+    // TODO : redirect to 404 if it is not an expected role.
+
     if (!isExpectedRole) {
       if (actualRoles.find(r => r.name === Constants.userTypes.ADMIN.key)) {
+        this.router.navigate(['/users']);
+      } else if (actualRoles.find(r => r.name === Constants.userTypes.PROVIDER.key)) {
         this.router.navigate(['/manage']);
       } else {
         this.router.navigate(['/']);
+        isExpectedRole = actualRoles.length > 0;
       }
     }
     return isExpectedRole;

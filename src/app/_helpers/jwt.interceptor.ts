@@ -2,6 +2,8 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../_services';
 import { Observable } from 'rxjs';
+import {LoaderService} from '../common/loader/loader.service';
+import {finalize} from 'rxjs/operators';
 
 /**
  * Injectable typescript that handles the responses/requests from the API server.
@@ -9,7 +11,8 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private authenticationService: AuthenticationService,
+              private loaderService: LoaderService) {}
 
   /**
    * Method that intercepts the request and sends the authentication token.
@@ -19,6 +22,8 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const currentUser = this.authenticationService.currentUserValue;
 
+    this.loaderService.show();
+
     // WARNING: currentUser.id is really the token.
     if (currentUser && currentUser.id) {
       req = req.clone({
@@ -27,7 +32,10 @@ export class JwtInterceptor implements HttpInterceptor {
         }
       });
     }
-    return next.handle(req);
+
+    return next.handle(req).pipe(
+      finalize(() => this.loaderService.hide())
+    );
   }
 
 }

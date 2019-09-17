@@ -15,9 +15,13 @@ export class MenuListItemComponent implements OnInit {
   imageContainer = Constants.imageContainer;
 
   constructor(
-    public fileUploaderService: FileUploaderService
+    protected fileUploaderService: FileUploaderService
   ) { }
 
   ngOnInit() {
+  }
+
+  public getImage(container: string, fileName: string) {
+    return this.fileUploaderService.getImage(container, fileName);
   }
 }

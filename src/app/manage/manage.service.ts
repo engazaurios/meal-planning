@@ -22,13 +22,10 @@ export class ManageService extends PlanningDayService {
    * Method that gets all the meals ID and Names.
    */
   getDayMenus(startDate, endDate) {
-    this.loading = true;
-
     this.requestService.get(
       `/daymenus/menusperdate/${DateHelper.getSlashFormattedDate(startDate)}/${DateHelper.getSlashFormattedDate(endDate)}`
     )
       .subscribe((dayMenus: any) => {
-        this.loading = false;
         this.dayMenuDataChanged.next(plainToClass(DayMenuModel, dayMenus.menus));
       });
   }

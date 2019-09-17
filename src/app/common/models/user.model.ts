@@ -1,8 +1,8 @@
 import { Department } from './department.model';
-import { CostCenter } from '../cost-centers/cost-center.model';
+import { CostCenter } from './cost-center.model';
 import { Role } from './role.model';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import {Constants} from '../_helpers/constants';
+import { Constants } from '../../_helpers/constants';
 
 
 export class User {
@@ -84,6 +84,16 @@ export class User {
         let adminRole = this.roles.find(r => r.name === Constants.userTypes.ADMIN.key);
 
         return adminRole ? true : false;
+    }
+
+    get isProvider() : boolean {
+        if (!this.roles || !this.roles.length) {
+          return false;
+        }
+
+        let providerRole = this.roles.find(r => r.name === Constants.userTypes.PROVIDER.key);
+
+        return providerRole ? true : false;
     }
 
     get permissions(): Array<string> {

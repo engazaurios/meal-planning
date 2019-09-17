@@ -7,8 +7,6 @@ import {CategoryModel} from '../models/category.model';
 @Injectable({ providedIn : 'root'})
 export class MenuListService {
 
-  loading = false;
-
   mealDataChanged = new Subject<MealModel[]>();
   categoriesDataChanged = new Subject<CategoryModel[]>();
 
@@ -20,10 +18,7 @@ export class MenuListService {
    * Method that gets all the meals ID and Names.
    */
   getMeals() {
-    this.loading = true;
-
     this.requestService.get('/meals').subscribe((meals: MealModel[]) => {
-      this.loading = false;
       this.mealDataChanged.next(meals);
     });
   }
@@ -32,10 +27,7 @@ export class MenuListService {
    * Method that gets all the categories ID and Names.
    */
   getCategories() {
-    this.loading = true;
-
     this.requestService.get('/categories').subscribe((categories: CategoryModel[]) => {
-      this.loading = false;
       this.categoriesDataChanged.next(categories);
     });
   }

@@ -8,8 +8,6 @@ import {MenuModel} from 'src/app/common/models/menu.model';
 @Injectable({providedIn: 'root'})
 export class PlanningDayService {
 
-  loading = false;
-
   dayMenuDataChanged = new Subject<any>();
 
   constructor(
@@ -23,13 +21,10 @@ export class PlanningDayService {
    * @param date DateHelper to retrieve.
    */
   getDayMenu(userId, date) {
-    this.loading = true;
-
     date = DateHelper.getSlashFormattedDate(date);
     this.requestService.get(
       `/usermenus/menusperdate/${userId}/${date}/${date}`
     ).subscribe((dayMenuJson: any) => {
-      this.loading = false;
       this.dayMenuDataChanged.next(dayMenuJson.menus[0]);
     });
   }
@@ -41,7 +36,6 @@ export class PlanningDayService {
    * @param menusValue Meals to save.
    */
   postMenus(userIdValue, dateValue, menusValue) {
-    this.loading = true;
     return this.requestService.post('/usermenus/savemenus', {
       userId: userIdValue,
       date: DateHelper.getSlashFormattedDate(dateValue),

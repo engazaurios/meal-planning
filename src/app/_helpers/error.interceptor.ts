@@ -2,7 +2,8 @@ import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent} from '@angular/com
 import {Injectable} from '@angular/core';
 import {AuthenticationService} from '../_services';
 import {Observable, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {catchError, finalize} from 'rxjs/operators';
+import {LoaderService} from '../common/loader/loader.service';
 
 /**
  * Injectable typescript that handles the error messages.
@@ -10,7 +11,8 @@ import {catchError} from 'rxjs/operators';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,
+              private loaderService: LoaderService) {
   }
 
   /**
@@ -25,8 +27,12 @@ export class ErrorInterceptor implements HttpInterceptor {
         location.reload();
       }
 
+      this.loaderService.show();
+
       const error = err.error.message || err.statusText;
-      return throwError(error);
+      return throwError(error).pipe(
+        finalize(() => this.loaderService.hide())
+      );
     }));
   }
 

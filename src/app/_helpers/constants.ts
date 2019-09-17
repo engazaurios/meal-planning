@@ -23,12 +23,16 @@ export class Constants {
     EMPLOYEE: {
       key: 'employee'
     },
+    PROVIDER: {
+      key: 'provider'
+    },
     GUEST: {
       key: 'guest'
     },
   };
 
   public static adminUserTypes = [Constants.userTypes.ADMIN.key];
+  public static providerUserTypes = [Constants.userTypes.PROVIDER.key];
   public static nonAdminUserTypes = [Constants.userTypes.EMPLOYEE.key, Constants.userTypes.GUEST.key];
 
   /**

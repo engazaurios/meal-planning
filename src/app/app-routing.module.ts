@@ -14,6 +14,7 @@ import { ManageTableComponent } from './manage/manage-table/manage-table.compone
 import { ManageComponent } from './manage/manage.component';
 import { RoleGuard } from './_helpers/role.guard';
 import { Constants } from './_helpers/constants';
+import { DepartmentsComponent } from './departments/departments.component';
 import { CostCentersComponent } from './cost-centers/cost-centers.component';
 import { ReportingComponent } from './reporting/reporting.component';
 import { AttendanceComponent } from './login/attendance/attendance.component';
@@ -53,19 +54,19 @@ const routes: Routes = [
     path: 'manage',
     component: ManageComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { expectedRoles: Constants.adminUserTypes }
+    data: { expectedRoles: Constants.providerUserTypes }
   },
   {
     path: 'manage/table',
     component: ManageTableComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { expectedRoles: Constants.adminUserTypes }
+    data: { expectedRoles: Constants.providerUserTypes }
   },
   {
     path: 'manage/:year/:month/:day',
     component: ManageDayComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { expectedRoles: Constants.adminUserTypes }
+    data: { expectedRoles: Constants.providerUserTypes }
   },
   {
     path: 'users',
@@ -92,13 +93,23 @@ const routes: Routes = [
     data: { expectedRoles: Constants.adminUserTypes }
   },
   {
+    path: 'departments',
+    component: DepartmentsComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
+  },
+  {
     path: 'cost-centers',
     component: CostCentersComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
   },
   {
     path: 'reporting',
     component: ReportingComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
+
   },
   {
     path: '**',

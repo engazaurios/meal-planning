@@ -17,8 +17,8 @@ import {FileUploaderService} from '../../../../file-uploader.service';
 })
 export class MenuCreateComponent implements OnInit, OnDestroy {
 
-  categories: CategoryModel[] = [];
-  meals: MealModel[] = [];
+  categories: CategoryModel[];
+  meals: MealModel[];
 
   images: string[] = [];
   imageContainer = Constants.imageContainer;
@@ -31,7 +31,7 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
   constructor(
     protected activeModal: NgbActiveModal,
     protected formBuilder: FormBuilder,
-    public menuFormsService: MenuFormsService,
+    protected menuFormsService: MenuFormsService,
     protected fileUploaderService: FileUploaderService
   ) {
     this.formGroup = this.formBuilder.group({
@@ -85,7 +85,6 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
     );
 
     this.menuFormsService.createMenu(newMenu).subscribe((createMenuResponse) => {
-      this.menuFormsService.loading = false;
       this.activeModal.close(plainToClass(MenuModel, createMenuResponse));
     });
   }

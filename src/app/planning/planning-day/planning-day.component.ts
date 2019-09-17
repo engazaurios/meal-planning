@@ -37,7 +37,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     protected route: ActivatedRoute,
     protected router: Router,
     protected authenticationService: AuthenticationService,
-    public planningDetailService: PlanningDayService,
+    protected planningDetailService: PlanningDayService,
     protected modalService: NgbModal,
     protected readonly notifier: NotifierService
   ) {
@@ -101,7 +101,6 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     const postMenuSubscription = this.planningDetailService.postMenus(
       this.currentUser.userId, this.userMenu.date, menuIds
     ).subscribe((response: any) => {
-      this.planningDetailService.loading = false;
       if (response.result.status === 'OK') {
         this.router.navigate(['/']).then(() => {
           this.notifier.hideAll();

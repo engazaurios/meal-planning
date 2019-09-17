@@ -8,8 +8,9 @@ import { NotifierService } from 'angular-notifier';
 
 import { UsersService } from '../users/users.service';
 import { ReportingServie } from './reporting.service';
-import { User } from '../users/user.model';
-import { CostCenter } from '../users/cost-center.model';
+import { CostCentersService } from '../cost-centers/cost-centers.service';
+import { User } from '../common/models/user.model';
+import { CostCenter } from '../common/models/cost-center.model';
 
 @Component({
   selector: 'app-reporting',
@@ -39,6 +40,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
   constructor(
     private reporting: ReportingServie,
     private usersService: UsersService,
+    private costCentersService: CostCentersService,
     private notifier: NotifierService
   ) {
     const startMonth = moment().startOf('month');
@@ -71,7 +73,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
         this.allUsers = users;
       });
 
-    this.usersService.fetchCostCenters()
+    this.costCentersService.fetchAll()
       .subscribe((costCenters: CostCenter[]) => {
         this.allCostCenters = costCenters;
       });
