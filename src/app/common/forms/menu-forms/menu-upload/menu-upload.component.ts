@@ -101,7 +101,9 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
    * @param menu Menu to upload.
    */
   private uploadMenu(menu: MenuModel) {
+    this.isUploading = true;
     this.menuFormsService.uploadMenu(this.dayMenu, menu).subscribe((uploadMenuResponse) => {
+      this.isUploading = false;
       this.activeModal.close(menu);
     });
   }

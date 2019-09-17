@@ -42,7 +42,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
   isPublished     = (status: string) => status === Constants.statusTypes.APPROVED.key;
   statusText      = (status: string) => Constants.statusTypes[`${status.toUpperCase()}`].message;
 
-  isActionDisabled = (dayMenu: DayMenuModel) => dayMenu.status === Constants.statusTypes.APPROVED.key;
+  isActionDisabled = (dayMenu: DayMenuModel) => dayMenu && dayMenu.status === Constants.statusTypes.APPROVED.key;
 
   constructor(
     private modalService: NgbModal,
