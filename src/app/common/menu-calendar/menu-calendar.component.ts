@@ -64,8 +64,6 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.minDate = JSON.parse(this.startOfWeek.format('{["year"]:YYYY, ["month"]:M, ["day"]:D}'));
     this.maxDate = JSON.parse(this.endOfWeek.format('{["year"]:YYYY, ["month"]:M, ["day"]:D}'));
-
-    this.getDayMenus();
   }
 
   /**
@@ -107,6 +105,20 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
     });
 
     this.planningService.getUpdatedUserMenu(this.currentUser.userId, startOfWeek.toISOString(), endOfWeek.toISOString());
+  }
+
+  /**
+   * Action to do when next/previous month is selected
+   * @param event Event to trigger.
+   */
+  public onNavigationChanged(event) {
+    const date = event.next;
+    this.actualMonth = `${date.year}/${date.month}/01`;
+
+    this.startOfWeek = DateHelper.getStartOfType(this.actualMonth, Constants.displayTypes.MONTH).subtract(7, 'days');
+    this.endOfWeek = DateHelper.getEndOfType(this.actualMonth, Constants.displayTypes.MONTH).add(7, 'days');
+
+    this.getDayMenus();
   }
 
   /**

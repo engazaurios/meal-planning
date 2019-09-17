@@ -1,4 +1,4 @@
-<div class="mt-4" *ngIf="dayMenus">
+<div class="mt-4">
   <ng-template #customDay let-date let-currentMonth="currentMonth"
                let-selected="selected" let-disabled="disabled" let-focused="focused">
       <!--  TODO : Agregar un icono cuando no llego -->
@@ -25,5 +25,6 @@
                   [markDisabled]="isNA || isAction"
                   [dayTemplate]="customDay"
                   (select)="onSelect($event)"
+                  (navigate)="onNavigationChanged($event)"
                   [navigation]="'arrows'"></ngb-datepicker>
 </div>

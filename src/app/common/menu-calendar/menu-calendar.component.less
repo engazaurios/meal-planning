@@ -65,6 +65,17 @@ div.ngb-dp-weekday {
   height: 40%;
 }
 
+@keyframes fade {
+  0% {
+    filter: alpha(opacity=0);
+    opacity: 0;
+  }
+  100% {
+    filter: alpha(opacity=100);
+    opacity: 1;
+  }
+}
+
 @gray-color: #dfdfdf;
 
 .custom-day {
@@ -79,6 +90,8 @@ div.ngb-dp-weekday {
   border-style: solid;
   border-width: 1px;
   border-color: white;
+
+  animation: fade 2s 1;
 
   &:hover {
     background-color: @gray-color;
