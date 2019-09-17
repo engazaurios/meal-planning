@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import {LoaderService} from './loader.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-loader',
@@ -14,12 +15,13 @@ export class LoaderComponent implements OnInit, OnDestroy {
   isLoadingSubscription: any;
 
   constructor(
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit() {
     this.isLoadingSubscription = this.loaderService.isLoading.subscribe((loading: boolean) => {
-      this.isLoading = loading;
+      this.isLoading = loading && !this.modalService.hasOpenModals();
     });
   }
 

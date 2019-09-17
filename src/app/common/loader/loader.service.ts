@@ -10,7 +10,7 @@ export class LoaderService {
   }
 
   show() {
-    this.isLoading.next(false);
+    this.isLoading.next(true);
   }
 
   hide() {
