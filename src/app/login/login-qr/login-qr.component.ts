@@ -43,4 +43,7 @@ export class LoginQrComponent extends LoginComponent implements OnInit {
       });
   }
 
+  backToLogin() {
+    this.router.navigate(['/login']);
+  }
 }

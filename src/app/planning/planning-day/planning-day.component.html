@@ -1,0 +1,22 @@
+<div class="text-center mt-4">
+  <app-menu-list
+    (dateChanged)="onDateChanged($event)"
+    (itemClickedEvent)="onItemClicked($event)"
+
+    [showHeader]="userMenuExists"
+    [showItems]="dayMenuExists && userMenuExistsAndAvailable"
+
+    [currentUser]="currentUser"
+    [selectedMenus]="this.selectedMenus"
+
+    [actualDate]="actualDate"
+    [dayMenu]="dayMenu"
+    [userMenu]="userMenu">
+  </app-menu-list>
+
+  <button class="btn btn-primary btn-lg float-md-right mt-md-3 btn-static font-weight-bold"
+          (click)="validateUploadMenus()"
+          [class.btn-static-ready]="!isButtonDisabled()"
+          [disabled]="isButtonDisabled()">Enviar</button>
+
+</div>

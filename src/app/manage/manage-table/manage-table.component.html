@@ -1,0 +1,76 @@
+<div class="table-content">
+  <div *ngFor="let dayMenu of dayMenus" class="card m-lg-4 day-content">
+    <div class="card-body">
+      <h3 class="text-capitalize day-information">
+        {{ getActualDate(dayMenu) }}
+        <small class="float-right"
+               [class.planning-detail-available]="isAvailable(dayMenu.status)"
+               [class.planning-detail-pending]="isPending(dayMenu.status)"
+               [class.planning-detail-published]="isPublished(dayMenu.status)">{{ statusText(dayMenu.status) }}</small>
+      </h3>
+
+      <table class="table table-responsive-md">
+        <thead><tr>
+          <th scope="col">#</th>
+          <th scope="col" *ngFor="let header of tableHeader">
+            {{header.title}} <i class="fas fa-sort action-hover" (click)="sortData(dayMenu.menus, header.id)"></i>
+          </th>
+          <th scope="col"></th>
+        </tr></thead>
+        <tbody>
+        <tr>
+          <td colspan="6" class="text-center" (click)="onCreateAndAddMenuClick(dayMenu)"
+              [class.icon-hover]="!isActionDisabled(dayMenu)">
+            <b><i>Crea y agrega un nuevo menú</i></b>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" class="text-center" (click)="onUploadMenuClick(dayMenu)"
+              [class.icon-hover]="!isActionDisabled(dayMenu)">
+            <b><i>Agrega un nuevo menú</i></b>
+          </td>
+        </tr>
+        <tr *ngFor="let menu of dayMenu.menus; let i = index">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{menu.title}}</td>
+          <td>{{menu.meal.name}}</td>
+          <td>{{menu.category.name}}</td>
+          <td><i class="fas fa-eye action-hover" (click)="onViewMenuClick(menu)"></i></td>
+          <td><i class="fas fa-trash-alt" (click)="onDeleteMenuClick(dayMenu, menu)"
+                 [class.action-hover]="!isActionDisabled(dayMenu)"></i></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="btn-group fixed-bottom actions-group" role="group">
+
+  <button type="button" class="btn btn-secondary" (click)="getPreviousDate()">Anterior {{tableDisplayType.title}}</button>
+  <div class="btn-group" role="group">
+    <button type="button" id="buttonDisplayType"
+            class="btn btn-info dropdown-toggle text-capitalize text-wrap" data-toggle="dropdown">
+      {{ getActualDateRange }}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="buttonDisplayType">
+      <span class="dropdown-item icon-disabled"><b>Mostrar como:</b></span>
+      <a class="dropdown-item icon-hover" (click)="displayData(tableDisplayValues.DAY)">{{ tableDisplayValues.DAY.title }}</a>
+      <a class="dropdown-item icon-hover" (click)="displayData(tableDisplayValues.WEEK)">{{ tableDisplayValues.WEEK.title }}</a>
+      <a class="dropdown-item icon-hover" (click)="displayData(tableDisplayValues.MONTH)">{{ tableDisplayValues.MONTH.title }}</a>
+      <a class="dropdown-item icon-hover" (click)="displayData(tableDisplayValues.YEAR)">{{ tableDisplayValues.YEAR.title }}</a>
+    </div>
+  </div>
+  <button type="button" class="btn btn-secondary" (click)="getNextDate()">Siguiente {{tableDisplayType.title}}</button>
+
+  <div class="btn-group" role="group">
+    <button type="button" id="buttonActions" class="btn btn-info dropdown-toggle text-capitalize" data-toggle="dropdown">
+    </button>
+    <div class="dropdown-menu" aria-labelledby="buttonActions">
+      <a class="dropdown-item icon-hover" (click)="onCreateMenuClick()">Crear menú</a>
+      <a *ngIf="tableDisplayType === tableDisplayValues.WEEK"
+         class="dropdown-item icon-hover" (click)="onPublishWeek()">Publicar Semana</a>
+    </div>
+  </div>
+
+</div>

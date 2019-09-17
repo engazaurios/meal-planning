@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <h3 class="modal-title">Agrega un nuevo menú al día <b class="text-capitalize">{{formattedDate}}</b></h3>
+</div>
+
+<div *ngIf="allMenus && meals && categories" class="modal-body text-center">
+
+  <form class="col-md text-left" [formGroup]="uploadMenuFormGroup">
+    <div class="div-form">
+      <label for="uploadMenuMealId">Tipo:</label>
+      <select class="form-control"
+              id="uploadMenuMealId"
+              name="meals"  formControlName="mealUploadId"
+              (change)="onFormChange()">
+        <option *ngFor="let meal of meals" value="{{ meal.id }}">{{ meal.name }}</option>
+      </select>
+    </div>
+
+    <div class="div-form">
+      <label for="uploadMenuCategoryId">Categoría:</label>
+      <select class="form-control"
+              id="uploadMenuCategoryId"
+              name="categories" formControlName="categoryUploadId"
+              (change)="onFormChange()">
+        <option *ngFor="let category of categories" value="{{ category.id }}">{{ category.name }}</option>
+      </select>
+    </div>
+
+    <div *ngIf="uploadMenuMealId !== '' && uploadMenuCategoryId !== ''" class="div-form">
+
+      <label for="menuUploadId">Menús disponibles:</label>
+      <select class="form-control"
+              id="menuUploadId"
+              name="menuUpload" formControlName="menuUploadId">
+        <option *ngFor="let menu of getUploadMenusByFilter(uploadMenuMealId, uploadMenuCategoryId)"
+                value="{{ menu.id }}">{{ menu.title }}</option>
+      </select>
+
+    </div>
+
+    <app-menu-item
+      *ngIf="isMenuSelected"
+      [isSelected]="false"
+      [menu]="getUploadMenuSelected(uploadMenuForm.menuUploadId.value)">
+    </app-menu-item>
+  </form>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="cancelAction()">Cancelar</button>
+  <button type="button" ngbAutofocus class="btn btn-success" (click)="validate()">Subir Menú</button>
+</div>

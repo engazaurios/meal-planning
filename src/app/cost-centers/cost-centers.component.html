@@ -1,0 +1,29 @@
+<app-page-title title="Centros de costo" [actions]="pageActions"></app-page-title>
+
+<div class="table-warapper">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nombre</th>
+        <th scope="col" class="actions text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let costCenter of costCenters; index as i">
+        <td scope="row">{{ costCenter.code }}</td>
+        <td>{{ costCenter.name }}</td>
+        <td class="actions text-center">
+          <button class="action btn btn-outline-info" (click)="onEdit(costCenter.id)">
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <button class="action btn btn-outline-danger" (click)="onDelete(costCenter.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-edit-cost-center #costCenterModal></app-edit-cost-center>

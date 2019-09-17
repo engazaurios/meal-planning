@@ -87,4 +87,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  loginWithQrCode() {
+    this.router.navigate(['/login-qr']);
+  }
 }

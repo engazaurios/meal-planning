@@ -1,14 +1,94 @@
 export class Constants {
 
-  public static breakfastKey = {key: 'breakfast', priority: 1};
-  public static lunchKey = {key: 'lunch', priority: 2};
-  public static dinnerKey = {key: 'dinner', priority: 3};
+  public static imageContainer = 'menus';
 
-  public static mealConstants = [Constants.breakfastKey.key, Constants.lunchKey.key, Constants.dinnerKey.key];
-
-  public static statusKey = {
-    NA: 'No disponible',
-    SENT: 'Enviado',
-    PENDING: 'Pendiente',
+  public static mealsTypes = {
+    BREAKFAST: {
+      key: 'breakfast'
+    },
+    LUNCH: {
+      key: 'lunch'
+    },
+    DINNER: {
+      key: 'dinner'
+    }
   };
+
+  public static mealConstants = Constants.toArray(Constants.mealsTypes);
+
+  public static userTypes = {
+    ADMIN: {
+      key: 'admin'
+    },
+    EMPLOYEE: {
+      key: 'employee'
+    },
+    PROVIDER: {
+      key: 'provider'
+    },
+    GUEST: {
+      key: 'guest'
+    },
+  };
+
+  public static adminUserTypes = [Constants.userTypes.ADMIN.key];
+  public static providerUserTypes = [Constants.userTypes.PROVIDER.key];
+  public static nonAdminUserTypes = [Constants.userTypes.EMPLOYEE.key, Constants.userTypes.GUEST.key];
+
+  /**
+   * Dictionary of display types.
+   */
+  public static displayTypes = {
+    DAY: {
+      key: 'day',
+      title: 'Día'
+    },
+    WEEK: {
+      key: 'week',
+      title: 'Semana'
+    },
+    MONTH: {
+      key: 'month',
+      title: 'Mes'
+    },
+    YEAR: {
+      key: 'year',
+      title: 'Año'
+    }
+  };
+
+  /**
+   * Dictionary of daymenu status.
+   */
+  public static statusTypes = {
+    NA: {
+      key: 'NA',
+      message: 'No disponible'
+    },
+    SENT: {
+      key: 'SENT',
+      message: 'Enviado'
+    },
+    PENDING: {
+      key: 'PENDING',
+      message: 'Pendiente'
+    },
+    OPEN: {
+      key: 'OPEN',
+      message: 'Disponible'
+    },
+    APPROVED: {
+      key: 'APPROVED',
+      message: 'Aprobado'
+    }
+  };
+
+  public static toArray(dictionary) {
+    const dictionaryArray = [];
+    Object.keys(dictionary).forEach((key) => {
+      dictionaryArray.push(dictionary[key].key);
+    });
+    return dictionaryArray;
+  }
+
 }

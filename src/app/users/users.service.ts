@@ -5,16 +5,18 @@ import { map } from 'rxjs/operators';
 
 import { RequestService } from '../_services/request.service';
 import { DataHelperService } from '../_services/data.helper.service';
-import { Department } from './department.model';
-import { Role } from './role.model';
-import { User } from './user.model';
+import { User } from '../common/models/user.model';
+import { Role } from '../common/models/role.model';
 
 @Injectable()
 export class UsersService {
   list: User[] = [];
   listChanged = new Subject<User[]>();
 
-  constructor(private request: RequestService, private dataHelper: DataHelperService) {}
+  constructor(
+    private request: RequestService,
+    private dataHelper: DataHelperService
+  ) {}
 
   fetchAll() {
     return this.request.get('/AppUsers')
@@ -42,13 +44,6 @@ export class UsersService {
 
   deleteUser(id: string) {
     return this.request.delete(`/AppUsers/${id}`);
-  }
-
-  fetchDepartments() {
-    return this.request.get('/Departments')
-      .pipe(map((departmentData: Data[]) =>
-        this.dataHelper.createModelArray(Department, departmentData)
-      ));
   }
 
   fetchRoles() {

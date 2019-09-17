@@ -7,7 +7,7 @@ export class I18nDatePicker extends NgbDatepickerI18n {
 
   I18N_VALUES = {
     es: {
-      weekdays: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
+      weekdays: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', ''],
       months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
       monthsAll: [
         'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
@@ -15,7 +15,7 @@ export class I18nDatePicker extends NgbDatepickerI18n {
       ]
     },
     en: {
-      weekdays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      weekdays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', ''],
       months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dec'],
       monthsAll: [
         'January', 'February', 'March', 'April', 'May', 'June', 'July',

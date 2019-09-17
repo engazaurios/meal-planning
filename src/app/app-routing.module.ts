@@ -7,15 +7,19 @@ import { UsersComponent } from './users/users.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserEditResolverService } from './users/user-edit/user-edit-resolver.service';
 import { PlanningComponent } from './planning/planning.component';
-import { PlanningDetailComponent } from './planning/planning-detail/planning-detail.component';
-import { MenuListComponent } from './shared/menu-list/menu-list.component';
+import { PlanningDayComponent } from './planning/planning-day/planning-day.component';
+import { MenuListComponent } from './common/menu-list/menu-list.component';
+import { ManageDayComponent } from './manage/manage-day/manage-day.component';
+import { ManageTableComponent } from './manage/manage-table/manage-table.component';
+import { ManageComponent } from './manage/manage.component';
+import { RoleGuard } from './_helpers/role.guard';
+import { Constants } from './_helpers/constants';
+import { DepartmentsComponent } from './departments/departments.component';
+import { CostCentersComponent } from './cost-centers/cost-centers.component';
+import { ReportingComponent } from './reporting/reporting.component';
+import { AttendanceComponent } from './login/attendance/attendance.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: PlanningComponent,
-    canActivate: [AuthGuard]
-  },
   {
     path: 'login',
     component: LoginComponent
@@ -25,32 +29,87 @@ const routes: Routes = [
     component: LoginQrComponent
   },
   {
+    path: 'attendance',
+    component: AttendanceComponent
+  },
+  {
+    path: '',
+    component: PlanningComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.nonAdminUserTypes }
+  },
+  {
+    path: 'menu-list',
+    component: MenuListComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.nonAdminUserTypes }
+  },
+  {
+    path: 'planning/:year/:month/:day',
+    component: PlanningDayComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.nonAdminUserTypes }
+  },
+  {
+    path: 'manage',
+    component: ManageComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.providerUserTypes }
+  },
+  {
+    path: 'manage/table',
+    component: ManageTableComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.providerUserTypes }
+  },
+  {
+    path: 'manage/:year/:month/:day',
+    component: ManageDayComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.providerUserTypes }
+  },
+  {
     path: 'users',
     component: UsersComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
   },
   {
     path: 'users/new',
     component: UserEditComponent,
     resolve: {
       model: UserEditResolverService
-    }
+    },
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
   },
   {
     path: 'users/:id',
     component: UserEditComponent,
     resolve: {
       model: UserEditResolverService
-    }
+    },
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
   },
   {
-    path: 'planning/:year/:month/:day',
-    component: PlanningDetailComponent,
-    canActivate: [AuthGuard]
+    path: 'departments',
+    component: DepartmentsComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
   },
   {
-    path: 'menu-list',
-    component: MenuListComponent,
-    canActivate: [AuthGuard]
+    path: 'cost-centers',
+    component: CostCentersComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
+  },
+  {
+    path: 'reporting',
+    component: ReportingComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { expectedRoles: Constants.adminUserTypes }
+
   },
   {
     path: '**',

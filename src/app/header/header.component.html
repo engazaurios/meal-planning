@@ -2,39 +2,57 @@
   <a class="navbar-brand" routerLink="/">{{ title }}</a>
 
   <button class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#mainNavBar"
-    aria-controls="mainNavBar"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-    (click)="isHeaderCollapsed = !isHeaderCollapsed">
+          type="button"
+          data-toggle="collapse"
+          data-target="#mainNavBar"
+          aria-controls="mainNavBar">
 
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div [ngSwitch]="session.user.role" [ngbCollapse]="isHeaderCollapsed" class="collapse navbar-collapse" id="mainNavBar">
-    <ul *ngSwitchCase="'admin'" class="navbar-nav navbar-collapse">
-    </ul>
-    <ul *ngSwitchDefault class="navbar-nav navbar-collapse">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/planned-menu">Calendario</a>
+  <div class="collapse navbar-collapse navbar-content" id="mainNavBar">
+    <ul class="navbar-nav">
+      <li *ngIf="isProvider" class="nav-item"
+          data-toggle="collapse" data-target="#mainNavBar">
+        <a class="nav-link font-italic" routerLink="/manage">Calendario</a>
       </li>
-      <li *ngIf="session.user.isAdmin" class="nav-item">
-          <a class="nav-link" routerLink="/users">Usuarios</a>
-        </li>
+      <li *ngIf="isProvider" class="nav-item"
+          data-toggle="collapse" data-target="#mainNavBar">
+        <a class="nav-link font-italic" routerLink="/manage/table">Tabla</a>
+      </li>
+      <li *ngIf="isAdmin" class="nav-item"
+          data-toggle="collapse" data-target="#mainNavBar">
+        <a class="nav-link font-italic" routerLink="/users">Usuarios</a>
+      </li>
+      <li *ngIf="isAdmin" class="nav-item"
+          data-toggle="collapse" data-target="#mainNavBar">
+        <a class="nav-link font-italic" routerLink="/departments">Departamentos</a>
+      </li>
+      <li *ngIf="isAdmin" class="nav-item"
+          data-toggle="collapse" data-target="#mainNavBar">
+        <a class="nav-link font-italic" routerLink="/cost-centers">Centros de Costo</a>
+      </li>
+      <li *ngIf="isAdmin" class="nav-item"
+          data-toggle="collapse" data-target="#mainNavBar">
+        <a class="nav-link font-italic" routerLink="/reporting">Reporte</a>
+      </li>
+      <li *ngIf="isEmployee" class="nav-item"
+          data-toggle="collapse" data-target="#mainNavBar">
+        <a class="nav-link font-italic" routerLink="/">Calendario</a>
+      </li>
     </ul>
 
-    <ul class="navbar-nav navbar-right">
+    <ul class="navbar-nav navbar-actions">
       <li class="nav-item">
         <a class="nav-link user-avatar">
           <i class="fas fa-user-circle"></i>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item user-name">
         <a class="nav-link">{{ session.user.fullName }}</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item"
+          data-toggle="collapse" data-target="#mainNavBar">
         <button class="btn btn-danger" (click)="logout()">
           <i class="fas fa-sign-out-alt"></i>
           Salir

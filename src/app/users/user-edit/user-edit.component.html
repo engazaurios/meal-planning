@@ -4,9 +4,9 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-12">
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
       <div class="form-group">
         <div class="row">
           <div class="col-sm-3">
@@ -62,6 +62,7 @@
               formControlName="birthdayNgbDate"
               ngbDatepicker
               #d="ngbDatepicker"
+              (focus)="d.toggle()"
               (click)="d.toggle()"/>
           </div>
         </div>
@@ -85,6 +86,31 @@
 
             <div
               *ngIf="!userForm.get('departmentId').valid && userForm.get('departmentId').touched"
+              class="error-message small">
+              Campo requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="costCenterId">Centro de Costo</label>
+          </div>
+          <div class="col-sm-9">
+            <select
+              id="costCenterId"
+              class="form-control"
+              formControlName="costCenterId">
+              <option value="">Selecciona una opción</option>
+              <option value="{{costCenter.id}}" *ngFor="let costCenter of costCenters">
+                {{costCenter.name}}
+              </option>
+            </select>
+
+            <div
+              *ngIf="!userForm.get('costCenterId').valid && userForm.get('costCenterId').touched"
               class="error-message small">
               Campo requerido
             </div>
@@ -215,6 +241,45 @@
           Cancel
         </button>
       </div>
-    </form>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+      <div class="form-group" *ngIf="editMode">
+        <div class="row">
+          <div class="col-sm-3">
+            <label for="profilePicture">Foto</label>
+          </div>
+          <div class="col-sm-9 upload-input-container">
+            <input
+              #imageInput
+              id="profilePicture"
+              type="file"
+              name="profilePicture"
+              class="form-control"
+              (change)="profilePictureSelected($event)">
+
+            <button
+              type="button"
+              class="btn btn-primary upload-btn"
+              (click)="uploadProfilePicture()">
+              {{ profilePictureFileExist ? 'Cambiar' : 'Subir' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!editMode">
+        <h5 class="image-placeholder text-center">
+          Guarda el usuario para poder subir su foto de perfil.
+        </h5>
+      </div>
+
+      <div class="image-preview mb-3" *ngIf="profilePicturePreviewUrl">
+        <img
+          [src]="profilePicturePreviewUrl"
+          height="300"
+          (error)="userProfilePictureNotFound($event)" />
+      </div>
+    </div>
   </div>
-</div>
+</form>
