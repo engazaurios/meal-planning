@@ -78,12 +78,14 @@ export class AttendanceComponent implements OnInit {
   // }
 
   onSubmit() {
-    console.log(this.attendanceForm);
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
     if (this.attendanceForm.invalid) {
       this.showMessage('Codigo invalido', 'error');
       return;
     }
-    this.loading = true;
     this.statusMessage = 'Cargando...';
 
     this.attendanceService.attendance({
@@ -92,19 +94,33 @@ export class AttendanceComponent implements OnInit {
       hour: this.form.hour.value,
       minute: this.form.minute.value
     }).pipe(finalize(()=>{
-      this.loading = false;
+      //this.loading = false;
     })).subscribe((data) => {
       if (data['result']) {
         const result = data['result'];
         const status = result['status'];
         if (status === 'SUCCESS') {
-          const selected =  result.selected;
-          if (selected) {
-            this.cont = result.attendance[selected.code];
-          } else {
-            this.cont = "---";
-          }
+          
+          this.attendanceService.getAttendance(this.form.date.value, this.form.hour.value, this.form.minute.value)
+          .pipe(finalize(() => {
+            this.statusClass = '';
+            this.statusMessage = '';
+            this.loading = false;
+          })).subscribe((data) => {
+            console.log(data);
+            const result = data['result'];
+            const attendance = result['attendance'];
+            const selected = result['selected'];
+            if (selected) {
+              this.cont = attendance[selected.code];
+            } else {
+              this.cont = '---';
+            }
+          }, (error) => {
+            console.log(error);
+          });
         } else {
+          this.form.qrCode.setValue('');
           this.showMessage(result.message, status.toLowerCase());
         }
         
@@ -121,7 +137,8 @@ export class AttendanceComponent implements OnInit {
     setTimeout(() => {
       this.statusClass = '';
       this.statusMessage = '';
-    }, 2000);
+      this.loading = false;
+    }, 3000);
   }
 
 }
