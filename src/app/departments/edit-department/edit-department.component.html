@@ -1,12 +1,12 @@
 <ng-template #modalElm let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">{{ idEdit ? 'Editar' : 'Crear'}} centro de costo</h4>
+    <h4 class="modal-title">{{ idEdit ? 'Editar' : 'Crear'}} departamento</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="costCenterForm">
+    <form [formGroup]="departmentForm">
       <div class="form-group">
         <div class="row">
           <div class="col-sm-4">
@@ -42,7 +42,6 @@
     <button
       type="button"
       class="btn btn-success"
-      [disabled]="!costCenterForm.valid"
       (click)="onSubmit()">
       Guardar
     </button>

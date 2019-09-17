@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { DepartmentsService } from './departments.service';
 import { Department } from '../users/department.model';
+import { EditDepartmentComponent } from './edit-department/edit-department.component';
 
 @Component({
   selector: 'app-departments',
@@ -19,7 +20,7 @@ export class DepartmentsComponent implements OnInit, OnDestroy {
     }
   ];
 
-  // @ViewChild('departmentModal', { static: false }) departmentModal: EditCostCenterComponent;
+  @ViewChild('departmentModal', { static: false }) departmentModal: EditDepartmentComponent;
 
   departments: Department[];
 
@@ -41,13 +42,13 @@ export class DepartmentsComponent implements OnInit, OnDestroy {
   }
 
   createDepartment() {
-    // this.departmentModal.openModal(null);
+    this.departmentModal.openModal(null);
   }
 
   onEdit(id: string) {
     this.dataService.fetchById(id)
-      .subscribe((costCenter: Department) => {
-        // this.departmentModal.openModal(costCenter);
+      .subscribe((department: Department) => {
+        this.departmentModal.openModal(department);
       });
   }
 

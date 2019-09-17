@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { CostCenter } from './cost-center.model';
-import { CostCentersService } from './cost-centers.service';
-import { EditCostCenterComponent } from './edit-cost-center/edit-cost-center.component';
 import { Subscription } from 'rxjs';
+
+import { CostCentersService } from './cost-centers.service';
+import { CostCenter } from './cost-center.model';
+import { EditCostCenterComponent } from './edit-cost-center/edit-cost-center.component';
 
 @Component({
   selector: 'app-cost-centers',

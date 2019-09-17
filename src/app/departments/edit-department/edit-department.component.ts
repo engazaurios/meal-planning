@@ -3,65 +3,66 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierService } from 'angular-notifier';
 
-import { CostCentersService } from '../cost-centers.service';
-import { CostCenter } from '../cost-center.model';
+import { DepartmentsService } from '../departments.service';
+import { Department } from 'src/app/users/department.model';
 
 @Component({
-  selector: 'app-edit-cost-center',
-  templateUrl: './edit-cost-center.component.html',
-  styleUrls: ['./edit-cost-center.component.less']
+  selector: 'app-edit-department',
+  templateUrl: './edit-department.component.html',
+  styleUrls: ['./edit-department.component.less']
 })
-export class EditCostCenterComponent implements OnInit {
-  costCenterForm: FormGroup;
+export class EditDepartmentComponent implements OnInit {
+  departmentForm: FormGroup;
   idEdit: string | null;
   @ViewChild('modalElm', { static: true }) modal: ElementRef;
 
   constructor(
     private modalService: NgbModal,
     private notifier: NotifierService,
-    private costCentersService: CostCentersService
+    private departmentsService: DepartmentsService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   initForm() {
-    this.costCenterForm = new FormGroup({
+    this.departmentForm = new FormGroup({
       code: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
     });
   }
 
-  openModal(costCenter: CostCenter | null) {
+  openModal(department: Department | null) {
     this.idEdit = null;
     this.initForm();
 
-    if (costCenter) {
-      this.costCenterForm.controls['code'].setValue(costCenter.code);
-      this.costCenterForm.controls['name'].setValue(costCenter.name);
+    if (department) {
+      this.departmentForm.controls['code'].setValue(department.code);
+      this.departmentForm.controls['name'].setValue(department.name);
 
-      this.idEdit = costCenter.id;
+      this.idEdit = department.id;
     }
 
     this.modalService.open(this.modal);
   }
 
   onSubmit() {
-    if (!this.costCenterForm.valid) {
+    if (!this.departmentForm.valid) {
       this.notifier.notify('error', 'Datos incompletos.');
 
       return;
     }
 
-    const value = this.costCenterForm.value;
+    const value = this.departmentForm.value;
 
     const request = this.idEdit
-      ? this.costCentersService.update(this.idEdit, value)
-      : this.costCentersService.create(value);
+      ? this.departmentsService.update(this.idEdit, value)
+      : this.departmentsService.create(value);
 
     request.subscribe(
       () => {
         this.modalService.dismissAll();
-        this.costCentersService.listChanged.next(true);
+        this.departmentsService.listChanged.next(true);
       },
       () => {
         this.notifier.notify(

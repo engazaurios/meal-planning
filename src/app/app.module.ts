@@ -42,6 +42,7 @@ import { MenuViewComponent } from './common/forms/menu-forms/menu-view/menu-view
 import { OverviewFormManageComponent } from './common/forms/overview-form/overview-form-manage/overview-form-manage.component';
 import { OverviewFormPlanningComponent } from './common/forms/overview-form/overview-form-view/overview-form-planning.component';
 import { DepartmentsComponent } from './departments/departments.component';
+import { EditDepartmentComponent } from './departments/edit-department/edit-department.component';
 import { CostCentersComponent } from './cost-centers/cost-centers.component';
 import { EditCostCenterComponent } from './cost-centers/edit-cost-center/edit-cost-center.component';
 import { ReportingComponent } from './reporting/reporting.component';
@@ -76,6 +77,7 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     OverviewFormManageComponent,
     OverviewFormPlanningComponent,
     DepartmentsComponent,
+    EditDepartmentComponent,
     CostCentersComponent,
     EditCostCenterComponent,
     ReportingComponent,
