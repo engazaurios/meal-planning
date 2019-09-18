@@ -19,13 +19,11 @@
     <div class="col-12 col-md-8 col-lg-6 mt-3">
         <form class="col-md" [formGroup]="attendanceForm" (submit)="onSubmit()">
           <div class="form-group">
-            <label for="qrCode">Codigo QR:</label>
-            <input type="text" class="form-control" id="qrCode" formControlName="qrCode" />
-            <input type="hidden" formControlName="date">
-            <input type="hidden" formControlName="hour">
-            <input type="hidden" formControlName="minute">
+              <input type="text" class="form-control" id="qrCode" placeholder="Ingresa el codigo" formControlName="qrCode" />
+              <input type="hidden" formControlName="date">
+              <input type="hidden" formControlName="hour">
+              <input type="hidden" formControlName="minute">
           </div>
-  
           <div class="row justify-content-center mt-3">
             <div class="col-6 text-center">
                 <button class="btn btn-primary btn-block" [disabled]="loading">Marcar</button>
