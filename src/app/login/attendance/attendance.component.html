@@ -1,0 +1,45 @@
+<div *ngIf="error">{{error}}</div>
+
+<div class="container">
+  <div class="row align-middle">
+      <div class="col-12 mt-5">
+        <h2 class="text-center text-dark">Asistencia: {{meal}}</h2>
+        <div class="row">
+          <div class="col-12 text-center" style="height: 60px">
+            <img src="https://www.trouwnutrition.com/globalassets/nutreco-corporate1/corporate/corporate-2/logos/logo_trouw.jpg" alt="">
+          </div>
+        </div>
+        <div class="circle-animation">
+            <div class="pulsating-circle" [class.loading]="loading" [ngClass]="statusClass">
+            </div>
+            <span class="content-text-big" *ngIf="statusMessage === ''">{{ cont }}</span>
+            <span class="content-text-small" *ngIf="statusMessage !==''">{{statusMessage}}</span>
+          </div>
+      </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6 mt-3">
+        <form class="col-md" [formGroup]="attendanceForm" (submit)="onSubmit()">
+          <div class="form-group">
+            <label for="qrCode">Codigo QR:</label>
+            <input type="text" class="form-control" id="qrCode" formControlName="qrCode" />
+            <input type="hidden" formControlName="date">
+            <input type="hidden" formControlName="hour">
+            <input type="hidden" formControlName="minute">
+          </div>
+  
+          <div class="row justify-content-center mt-3">
+            <div class="col-6 text-center">
+                <button class="btn btn-primary btn-block" [disabled]="loading">Marcar</button>
+            </div>
+          </div>
+        </form>
+    </div> 
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center">
+      <button (click)="goToLogin()" class="btn btn-link col-auto">Iniciar sesión manual</button>
+    </div>
+  </div>
+</div>

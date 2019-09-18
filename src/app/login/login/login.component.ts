@@ -90,4 +90,8 @@ export class LoginComponent implements OnInit {
   loginWithQrCode() {
     this.router.navigate(['/login-qr']);
   }
+
+  attendance() {
+    this.router.navigate(['/attendance']);
+  }
 }

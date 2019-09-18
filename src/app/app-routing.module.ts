@@ -17,6 +17,7 @@ import { Constants } from './_helpers/constants';
 import { DepartmentsComponent } from './departments/departments.component';
 import { CostCentersComponent } from './cost-centers/cost-centers.component';
 import { ReportingComponent } from './reporting/reporting.component';
+import { AttendanceComponent } from './login/attendance/attendance.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'login-qr',
     component: LoginQrComponent
+  },
+  {
+    path: 'attendance',
+    component: AttendanceComponent
   },
   {
     path: '',

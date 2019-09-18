@@ -17,6 +17,7 @@ import { ErrorInterceptor } from './_helpers';
 import { RequestService } from './_services/request.service';
 import { DataHelperService } from './_services/data.helper.service';
 import { UsersService } from './users/users.service';
+import { AttendanceService } from './login/attendance/attendance.service';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -41,6 +42,7 @@ import { AlertSimpleComponent } from './common/forms/common-forms/alert-simple/a
 import { MenuViewComponent } from './common/forms/menu-forms/menu-view/menu-view.component';
 import { OverviewFormManageComponent } from './common/forms/overview-form/overview-form-manage/overview-form-manage.component';
 import { OverviewFormPlanningComponent } from './common/forms/overview-form/overview-form-view/overview-form-planning.component';
+import { AttendanceComponent } from './login/attendance/attendance.component';
 import { DepartmentsComponent } from './departments/departments.component';
 import { EditDepartmentComponent } from './departments/edit-department/edit-department.component';
 import { CostCentersComponent } from './cost-centers/cost-centers.component';
@@ -58,6 +60,7 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     HeaderComponent,
     LoginComponent,
     LoginQrComponent,
+    AttendanceComponent,
     PageTitleComponent,
     UsersComponent,
     UserEditComponent,
@@ -107,6 +110,7 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     RequestService,
     DataHelperService,
     UsersService,
+    AttendanceService,
     LoaderService,
     NgbActiveModal,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
