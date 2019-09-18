@@ -24,6 +24,8 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
   imageContainer = Constants.imageContainer;
   imageSelected: string;
 
+  isUploading = false;
+
   formGroup: FormGroup;
 
   subscriptions = [];
@@ -84,7 +86,9 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
       this.imageSelected
     );
 
+    this.isUploading = true;
     this.menuFormsService.createMenu(newMenu).subscribe((createMenuResponse) => {
+      this.isUploading = false;
       this.activeModal.close(plainToClass(MenuModel, createMenuResponse));
     });
   }

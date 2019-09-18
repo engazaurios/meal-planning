@@ -50,6 +50,7 @@ import { EditCostCenterComponent } from './cost-centers/edit-cost-center/edit-co
 import { ReportingComponent } from './reporting/reporting.component';
 import { LoaderComponent } from './common/loader/loader.component';
 import { LoaderService } from './common/loader/loader.service';
+import { LoaderSimpleComponent } from './common/loader/loader-simple/loader-simple.component';
 
 registerLocaleData (localeEs, 'es-GT', localeEsExtra);
 
@@ -84,7 +85,8 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     CostCentersComponent,
     EditCostCenterComponent,
     ReportingComponent,
-    LoaderComponent
+    LoaderComponent,
+    LoaderSimpleComponent
   ],
   imports: [
     BrowserModule,

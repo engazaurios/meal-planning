@@ -5,6 +5,7 @@
 </div>
 
 <div class="modal-body">
+  <app-loader-simple [isLoading]="!(meals && categories)"></app-loader-simple>
   <form *ngIf="meals && categories"
         class="col-md"
         [formGroup]="formGroup">
@@ -61,7 +62,10 @@
 
 <div class="modal-footer">
   <button type="button" class="btn btn-danger"
-          (click)="cancelAction()">Cancelar</button>
+          (click)="cancelAction()" [disabled]="isUploading">Cancelar</button>
   <button type="button" ngbAutofocus class="btn btn-success"
-          (click)="validate()">Crear Menú</button>
+          (click)="validate()">
+    <span *ngIf="!isUploading">Crear Menú</span>
+    <app-loader-simple [isLoading]="isUploading" [isSmall]="true" [isWithMargin]="false"></app-loader-simple>
+  </button>
 </div>

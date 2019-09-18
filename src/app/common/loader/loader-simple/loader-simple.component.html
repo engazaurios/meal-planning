@@ -1,0 +1,8 @@
+<div *ngIf="isLoading" class="d-flex justify-content-center">
+  <div class="spinner-border align-self-center" role="status"
+       [class.spinner]="!isSmall"
+       [class.spinner-margin]="isWithMargin"
+       [class.small-spinner]="isSmall">
+    <span class="sr-only">Cargando...</span>
+  </div>
+</div>
