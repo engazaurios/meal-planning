@@ -54,6 +54,7 @@ export class AttendanceComponent implements OnInit {
     .subscribe(data => {
       console.log('data: ', data);
       this.meal = (data['result'] && data['result']['selected'].name) || '----';
+      this.cont = this.extractAttendance(data);
     }, error => {
       console.log(error);
     });
@@ -107,15 +108,7 @@ export class AttendanceComponent implements OnInit {
             this.statusMessage = '';
             this.loading = false;
           })).subscribe((data) => {
-            console.log(data);
-            const result = data['result'];
-            const attendance = result['attendance'];
-            const selected = result['selected'];
-            if (selected) {
-              this.cont = attendance[selected.code];
-            } else {
-              this.cont = '---';
-            }
+            this.cont = this.extractAttendance(data);
           }, (error) => {
             console.log(error);
           });
@@ -139,6 +132,17 @@ export class AttendanceComponent implements OnInit {
       this.statusMessage = '';
       this.loading = false;
     }, 3000);
+  }
+
+  extractAttendance(data: Object) {
+    const result = data['result'];
+    const attendance = result['attendance'];
+    const selected = result['selected'];
+    if (selected) {
+      return attendance[selected.code];
+    } else {
+      return '---';
+    }
   }
 
   goToLogin() {
