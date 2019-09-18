@@ -14,38 +14,23 @@
 }
 
 .navbar-actions {
-
+  position: relative;
 }
 
-// Extra small devices (portrait phones, less than 576px)
-@media (max-width: 575.98px) {
+// Acording to the toggler visibility.
+@media (max-width: 991px) {
   .navbar-actions {
     flex-direction: row;
     justify-content: end;
-    .user-avatar, .user-name {
-      margin-right: 5px;
+
+    .btn-logout {
+      position: absolute;
+      top: 0;
+      right: 0;
     }
-  }
-}
 
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) and (max-width: 767.98px) {
-  .navbar-actions {
-    flex-direction: row;
-    justify-content: end;
-    .user-avatar, .user-name {
-      margin-right: 5px;
-    }
-  }
-}
-
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) and (max-width: 991.98px) {
-  .navbar-actions {
-    flex-direction: row;
-    justify-content: end;
-    .user-avatar, .user-name {
-      margin-right: 5px;
+    .user-avatar {
+      margin-right: 10px;
     }
   }
 }
