@@ -141,4 +141,8 @@ export class AttendanceComponent implements OnInit {
     }, 3000);
   }
 
+  goToLogin() {
+    this.router.navigate(['/login'])
+  }
+
 }
