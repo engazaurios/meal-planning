@@ -6,8 +6,8 @@
       <tr>
         <th scope="col">Nombre</th>
         <th scope="col">Usuario</th>
+        <th scope="col">Rol</th>
         <th scope="col">Departamento</th>
-        <th scope="col">Centro Costo</th>
         <th scope="col">Correo</th>
         <th scope="col">Foto</th>
         <th scope="col" class="actions text-center">Acciones</th>
@@ -17,8 +17,8 @@
       <tr *ngFor="let user of users;">
         <td class="align-middle">{{ user.fullName }}</td>
         <td class="align-middle">{{ user.username }}</td>
+        <td class="align-middle">{{ user.role ? user.role.name : '' }}</td>
         <td class="align-middle">{{ user.department ? user.department.name : ''}}</td>
-        <td class="align-middle">{{ user.costCenter ? user.costCenter.name : ''}}</td>
         <td class="align-middle">{{ user.email }}</td>
         <td>
           <div class="img-container">

@@ -53,7 +53,7 @@ export class User {
         this.departmentId = departmentId || null;
         this.costCenter = costCenter || null;
         this.costCenterId = costCenterId || null;
-        this.roles = roles || null;
+        this.roles = roles || [];
         this.roleId = roleId || null;
         this.email = email || null;
         this.username = username || null;
@@ -72,25 +72,21 @@ export class User {
         }
     }
 
+    get role() : Role {
+        return this.roles.length ? this.roles[0] : null;
+    }
+
     get fullName() : string {
         return [this.name, this.lastName].join(' ');
     }
 
     get isAdmin() : boolean {
-        if (!this.roles || !this.roles.length) {
-            return false;
-        }
-
         let adminRole = this.roles.find(r => r.name === Constants.userTypes.ADMIN.key);
 
         return adminRole ? true : false;
     }
 
     get isProvider() : boolean {
-        if (!this.roles || !this.roles.length) {
-          return false;
-        }
-
         let providerRole = this.roles.find(r => r.name === Constants.userTypes.PROVIDER.key);
 
         return providerRole ? true : false;
@@ -100,9 +96,12 @@ export class User {
         const admin = ['canManageUsers'];
         const employee = [];
         const guest = [];
-        const role = this.roles && this.roles.length ? this.roles[0] : null;
 
-        switch (role.name) {
+        if (!this.role) {
+            return [];
+        }
+
+        switch (this.role.name) {
             case Constants.userTypes.ADMIN.key:
                 return admin;
             default:
