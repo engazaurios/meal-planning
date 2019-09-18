@@ -33,6 +33,7 @@ export class Constants {
 
   public static adminUserTypes = [Constants.userTypes.ADMIN.key];
   public static providerUserTypes = [Constants.userTypes.PROVIDER.key];
+  public static publisherUserTypes = [Constants.userTypes.ADMIN.key, Constants.userTypes.PROVIDER.key];
   public static nonAdminUserTypes = [Constants.userTypes.EMPLOYEE.key, Constants.userTypes.GUEST.key];
 
   /**

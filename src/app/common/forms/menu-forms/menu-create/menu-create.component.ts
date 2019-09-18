@@ -39,7 +39,6 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
     this.formGroup = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      price: ['24.00', Validators.required],
       meal: ['', Validators.required],
       category: ['', Validators.required]
     });
@@ -76,12 +75,11 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
 
     const newMenuTitle        = this.addMenuForm.title.value;
     const newMenuDescription  = this.addMenuForm.description.value;
-    const newMenuPrice        = this.addMenuForm.price.value;
     const newMenuMealId       = this.addMenuForm.meal.value;
     const newMenuCategoryId   = this.addMenuForm.category.value;
 
     const newMenu = new MenuModel(
-      newMenuTitle, newMenuDescription, newMenuPrice,
+      newMenuTitle, newMenuDescription,
       newMenuMealId, newMenuCategoryId,
       this.imageSelected
     );

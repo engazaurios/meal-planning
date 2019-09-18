@@ -1,22 +1,24 @@
-<div class="modal-header">
+<div class="modal-header" #modalTitle>
   <h2 class="modal-title" [innerHTML]="getConfirmMessage"></h2>
 </div>
 
 <div class="modal-body" *ngIf="dayMenus.length > 0">
 
-  <div *ngFor="let dayMenu of dayMenus" class="table-list">
-    <div *ngIf="dayMenu.userMenu !== null && dayMenu.userMenu.menus.length > 0" class="card">
-      <div class="card-body">
-        <h3 class="text-capitalize">{{ getFormattedDate(dayMenu.date) }}</h3>
-        <table class="table table-responsive-md">
-          <tbody>
-          <tr *ngFor="let menu of dayMenu.userMenu.menus">
-            <td>{{menu.title}}</td>
-            <td>{{menu.meal.name}}</td>
-            <td>{{menu.category.name}}</td>
-          </tr>
-          </tbody>
-        </table>
+  <div *ngFor="let dayMenu of dayMenus">
+    <div *ngIf="!isApproved(dayMenu.userMenu)" class="table-list">
+      <div *ngIf="dayMenu.userMenu !== null && dayMenu.userMenu.menus.length > 0" class="card">
+        <div class="card-body">
+          <h3 class="text-capitalize">{{ getFormattedDate(dayMenu.date) }}</h3>
+          <table class="table table-responsive-md">
+            <tbody>
+            <tr *ngFor="let menu of dayMenu.userMenu.menus">
+              <td>{{menu.title}}</td>
+              <td>{{menu.meal.name}}</td>
+              <td>{{menu.category.name}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

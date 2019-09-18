@@ -54,7 +54,10 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
    */
   protected selectDefaultUserMenus() {
     let status;
-    if (this.dayMenu === null || this.dayMenu === undefined) {
+    if (this.isWeekend) {
+      status = Constants.statusTypes.NA.key;
+      this.dayMenu = new DayMenuModel(status, this.actualDate);
+    } else if (this.dayMenu === null || this.dayMenu === undefined) {
       status = Constants.statusTypes.OPEN.key;
       this.dayMenu = new DayMenuModel(status, this.actualDate);
     } else {
@@ -166,6 +169,13 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
    */
   get userMenuExistsAndAvailable(): boolean {
     return this.userMenuExists;
+  }
+
+  /**
+   * Method that will check if the dayMenu week is in weekend.
+   */
+  get isWeekend() {
+    return DateHelper.isWeekend(this.actualDate);
   }
 
   /**

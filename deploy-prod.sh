@@ -6,17 +6,11 @@ function execute_in_server() {
 	ssh engazaurio@67.205.147.22 "${1}"	
 }
 
-# In order to checkout a specific branch, you must do the following before running the script:
-# export BRANCH="<branch_name>"
-
 rm package-lock.json || true
 
-# Checkouts custom branch and pulls from it
-if [[ -z "${BRANCH}" ]]; then
-	export BRANCH=develop
-fi
-git checkout ${BRANCH}
-git pull origin ${BRANCH}
+# Checkouts to master and pulls from it
+git checkout master
+git pull origin master
 
 # Checks if NG is running.
 NG_FILE=$(which ng)
@@ -24,11 +18,11 @@ if [[ -z "${NG_FILE}" ]]; then
 	npm install -g @angular/cli
 fi
 
-# In order to install packages, you must do the following before running the script:
-# export INSTALL_PACKAGES=yes
+# In order to install packages, you must add yes at the end of the script call:
+INSTALL_PACKAGES=$1
 
 # Installs packages
-if [[ ! -z "${INSTALL_PACKAGES}" ]]; then
+if [[ ! -z "${INSTALL_PACKAGES}" ]] && [[ "${INSTALL_PACKAGES}" =~ "yes" ]]; then
 	echo "---> Installing packages."
 	npm install
 fi

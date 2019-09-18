@@ -1,7 +1,7 @@
 <div class="table-content">
   <div *ngFor="let dayMenu of dayMenus" class="card m-lg-4 day-content">
     <div class="card-body">
-      <h3 class="text-capitalize day-information">
+      <h3 class="text-capitalize day-information" [@fadeIn]>
         {{ getActualDate(dayMenu) }}
         <small class="float-right"
                [class.planning-detail-available]="isAvailable(dayMenu.status)"
@@ -11,7 +11,7 @@
 
       <div class="table-responsive">
         <table class="table">
-          <thead><tr>
+          <thead [@fadeIn]><tr>
             <th scope="col">#</th>
             <th scope="col" *ngFor="let header of tableHeader">
               {{header.title}} <i class="fas fa-sort action-hover" (click)="sortData(dayMenu.menus, header.id)"></i>
@@ -19,19 +19,19 @@
             <th scope="col"></th>
           </tr></thead>
           <tbody>
-          <tr>
+          <tr [@fadeIn]>
             <td colspan="6" class="text-center" (click)="onCreateAndAddMenuClick(dayMenu)"
                 [class.icon-hover]="!isActionDisabled(dayMenu)">
               <b><i>Crea y agrega un nuevo menú</i></b>
             </td>
           </tr>
-          <tr>
+          <tr [@fadeIn]>
             <td colspan="6" class="text-center" (click)="onUploadMenuClick(dayMenu)"
                 [class.icon-hover]="!isActionDisabled(dayMenu)">
               <b><i>Agrega un nuevo menú</i></b>
             </td>
           </tr>
-          <tr *ngFor="let menu of dayMenu.menus; let i = index">
+          <tr *ngFor="let menu of dayMenu.menus; let i = index" [@fadeInMove]="dayMenu.menus">
             <th scope="row">{{i + 1}}</th>
             <td>{{menu.title}}</td>
             <td>{{menu.meal.name}}</td>
@@ -56,7 +56,10 @@
       {{ getActualDateRange }}
     </button>
     <div class="dropdown-menu" aria-labelledby="buttonDisplayType">
-      <span class="dropdown-item icon-disabled"><b>Mostrar como:</b></span>
+      <span class="dropdown-item icon-disabled">
+        <i class="fas fa-filter"></i>
+        <b> Mostrar como:</b>
+      </span>
       <a class="dropdown-item icon-hover" (click)="displayData(tableDisplayValues.DAY)">{{ tableDisplayValues.DAY.title }}</a>
       <a class="dropdown-item icon-hover" (click)="displayData(tableDisplayValues.WEEK)">{{ tableDisplayValues.WEEK.title }}</a>
       <a class="dropdown-item icon-hover" (click)="displayData(tableDisplayValues.MONTH)">{{ tableDisplayValues.MONTH.title }}</a>
@@ -66,7 +69,9 @@
   <button type="button" class="btn btn-action-secondary font-italic" (click)="getNextDate()">Siguiente {{tableDisplayType.title}}</button>
 
   <div class="btn-group" role="group">
-    <button type="button" id="buttonActions" class="btn btn-action dropdown-toggle text-capitalize" data-toggle="dropdown">
+    <button type="button" id="buttonActions" class="btn btn-action dropdown-toggle text-capitalize"
+            data-toggle="dropdown">
+      Opciones
     </button>
     <div class="dropdown-menu" aria-labelledby="buttonActions">
       <a class="dropdown-item icon-hover" (click)="onCreateMenuClick()">Crear menú</a>

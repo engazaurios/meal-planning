@@ -1,5 +1,5 @@
 <!-- Main content -->
-<div class="text-center mt-4" xmlns="http://www.w3.org/1999/html">
+<div class="text-center mt-4">
 
   <app-menu-list
     (dateChanged)="onDateChanged($event)"
@@ -9,7 +9,7 @@
     [defaultTab]="selectedTab"
 
     [showHeader]="userMenuExists"
-    [showItems]="dayMenuExists && userMenuExistsAndAvailable"
+    [showItems]="dayMenuExists && userMenuExistsAndAvailable && !isWeekend"
 
     [currentUser]="currentUser"
     [selectedMenus]="selectedMenus"
@@ -19,19 +19,19 @@
     [userMenu]="userMenu">
   </app-menu-list>
 
-  <button
+  <button *ngIf="!isWeekend"
     class="btn btn-danger float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-delete"
     [class.btn-static-ready]="menusReady(1) && !isApproved()"
     (click)="onDeleteMenuClick(dayMenu, selectedMenu)"
     [disabled]="!menusReady(1) || isApproved()">Borrar menú</button>
 
-  <button
+  <button *ngIf="!isWeekend"
     class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static"
     (click)="onAddMenuClick(dayMenu)"
     [class.btn-static-ready]="!isButtonDisabled"
     [disabled]="isApproved()">Crear menú</button>
 
-  <button
+  <button *ngIf="!isWeekend"
     class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-upload"
     (click)="onUploadMenuClick(dayMenu)"
     [class.btn-static-ready]="!isButtonDisabled"

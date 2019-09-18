@@ -207,11 +207,21 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const amountOfMenus = amountBreakfast + amountLunches + amountDinners;
 
-    // TODO : verify if we need to validate breakfast/lunches/dinners above 2.
     if (amountOfMenus > 2) {
       const errorAlert = this.modalService.open(AlertSimpleComponent, {size: 'lg'});
       errorAlert.componentInstance.content = {
         title: 'Solo puedes seleccionar hasta 2 comidas.',
+        description: 'Revisa tus comidas, por favor.',
+        cancelText: 'OK',
+        confirmationText: ''
+      };
+      return;
+    }
+
+    if (amountDinners > 0 && (amountBreakfast > 0 || amountLunches > 0)) {
+      const errorAlert = this.modalService.open(AlertSimpleComponent, {size: 'lg'});
+      errorAlert.componentInstance.content = {
+        title: 'Solo puedes seleccionar 1 cena o, 1 desayuno y 1 almuerzo.',
         description: 'Revisa tus comidas, por favor.',
         cancelText: 'OK',
         confirmationText: ''

@@ -11,11 +11,16 @@ import {ManageService} from '../manage.service';
 import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
 import {MenuViewComponent} from '../../common/forms/menu-forms/menu-view/menu-view.component';
 import {OverviewFormManageComponent} from '../../common/forms/overview-form/overview-form-manage/overview-form-manage.component';
+import {Animations} from '../../_helpers/animations';
 
 @Component({
   selector: 'app-manage-table',
   templateUrl: './manage-table.component.html',
-  styleUrls: ['./manage-table.component.less']
+  styleUrls: ['./manage-table.component.less'],
+  animations: [
+    Animations.fadeIn,
+    Animations.fadeInMove
+  ]
 })
 export class ManageTableComponent implements OnInit, OnDestroy {
 
@@ -76,7 +81,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
       for (
         const date = DateHelper.getDate(this.startDate); date.isBefore(this.endDate); date.add(1, 'days')
       ) {
-        if (date.weekday() === 5 || date.weekday() === 6) {
+        if (DateHelper.isWeekend(date)) {
           continue;
         }
 

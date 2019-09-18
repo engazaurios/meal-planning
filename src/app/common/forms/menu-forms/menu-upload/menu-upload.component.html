@@ -8,34 +8,31 @@
   <form *ngIf="allMenus && meals && categories" class="col-md text-left" [formGroup]="uploadMenuFormGroup">
     <div class="div-form">
       <label for="uploadMenuMealId">Tipo:</label>
-      <select class="form-control"
-              id="uploadMenuMealId"
-              name="meals"  formControlName="mealUploadId"
-              (change)="onFormChange()">
-        <option *ngFor="let meal of meals" value="{{ meal.id }}">{{ meal.name }}</option>
-      </select>
+      <ng-select id="uploadMenuMealId" name="meals" formControlName="mealUploadId"
+        (change)="onFormChange()">
+        <ng-option *ngFor="let meal of meals" [value]="meal.id">
+          {{ meal.name }}
+        </ng-option>
+      </ng-select>
     </div>
 
     <div class="div-form">
       <label for="uploadMenuCategoryId">Categoría:</label>
-      <select class="form-control"
-              id="uploadMenuCategoryId"
-              name="categories" formControlName="categoryUploadId"
-              (change)="onFormChange()">
-        <option *ngFor="let category of categories" value="{{ category.id }}">{{ category.name }}</option>
-      </select>
+      <ng-select id="uploadMenuCategoryId" name="categories" formControlName="categoryUploadId"
+        (change)="onFormChange()">
+        <ng-option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </ng-option>
+      </ng-select>
     </div>
 
-    <div *ngIf="uploadMenuMealId !== '' && uploadMenuCategoryId !== ''" class="div-form">
-
+    <div class="div-form">
       <label for="menuUploadId">Menús disponibles:</label>
-      <select class="form-control"
-              id="menuUploadId"
-              name="menuUpload" formControlName="menuUploadId">
-        <option *ngFor="let menu of getUploadMenusByFilter(uploadMenuMealId, uploadMenuCategoryId)"
-                value="{{ menu.id }}">{{ menu.title }}</option>
-      </select>
-
+      <ng-select id="menuUploadId" name="menuUpload" formControlName="menuUploadId">
+        <ng-option *ngFor="let menu of getUploadMenusByFilter(uploadMenuMealId, uploadMenuCategoryId)" [value]="menu.id">
+          {{ menu.title }}
+        </ng-option>
+      </ng-select>
     </div>
 
     <app-menu-item
