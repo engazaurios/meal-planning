@@ -28,6 +28,7 @@ export class EditCostCenterComponent implements OnInit {
     this.costCenterForm = new FormGroup({
       code: new FormControl(null, Validators.required),
       name: new FormControl(null, Validators.required),
+      discountPercent: new FormControl(null, [Validators.required, Validators.min(0), Validators.max(100)]),
     });
   }
 
@@ -36,8 +37,11 @@ export class EditCostCenterComponent implements OnInit {
     this.initForm();
 
     if (costCenter) {
-      this.costCenterForm.controls['code'].setValue(costCenter.code);
-      this.costCenterForm.controls['name'].setValue(costCenter.name);
+      this.costCenterForm.setValue({
+        code: costCenter.code,
+        name: costCenter.name,
+        discountPercent: costCenter.discountPercent
+      });
 
       this.idEdit = costCenter.id;
     }
