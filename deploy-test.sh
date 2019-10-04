@@ -11,13 +11,6 @@ function execute_in_server() {
 
 rm package-lock.json || true
 
-# Checkouts custom branch and pulls from it
-if [[ -z "${BRANCH}" ]]; then
-	export BRANCH=develop
-fi
-git checkout ${BRANCH}
-git pull origin ${BRANCH}
-
 # Checks if NG is running.
 NG_FILE=$(which ng)
 if [[ -z "${NG_FILE}" ]]; then
