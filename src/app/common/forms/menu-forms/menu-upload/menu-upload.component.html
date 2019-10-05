@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h3 class="modal-title">Agrega un nuevo menú al día <b class="text-capitalize">{{formattedDate}}</b></h3>
+  <h3 class="modal-title text-info">Agrega un nuevo menú al día <b class="text-capitalize">{{formattedDate}}</b></h3>
 </div>
 
 <div class="modal-body text-center">
@@ -44,8 +44,8 @@
 
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-danger" (click)="cancelAction()" [disabled]="isUploading">Cancelar</button>
-  <button type="button" ngbAutofocus class="btn btn-success" (click)="validate()">
+  <button type="button" class="btn btn-cancel" (click)="cancelAction()" [disabled]="isUploading">Cancelar</button>
+  <button type="button" ngbAutofocus class="btn btn-ok" (click)="validate()">
     <span *ngIf="!isUploading">Subir Menú</span>
     <app-loader-simple [isLoading]="isUploading" [isSmall]="true" [isWithMargin]="false"></app-loader-simple>
   </button>

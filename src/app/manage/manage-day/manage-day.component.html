@@ -20,19 +20,19 @@
   </app-menu-list>
 
   <button *ngIf="!isWeekend"
-    class="btn btn-danger float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-delete"
+    class="btn btn-cancel-dark float-md-right mt-md-3 btn-sm btn-static btn-static-delete text-action"
     [class.btn-static-ready]="menusReady(1) && !isApproved()"
     (click)="onDeleteMenuClick(dayMenu, selectedMenu)"
     [disabled]="!menusReady(1) || isApproved()">Borrar menú</button>
 
   <button *ngIf="!isWeekend"
-    class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static"
+    class="btn btn-ok-dark float-md-right mt-md-3 btn-sm btn-static text-action"
     (click)="onAddMenuClick(dayMenu)"
     [class.btn-static-ready]="!isButtonDisabled"
     [disabled]="isApproved()">Crear menú</button>
 
   <button *ngIf="!isWeekend"
-    class="btn btn-primary float-md-right mt-md-3 font-weight-bold btn-sm btn-static btn-static-upload"
+    class="btn btn-ok-dark float-md-right mt-md-3 btn-sm btn-static btn-static-upload text-action"
     (click)="onUploadMenuClick(dayMenu)"
     [class.btn-static-ready]="!isButtonDisabled"
     [disabled]="isApproved()">Subir menú</button>

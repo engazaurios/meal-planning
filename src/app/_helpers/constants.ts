@@ -84,6 +84,10 @@ export class Constants {
     }
   };
 
+  public static isStatusType(status, type) {
+    return status === type.key;
+  }
+
   public static toArray(dictionary) {
     const dictionaryArray = [];
     Object.keys(dictionary).forEach((key) => {

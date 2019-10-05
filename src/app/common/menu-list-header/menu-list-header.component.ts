@@ -15,9 +15,14 @@ export class MenuListHeaderComponent implements OnInit {
 
   @Output() dayChangedEvent = new EventEmitter<string>();
 
+  isPending = (status: string) => Constants.isStatusType(status, Constants.statusTypes.PENDING);
+  isSent = (status: string) => Constants.isStatusType(status, Constants.statusTypes.SENT);
+  isApproved = (status: string) => Constants.isStatusType(status, Constants.statusTypes.APPROVED);
+
   constructor() { }
 
   ngOnInit() {
+    console.log(this.userMenu);
   }
 
   /**

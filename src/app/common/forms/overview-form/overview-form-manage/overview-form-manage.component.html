@@ -1,5 +1,5 @@
 <div class="modal-header" #modalTitle>
-  <h2 class="modal-title" [innerHTML]="getConfirmMessage"></h2>
+  <h2 class="modal-title text-info" [innerHTML]="getConfirmMessage"></h2>
 </div>
 
 <div class="modal-body" *ngIf="dayMenus.length > 0">
@@ -25,9 +25,9 @@
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-danger"
+  <button type="button" class="btn btn-cancel"
           (click)="dismiss(false)">Cancelar</button>
-  <button type="button" ngbAutofocus class="btn btn-success"
+  <button type="button" ngbAutofocus class="btn btn-ok"
           (click)="onConfirmWeek()">Publicar</button>
 </div>
 

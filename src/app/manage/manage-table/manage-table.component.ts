@@ -95,6 +95,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
         this.sortData(actualDayMenu.menus, 'meal.name');
         this.dayMenus.push(actualDayMenu);
       }
+      console.log(this.dayMenus);
     });
     this.subscriptions.push(dayMenusSubs);
   }

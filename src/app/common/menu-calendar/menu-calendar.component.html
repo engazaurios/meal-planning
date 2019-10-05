@@ -11,9 +11,9 @@
            [class.custom-day-pending]="isPending(date)">
 
         <i *ngIf="isAction(date) && isActionEnabled(date)" (click)="onConfirmWeek(date)"
-           class="fas fa-check-circle custom-day-action"></i>
+           class="fas fa-check-circle custom-day-action text-info"></i>
         <i *ngIf="isAction(date) && !isActionEnabled(date)"
-           class="fas fa-check-circle custom-day-action custom-day-disabled text-muted"></i>
+           class="fas fa-check-circle custom-day-action custom-day-disabled text-muted text-info"></i>
         <p *ngIf="!isAction(date)">{{ date.day }}</p>
 
       </div>

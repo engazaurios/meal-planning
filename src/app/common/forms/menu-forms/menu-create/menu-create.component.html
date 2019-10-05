@@ -1,7 +1,7 @@
 <!-- Create new menu Modal -->
 
 <div class="modal-header">
-  <h3 class="modal-title">Crea un nuevo menú</h3>
+  <h3 class="modal-title text-info">Crea un nuevo menú</h3>
 </div>
 
 <div class="modal-body">
@@ -55,9 +55,9 @@
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-danger"
+  <button type="button" class="btn btn-cancel"
           (click)="cancelAction()" [disabled]="isUploading">Cancelar</button>
-  <button type="button" ngbAutofocus class="btn btn-success"
+  <button type="button" ngbAutofocus class="btn btn-ok"
           (click)="validate()">
     <span *ngIf="!isUploading">Crear Menú</span>
     <app-loader-simple [isLoading]="isUploading" [isSmall]="true" [isWithMargin]="false"></app-loader-simple>

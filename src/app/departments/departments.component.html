@@ -14,10 +14,10 @@
         <td scope="row">{{ department.code }}</td>
         <td>{{ department.name }}</td>
         <td class="actions text-center">
-          <button class="action btn btn-outline-info" (click)="onEdit(department.id)">
+          <button class="action btn btn-outline-ok" (click)="onEdit(department.id)">
             <i class="fas fa-pencil-alt"></i>
           </button>
-          <button class="action btn btn-outline-danger" (click)="onDelete(department.id)">
+          <button class="action btn btn-outline-cancel" (click)="onDelete(department.id)">
             <i class="fas fa-trash"></i>
           </button>
         </td>

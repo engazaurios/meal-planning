@@ -1,5 +1,5 @@
-<nav *ngIf="session" class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" routerLink="/">{{ title }}</a>
+<nav *ngIf="session" class="navbar navbar-expand-lg navbar-light bg-primary">
+  <a class="navbar-brand text-info" routerLink="/">{{ title }}</a>
 
   <button class="navbar-toggler"
           type="button"
@@ -10,35 +10,35 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse navbar-content" id="mainNavBar">
+  <div class="collapse navbar-collapse navbar-content text-action font-italic" id="mainNavBar">
     <ul class="navbar-nav">
       <li *ngIf="isAdmin" class="nav-item"
           data-toggle="collapse" data-target="#mainNavBar">
-        <a class="nav-link font-italic" routerLink="/reporting">Reporte</a>
+        <a class="nav-link" routerLink="/reporting">Reporte</a>
       </li>
       <li *ngIf="isProvider || isAdmin" class="nav-item"
           data-toggle="collapse" data-target="#mainNavBar">
-        <a class="nav-link font-italic" routerLink="/manage">Calendario</a>
+        <a class="nav-link" routerLink="/manage">Calendario</a>
       </li>
       <li *ngIf="isProvider || isAdmin" class="nav-item"
           data-toggle="collapse" data-target="#mainNavBar">
-        <a class="nav-link font-italic" routerLink="/manage/table">Tabla</a>
+        <a class="nav-link" routerLink="/manage/table">Tabla</a>
       </li>
       <li *ngIf="isAdmin" class="nav-item"
           data-toggle="collapse" data-target="#mainNavBar">
-        <a class="nav-link font-italic" routerLink="/users">Usuarios</a>
+        <a class="nav-link" routerLink="/users">Usuarios</a>
       </li>
       <li *ngIf="isAdmin" class="nav-item"
           data-toggle="collapse" data-target="#mainNavBar">
-        <a class="nav-link font-italic" routerLink="/departments">Departamentos</a>
+        <a class="nav-link" routerLink="/departments">Departamentos</a>
       </li>
       <li *ngIf="isAdmin" class="nav-item"
           data-toggle="collapse" data-target="#mainNavBar">
-        <a class="nav-link font-italic" routerLink="/cost-centers">Centros de Costo</a>
+        <a class="nav-link" routerLink="/cost-centers">Centros de Costo</a>
       </li>
       <li *ngIf="isEmployee" class="nav-item"
           data-toggle="collapse" data-target="#mainNavBar">
-        <a class="nav-link font-italic" routerLink="/">Calendario</a>
+        <a class="nav-link" routerLink="/">Calendario</a>
       </li>
     </ul>
 
@@ -53,7 +53,7 @@
       </li>
       <li class="nav-item btn-logout"
           data-toggle="collapse" data-target="#mainNavBar">
-        <button class="btn btn-danger" (click)="logout()">
+        <button class="btn btn-cancel" (click)="logout()">
           <i class="fas fa-sign-out-alt"></i>
           Salir
         </button>
