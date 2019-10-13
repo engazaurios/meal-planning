@@ -1,7 +1,7 @@
 <!-- Create new menu Modal -->
 
 <div class="modal-header">
-  <h3 class="modal-title">Crea un nuevo menú</h3>
+  <h3 class="modal-title text-info">Crea un nuevo menú</h3>
 </div>
 
 <div class="modal-body">
@@ -17,36 +17,31 @@
     </div>
     <div class="div-form">
       <label for="newMenuDescription">Descripción:</label>
-      <input type="text" placeholder="Descripción"
-             id="newMenuDescription"
-             class="form-control" formControlName="description"/>
-    </div>
-    <div class="div-form">
-      <label for="newMenuPrice">Precio:</label>
-      <input type="number" placeholder="Precio" value="24.00"
-             id="newMenuPrice"
-             class="form-control" formControlName="price"/>
+      <textarea placeholder="Descripción"
+                id="newMenuDescription"
+                class="form-control" formControlName="description"></textarea>
     </div>
     <div class="div-form">
       <label for="newMenuMealId">Tipo:</label>
-      <select class="form-control"
-              id="newMenuMealId"
-              name="meals" formControlName="meal">
-        <option *ngFor="let meal of meals" value="{{ meal.id }}">{{ meal.name }}</option>
-      </select>
+      <ng-select id="newMenuMealId" name="meals" formControlName="meal">
+        <ng-option *ngFor="let meal of meals" [value]="meal.id">
+          {{ meal.name }}
+        </ng-option>
+      </ng-select>
     </div>
     <div class="div-form">
       <label for="newMenuCategoryId">Categoría:</label>
-      <select class="form-control"
-              id="newMenuCategoryId"
-              name="categories" formControlName="category">
-        <option *ngFor="let category of categories" value="{{ category.id }}">{{ category.name }}</option>
-      </select>
+      <ng-select id="newMenuCategoryId" name="categories" formControlName="category">
+        <ng-option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </ng-option>
+      </ng-select>
     </div>
-    <div class="card">
-      <div class="text-center" *ngIf="imageSelected">
-        <img src="{{fileUploaderService.getImage(imageContainer, imageSelected)}}"
-             class="dropdown-toggle card-image-selected" data-toggle="dropdown">
+      <div class="d-flex text-center justify-content-center" *ngIf="imageSelected">
+        <div class="dropdown-toggle card card-image-container" data-toggle="dropdown">
+          <img src="{{fileUploaderService.getImage(imageContainer, imageSelected)}}"
+               class="card-image-selected">
+        </div>
         <div class="dropdown-menu" aria-labelledby="buttonActions">
           <div class="d-flex card-image-selector">
             <img *ngFor="let image of images" class="dropdown-item card-image"
@@ -54,16 +49,15 @@
                  (click)="imageSelected = image">
           </div>
         </div>
-      </div>
     </div>
   </form>
 
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-danger"
+  <button type="button" class="btn btn-cancel"
           (click)="cancelAction()" [disabled]="isUploading">Cancelar</button>
-  <button type="button" ngbAutofocus class="btn btn-success"
+  <button type="button" ngbAutofocus class="btn btn-ok"
           (click)="validate()">
     <span *ngIf="!isUploading">Crear Menú</span>
     <app-loader-simple [isLoading]="isUploading" [isSmall]="true" [isWithMargin]="false"></app-loader-simple>

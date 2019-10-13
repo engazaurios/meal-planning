@@ -9,11 +9,11 @@ form {
       justify-content: center;
       width: 20%;
     }
-    input, select {
+    input, select, textarea, ng-select {
       align-self: flex-end;
       width: 70%;
     }
-    select {
+    select, ng-select {
       align-self: normal;
     }
   }
@@ -35,9 +35,18 @@ form {
   margin: 15px;
 }
 
+.dropdown-toggle::after {
+  display:none;
+}
+
+.card-image-container {
+  animation: shadow-pulse 1500ms 2;
+  align-items: center;
+}
+
 .card-image-selected {
-  height: 150px;
-  width: 150px;
+  height: 185px;
+  width: 185px;
   margin: 15px;
 }
 
@@ -54,10 +63,17 @@ form {
 @media (max-width: 575.98px) {
   form {
     div {
-      label, input, select {
+      label, input, select, textarea, ng-select {
         align-self: normal;
         text-align: left;
         width: 100%;
+      }
+      ng-select {
+        div {
+          align-self: normal;
+          text-align: left;
+          width: 100%;
+        }
       }
     }
     .div-form {

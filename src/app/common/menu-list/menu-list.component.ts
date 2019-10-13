@@ -4,11 +4,15 @@ import {UserMenuModel} from '../models/user-menu.model';
 import {Constants} from '../../_helpers/constants';
 import {MealModel} from '../models/meal.model';
 import {MenuListService} from './menu-list.service';
+import {Animations} from '../../_helpers/animations';
 
 @Component({
   selector: 'app-menu-list',
   templateUrl: './menu-list.component.html',
-  styleUrls: ['./menu-list.component.less']
+  styleUrls: ['./menu-list.component.less'],
+  animations: [
+    Animations.fadeIn
+  ]
 })
 export class MenuListComponent implements OnInit, OnDestroy {
 

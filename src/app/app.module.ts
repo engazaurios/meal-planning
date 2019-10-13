@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -97,6 +98,7 @@ registerLocaleData (localeEs, 'es-GT', localeEsExtra);
     ReactiveFormsModule,
     HttpClientModule,
     NgSelectModule,
+    BrowserAnimationsModule
   ],
   entryComponents: [
     AlertSimpleComponent,

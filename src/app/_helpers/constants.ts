@@ -33,6 +33,7 @@ export class Constants {
 
   public static adminUserTypes = [Constants.userTypes.ADMIN.key];
   public static providerUserTypes = [Constants.userTypes.PROVIDER.key];
+  public static publisherUserTypes = [Constants.userTypes.ADMIN.key, Constants.userTypes.PROVIDER.key];
   public static nonAdminUserTypes = [Constants.userTypes.EMPLOYEE.key, Constants.userTypes.GUEST.key];
 
   /**
@@ -82,6 +83,10 @@ export class Constants {
       message: 'Aprobado'
     }
   };
+
+  public static isStatusType(status, type) {
+    return status === type.key;
+  }
 
   public static toArray(dictionary) {
     const dictionaryArray = [];

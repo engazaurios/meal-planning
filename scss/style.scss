@@ -1,0 +1,103 @@
+//$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+//$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+
+//$font-family-sans-serif:      "Roboto" !default;
+//$font-family-monospace:       "Courier New", monospace !default;
+//$font-family-base:            $font-family-sans-serif !default;
+
+$primary: #BDCE1D;
+$secundary: #966115;
+$warning: #F0AD4E;
+$danger: #FF4136;
+$light-info: #1F9BD3;
+$info: #003C71;
+$action: #002140;
+
+$theme-colors: (
+  "primary": $primary,
+  "secundary": $secundary,
+  "danger": $danger,
+  "info": $info,
+  "actions": $action
+);
+
+.text-action {
+  color: $action !important;
+}
+
+.text-pending {
+  color: $warning !important;
+}
+
+.text-sent, .text-published {
+  color: #A5CCA0F5 !important;
+}
+
+.text-approved {
+  color: green !important;
+}
+
+.btn-action {
+  color: $action;
+  background-color: $primary !important;
+}
+
+.btn-action-secondary {
+  color: $action;
+  background-color: #8E9C16 !important;
+}
+
+.btn-action-dark {
+  color: white !important;
+  background-color: $info !important;
+}
+
+.btn-ok {
+  background-color: $primary !important;
+  color: white !important;
+}
+
+.btn-outline-ok {
+  color: $primary !important;
+  border-color: $primary !important;
+}
+
+.btn-ok-dark {
+  background-color: $primary !important;
+  color: $action !important;
+}
+
+.btn-cancel {
+  background-color: $danger !important;
+  color: white !important;
+}
+
+.btn-outline-cancel{
+  color: $danger !important;
+  border-color: $danger !important;
+}
+
+.btn-cancel-dark {
+  background-color: $danger !important;
+  color: $action !important;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items {
+  .ng-option.ng-option-selected {
+    color: $primary;
+  }
+}
+
+.ng-select.ng-select-focused {
+  .ng-select-container,
+  .ng-select-container::before,
+  .ng-select-container::after {
+    border-color: $primary;
+  }
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+  background-color: $primary;
+}
+
+@import "../node_modules/bootstrap/scss/bootstrap";

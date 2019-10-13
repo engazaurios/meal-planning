@@ -54,19 +54,19 @@ const routes: Routes = [
     path: 'manage',
     component: ManageComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { expectedRoles: Constants.providerUserTypes }
+    data: { expectedRoles: Constants.publisherUserTypes }
   },
   {
     path: 'manage/table',
     component: ManageTableComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { expectedRoles: Constants.providerUserTypes }
+    data: { expectedRoles: Constants.publisherUserTypes }
   },
   {
     path: 'manage/:year/:month/:day',
     component: ManageDayComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { expectedRoles: Constants.providerUserTypes }
+    data: { expectedRoles: Constants.publisherUserTypes }
   },
   {
     path: 'users',

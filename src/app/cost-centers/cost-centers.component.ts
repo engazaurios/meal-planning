@@ -14,7 +14,7 @@ export class CostCentersComponent implements OnInit, OnDestroy {
   pageActions: Array<Object> = [
     {
       text: 'Agregar',
-      buttonType: 'btn btn-success',
+      buttonType: 'btn btn-action-dark',
       icon: 'fa fa-plus',
       callMethod: this.createCostCenter.bind(this),
     }

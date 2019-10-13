@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h3 class="modal-title">{{ content.title }}</h3>
+  <h3 class="modal-title text-info">{{ content.title }}</h3>
 </div>
 
 <div class="modal-body">
@@ -8,9 +8,9 @@
 
 <div class="modal-footer">
   <button *ngIf="content.cancelText !== ''"
-          type="button" class="btn btn-danger"
+          type="button" class="btn btn-cancel"
           (click)="activeModal.dismiss(false)">{{ content.cancelText }}</button>
   <button *ngIf="content.confirmationText !== ''"
-          type="button" ngbAutofocus class="btn btn-success"
+          type="button" ngbAutofocus class="btn btn-ok"
           (click)="activeModal.close(true)">{{ content.confirmationText }}</button>
 </div>

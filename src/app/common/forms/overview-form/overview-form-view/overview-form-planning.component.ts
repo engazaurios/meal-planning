@@ -1,17 +1,20 @@
-import {Component, Input, OnDestroy} from '@angular/core';
+import {Component, Input, OnDestroy, AfterViewChecked, ViewChild, ElementRef} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {DateHelper} from '../../../../_helpers/date-helper';
 import {DayMenuModel} from '../../../models/day-menu.model';
 import {OverviewFormService} from '../overview-form.service';
 import {NotifierService} from 'angular-notifier';
 import {AuthenticationService} from '../../../../_services';
+import {Constants} from '../../../../_helpers/constants';
 
 @Component({
   selector: 'app-overview-form-planning',
   templateUrl: './overview-form-planning.component.html',
   styleUrls: ['../../forms.component.less']
 })
-export class OverviewFormPlanningComponent implements OnDestroy {
+export class OverviewFormPlanningComponent implements AfterViewChecked, OnDestroy {
+
+  @ViewChild('modalTitle', {static: true}) modalTitle: ElementRef;
 
   @Input()  protected startOfWeek: any;
   @Input()  endOfWeek: any;
@@ -27,8 +30,17 @@ export class OverviewFormPlanningComponent implements OnDestroy {
     protected notifier: NotifierService
   ) {}
 
+  ngAfterViewChecked() {
+    // this.modalTitle.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   getFormattedDate(date) {
     return DateHelper.getLongFormattedDate(date);
+  }
+
+  isApproved(dayMenu: any) {
+    console.log(dayMenu.status);
+    return dayMenu.status === Constants.statusTypes.APPROVED.key;
   }
 
   get getActualDateRange() {

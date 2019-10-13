@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild, ElementRef} from '@angular/core';
 import {OverviewFormPlanningComponent} from '../overview-form-view/overview-form-planning.component';
 
 @Component({

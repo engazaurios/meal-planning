@@ -14,7 +14,7 @@ export class DepartmentsComponent implements OnInit, OnDestroy {
   pageActions: Array<Object> = [
     {
       text: 'Agregar',
-      buttonType: 'btn btn-success',
+      buttonType: 'btn btn-action-dark',
       icon: 'fa fa-plus',
       callMethod: this.createDepartment.bind(this),
     }

@@ -7,7 +7,6 @@ export class MenuModel {
   id: string;
   title: string;
   description: string;
-  price: number;
 
   @Type(() => MealModel)
   meal: MealModel;
@@ -19,12 +18,11 @@ export class MenuModel {
 
   image: string;
 
-  constructor(title: string, description: string, price: number,
+  constructor(title: string, description: string,
               mealId: string, categoryId: string,
               image: string) {
     this.title = title;
     this.description = description;
-    this.price = price;
     this.mealId = mealId;
     this.meal = new MealModel(this.mealId);
     this.categoryId = categoryId;
@@ -44,11 +42,12 @@ export class MenuModel {
     return this.meal.code;
   }
 
+  // TODO : check if we want to do the hardcode here.
   toJson() {
     return {
       title: this.title,
       description: this.description,
-      price: this.price,
+      price: '24.00',
       mealId: this.mealId,
       categoryId: this.categoryId,
       meal: this.meal.toJson(),

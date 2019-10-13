@@ -1,4 +1,4 @@
-<div *ngIf="showHeader">
+<div *ngIf="showHeader" [@fadeIn]="userMenu">
   <app-menu-list-header
     (dayChangedEvent)="onDateChanged($event)"
     [actualDate]="actualDate"
