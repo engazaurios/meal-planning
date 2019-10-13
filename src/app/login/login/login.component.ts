@@ -80,7 +80,8 @@ export class LoginComponent implements OnInit {
         errorOnLogin.componentInstance.content = {
           title: '¡Hubo un error!',
           description:
-            `<i>¿Existe el usuario?<br>¿La contraseña está correcta?</i><br><br>Intenta de nuevo o habla con tu administrador.`,
+            `<i>¿Existe el usuario?<br>¿La contraseña está correcta?<br>¿Problema de conexión?</i>
+<br><br>Intenta de nuevo o habla con tu administrador.`,
           cancelText: '',
           confirmationText: 'OK'
         };
