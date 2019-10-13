@@ -261,9 +261,6 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     const actualDayOfWeek = DateHelper.getDayOfWeek(actualDate);
     const actualTime = actualDate.hours();
 
-    // TODO : remove
-    return false;
-
     if ((actualDayOfWeek > 2 && actualDayOfWeek < 5)
       && (actualTime > 6 && actualTime < 23)) {
       return false;
@@ -271,9 +268,10 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const errorAlert = this.modalService.open(AlertSimpleComponent, {backdrop: 'static', size: 'lg'});
     errorAlert.componentInstance.content = {
-      title: 'Horario no válido.',
+      title: 'Horario no válido',
       description:
-        `El horario para seleccionar comidas es: <i>Miércoles, Jueves y Viernes</i> de <b>06:00 a 23:00 horas</b>. Vuelve más tarde.`,
+        `El horario para seleccionar comidas son los días <i>Miércoles, Jueves y Viernes</i> de <b>06:00 a 23:00 horas</b>. 
+<br><br>Vuelve más tarde.`,
       cancelText: '',
       confirmationText: 'OK'
     };
