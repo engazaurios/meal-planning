@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginComponent } from '../login/login.component';
-import { first } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {LoginComponent} from '../login/login.component';
+import {first} from 'rxjs/operators';
+import {FormGroup} from '@angular/forms';
 import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
 
 @Component({

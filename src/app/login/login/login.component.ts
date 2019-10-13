@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../_services';
 import {first} from 'rxjs/operators';
 import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
-import {DateHelper} from '../../_helpers/date-helper';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 /**

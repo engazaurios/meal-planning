@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Data } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {Data} from '@angular/router';
 
-import { RequestService } from '../../_services/request.service';
+import {RequestService} from '../../_services/request.service';
 
 @Injectable()
 export class AttendanceService {
