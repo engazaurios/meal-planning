@@ -1,5 +1,3 @@
-<div *ngIf="error">{{error}}</div>
-
 <div class="container mt-5">
   <div class="row">
     <div class="col-12"><h2 class="col-md text-center text-info">Inicia sesión manual</h2></div>
@@ -13,7 +11,7 @@
     <div class="col-12 col-md-8 col-lg-6 mt-3">
       <form class="col-md" [formGroup]="loginForm" (submit)="onSubmit()">
         <div class="form-group">
-          <label for="username">Usuario:</label>
+          <label for="username"><i>Usuario</i></label>
           <input type="text" class="form-control" id="username" formControlName="username" [ngClass]="{ 'is-invalid': submitted && form.username.errors }"/>
           <div *ngIf="submitted && form.username.errors">
             <div *ngIf="form.username.errors.required" class="text-danger">Usuario incorrecto.</div>
@@ -21,7 +19,7 @@
         </div>
 
         <div class="form-group">
-          <label for="password">Contraseña:</label>
+          <label for="password"><i>Contraseña</i></label>
           <input type="password" class="form-control" formControlName="password" id="password" [ngClass]="{ 'is-invalid': submitted && form.username.errors }"/>
           <div *ngIf="submitted && form.password.errors">
             <div *ngIf="form.password.errors.required" class="text-danger">Contraseña incorrecta.</div>
