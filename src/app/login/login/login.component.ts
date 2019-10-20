@@ -3,9 +3,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../_services';
 import {first} from 'rxjs/operators';
+import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-// https://angular.io/docs
-// https://jasonwatmore.com/post/2019/05/17/angular-7-tutorial-part-4-login-form-authentication-service-route-guard
 /**
  * Component class that will handle the login form and interaction with user.
  */
@@ -17,25 +17,20 @@ import {first} from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-  // Login form with username/password inputs.
   loginForm: FormGroup;
 
-  // Flags to determine if page is loading or is already submitted.
   loading = false;
   submitted = false;
 
-  // Return url when the user logs in.
   returnUrl: string;
-  // Saves the error if there's any.
   error: string;
 
   constructor(
     protected formBuilder: FormBuilder,
-    protected route: ActivatedRoute,
-    protected router: Router,
-    protected authenticationService: AuthenticationService
+    protected route: ActivatedRoute, protected router: Router,
+    protected authenticationService: AuthenticationService,
+    protected modalService: NgbModal
   ) {
-    // If authentication service has already a value, then go to Home Page.
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
     }
@@ -45,13 +40,11 @@ export class LoginComponent implements OnInit {
    * Method that starts the form and sets the validators.
    */
   ngOnInit() {
-    // Creates the login form from Username and Password in blank.
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
 
-    // Get return URL from route parameters.
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
@@ -73,17 +66,25 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-
     /**
      * Login from the AuthenticationService based on input. If the login was fine, redirect to the returnUrl. If there's an error store it,
      * and return it.
      */
     this.authenticationService.login(this.form.username.value, this.form.password.value).pipe(first())
       .subscribe(data => {
-          this.router.navigate([this.returnUrl]);
-        }, error => {
-          this.error = error;
-          this.loading = false;
+        this.router.navigate([this.returnUrl]);
+      }, () => {
+        this.loading = false;
+
+        const errorOnLogin = this.modalService.open(AlertSimpleComponent, { size: 'lg' });
+        errorOnLogin.componentInstance.content = {
+          title: '¡Hubo un error!',
+          description:
+            `<i>¿Existe el usuario?<br>¿La contraseña está correcta?<br>¿Problema de conexión?</i>
+<br><br>Intenta de nuevo o habla con tu administrador.`,
+          cancelText: '',
+          confirmationText: 'OK'
+        };
       });
   }
 

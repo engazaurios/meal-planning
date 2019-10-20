@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginComponent } from '../login/login.component';
-import { first } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {LoginComponent} from '../login/login.component';
+import {first} from 'rxjs/operators';
+import {FormGroup} from '@angular/forms';
+import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
 
 @Component({
   selector: 'app-login-qr',
@@ -35,11 +36,20 @@ export class LoginQrComponent extends LoginComponent implements OnInit {
      * and return it.
      */
     this.authenticationService.loginQR(this.form.usernameID.value).pipe(first())
-      .subscribe(data => {
+      .subscribe(() => {
         this.router.navigate([this.returnUrl]);
-      }, error => {
-        this.error = error;
+      }, () => {
         this.loading = false;
+
+        const errorOnLogin = this.modalService.open(AlertSimpleComponent, { size: 'lg' });
+        errorOnLogin.componentInstance.content = {
+          title: '¡Hubo un error!',
+          description:
+            `<i>¿Existe el usuario?<br>¿El código QR está correcto?<br>¿Está sucio o roto el carnet donde está el código?</i>
+<br><br>Intenta de nuevo o habla con tu administrador.`,
+          cancelText: '',
+          confirmationText: 'OK'
+        };
       });
   }
 

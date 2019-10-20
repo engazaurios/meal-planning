@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AttendanceService } from './attendance.service';
-import { HostListener } from '@angular/core';
-import { finalize } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AttendanceService} from './attendance.service';
+import {finalize} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
