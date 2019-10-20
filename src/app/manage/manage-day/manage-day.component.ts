@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, AfterViewInit} from '@angular/core';
 import {AuthenticationService} from '../../_services';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -64,6 +64,8 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
       status = this.dayMenu.status;
     }
     this.userMenu = new UserMenuModel(status);
+
+    this.validateTime();
   }
 
   /**
@@ -123,7 +125,6 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
 
     deleteMenuRef.result.then(() => {
       this.planningDetailService.deleteMenu(dayMenu, menu).subscribe((response) => {
-        console.log(response);
         this.notifier.notify(
           'success',
           `El menu "${menu.title}" ha sido eliminado correctamente.`
@@ -182,7 +183,27 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
    * Disable method to validate time.
    */
   protected validateTime(): boolean {
-    return false;
+    const weekBefore = DateHelper.getPreviousDateType(DateHelper.getDate(), Constants.displayTypes.WEEK).dayOfYear();
+    const actualDayMenuDay = DateHelper.getDate(this.dayMenu.date).dayOfYear();
+    if (actualDayMenuDay > weekBefore) {
+      return false;
+    }
+
+    const errorAlert = this.modalService.open(AlertSimpleComponent, {backdrop: 'static', size: 'lg'});
+    errorAlert.componentInstance.content = {
+      title: 'Fecha no válida',
+      description:
+        `No puedes agregar menús de hace una semana. <br><i>Consulta a tu administrador.</i>`,
+      cancelText: '',
+      confirmationText: 'OK'
+    };
+    errorAlert.result.then(() => {
+      this.router.navigate(['/manage']);
+    }, () => {
+      this.router.navigate(['/manage']);
+    });
+
+    return true;
   }
 
   /**

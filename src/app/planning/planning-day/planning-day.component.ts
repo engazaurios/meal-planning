@@ -16,7 +16,7 @@ import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple
   templateUrl: './planning-day.component.html',
   styleUrls: ['./planning-day.component.less']
 })
-export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
+export class PlanningDayComponent implements OnInit, OnDestroy {
 
   actualDate: string;
 
@@ -69,10 +69,6 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscriptions.push(planningSubscription);
   }
 
-  ngAfterViewInit() {
-    this.validateTime();
-  }
-
   /**
    * Method that selects user menus already selected (if exists).
    */
@@ -84,6 +80,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.userMenu = new UserMenuModel(Constants.statusTypes.NA.key);
     }
+    this.validateTime();
   }
 
   /**

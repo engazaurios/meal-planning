@@ -46,7 +46,6 @@ export class MenuFormsService extends MenuListService {
    * @param dayMenu Day menu to delete.
    */
   deleteDayMenu(dayMenu: DayMenuModel) {
-    console.log(dayMenu);
     this.requestService.delete(`/daymenus/${dayMenu.id}`, {}).subscribe((response) => {});
   }
 

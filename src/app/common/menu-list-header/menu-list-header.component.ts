@@ -22,7 +22,6 @@ export class MenuListHeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.userMenu);
   }
 
   /**
@@ -51,19 +50,10 @@ export class MenuListHeaderComponent implements OnInit {
    * @param action Which action should it take, next/previous.
    */
   public clickOnArrow(action) {
-    const arrowDate = action === 'next' ?
+    this.actualDate = action === 'next' ?
       DateHelper.getNextDateType(this.actualDate, Constants.displayTypes.DAY)
       : DateHelper.getPreviousDateType(this.actualDate, Constants.displayTypes.DAY);
-
-    const arrowDateDay = arrowDate.dayOfYear();
-    const previousWeekDay = DateHelper.getPreviousDateType(DateHelper.getDate(), Constants.displayTypes.MONTH).dayOfYear();
-    const nextWeekDay = DateHelper.getNextDateType(DateHelper.getDate(), Constants.displayTypes.MONTH).dayOfYear();
-
-    if (nextWeekDay >= arrowDateDay && arrowDateDay >= previousWeekDay) {
-      this.actualDate = arrowDate;
-      this.dayChangedEvent.emit(this.actualDate);
-    }
-
+    this.dayChangedEvent.emit(this.actualDate);
   }
 
 }
