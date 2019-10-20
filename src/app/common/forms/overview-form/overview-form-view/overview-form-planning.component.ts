@@ -39,7 +39,6 @@ export class OverviewFormPlanningComponent implements AfterViewChecked, OnDestro
   }
 
   isApproved(dayMenu: any) {
-    console.log(dayMenu.status);
     return dayMenu.status === Constants.statusTypes.APPROVED.key;
   }
 
@@ -49,7 +48,6 @@ export class OverviewFormPlanningComponent implements AfterViewChecked, OnDestro
 
   public onConfirmWeek() {
     this.overviewService.confirmWeek(this.startOfWeek, this.authenticationService.currentUserValue.userId).subscribe((response) => {
-      console.log(response);
       this.notifier.notify(
         'success',
         `La semana ${this.getActualDateRange} ha sido confirmada.`
