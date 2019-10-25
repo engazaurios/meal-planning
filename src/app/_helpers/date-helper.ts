@@ -13,8 +13,8 @@ export class DateHelper {
     return this.getDate(actualDate).weekday();
   }
 
-  static isToday(actualDate) {
-    return moment(actualDate).isSame(moment(), 'day');
+  static isActualType(actualDate, type) {
+    return moment(actualDate).isSame(moment(), type.key);
   }
 
   static isWeekend(actualDate) {
@@ -26,6 +26,10 @@ export class DateHelper {
 
   static getFormattedDate(actualDate) {
     return actualDate.format('YYYY/M/DD');
+  }
+
+  static getJsonFormattedDate(actualDate) {
+    return actualDate.format('[{year: ]YYYY[, month:]M[, day:]D[}]');
   }
 
   static getSimpleFormattedDate(actualDate) {

@@ -38,6 +38,10 @@ $theme-colors: (
   background-color: $primary !important;
 }
 
+.btn-link {
+  color: $light-info !important;
+}
+
 .btn-action-secondary {
   color: $action;
   background-color: #8E9C16 !important;

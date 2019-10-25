@@ -20,8 +20,7 @@
       </div>
   </ng-template>
 
-  <ngb-datepicker [maxDate]="maxDate"
-                  [minDate]="minDate"
+  <ngb-datepicker #dp
                   [displayMonths]="1"
                   [markDisabled]="isNA || isAction"
                   [dayTemplate]="customDay"
@@ -29,3 +28,8 @@
                   (navigate)="onNavigationChanged($event)"
                   [navigation]="'arrows'"></ngb-datepicker>
 </div>
+
+
+<button *ngIf="!isActualMonth()"
+  class="btn float-md-right mt-md-3 btn-sm btn-static btn-action-dark"
+  (click)="goToActualMonth(dp)">Ir al mes actual</button>

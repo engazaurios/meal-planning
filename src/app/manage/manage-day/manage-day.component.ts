@@ -193,7 +193,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
     errorAlert.componentInstance.content = {
       title: 'Fecha no válida',
       description:
-        `No puedes agregar menús de hace una semana. <br><i>Consulta a tu administrador.</i>`,
+        `No puedes agregar menús de fechas pasadas. <br><i>Consulta a tu administrador.</i>`,
       cancelText: '',
       confirmationText: 'OK'
     };

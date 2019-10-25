@@ -1,9 +1,10 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../_services';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import {LoaderService} from '../common/loader/loader.service';
-import {finalize} from 'rxjs/operators';
+import {finalize, catchError} from 'rxjs/operators';
+import {NotifierService} from 'angular-notifier';
 
 /**
  * Injectable typescript that handles the responses/requests from the API server.
@@ -12,6 +13,7 @@ import {finalize} from 'rxjs/operators';
 export class JwtInterceptor implements HttpInterceptor {
 
   constructor(private authenticationService: AuthenticationService,
+              private notifier: NotifierService,
               private loaderService: LoaderService) {}
 
   /**
@@ -24,7 +26,6 @@ export class JwtInterceptor implements HttpInterceptor {
 
     this.loaderService.show();
 
-    // WARNING: currentUser.id is really the token.
     if (currentUser && currentUser.id) {
       req = req.clone({
         setHeaders: {
@@ -34,6 +35,22 @@ export class JwtInterceptor implements HttpInterceptor {
     }
 
     return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `${error.error.message}`;
+        } else {
+          errorMessage = `${error.message}`;
+        }
+
+        this.notifier.hideAll();
+        this.notifier.notify(
+          'error',
+          'Hubo un error. Intenta de nuevo.'
+        );
+
+        return throwError(errorMessage);
+      }),
       finalize(() => this.loaderService.hide())
     );
   }
