@@ -33,6 +33,7 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   isSent      = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.SENT.key);
   isApproved  = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.APPROVED.key);
   isPending   = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.PENDING.key);
+  isToday     = (date: NgbDate) => DateHelper.isToday(this.formatDate(date));
 
   isAction    = (date: NgbDate) => DateHelper.getDayOfWeek(this.formatDate(date)) === 6;
   isActionEnabled(date: NgbDate): boolean {

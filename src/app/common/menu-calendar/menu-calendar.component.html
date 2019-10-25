@@ -8,7 +8,8 @@
            [class.custom-day-na]="isNA(date) && date.month === currentMonth"
            [class.custom-day-sent]="isSent(date) || isApproved(date)"
            [class.custom-day-approved]="isApproved(date)"
-           [class.custom-day-pending]="isPending(date)">
+           [class.custom-day-pending]="isPending(date)"
+           [class.actual-day]="isToday(date)">
 
         <i *ngIf="isAction(date) && isActionEnabled(date)" (click)="onConfirmWeek(date)"
            class="fas fa-check-circle custom-day-action text-info"></i>

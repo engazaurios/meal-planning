@@ -13,6 +13,10 @@ export class DateHelper {
     return this.getDate(actualDate).weekday();
   }
 
+  static isToday(actualDate) {
+    return moment(actualDate).isSame(moment(), 'day');
+  }
+
   static isWeekend(actualDate) {
     const dayOfWeek = this.getDayOfWeek(actualDate);
     return dayOfWeek === 5 || dayOfWeek === 6;

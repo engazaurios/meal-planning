@@ -49,9 +49,9 @@ export class ManageTableComponent implements OnInit, OnDestroy {
   isActionDisabled(dayMenu: DayMenuModel): boolean {
     const isDisabled = dayMenu.status === Constants.statusTypes.APPROVED.key;
 
-    const weekBefore = DateHelper.getPreviousDateType(DateHelper.getDate(), Constants.displayTypes.WEEK).dayOfYear();
+    const dayBefore = DateHelper.getPreviousDateType(DateHelper.getDate(), Constants.displayTypes.DAY).dayOfYear();
     const actualDayMenuDay = DateHelper.getDate(dayMenu.date).dayOfYear();
-    return dayMenu && (isDisabled || weekBefore > actualDayMenuDay);
+    return dayMenu && (isDisabled || dayBefore > actualDayMenuDay);
   }
 
   constructor(

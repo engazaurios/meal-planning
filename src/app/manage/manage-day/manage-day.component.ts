@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, AfterViewInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../_services';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -183,9 +183,9 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
    * Disable method to validate time.
    */
   protected validateTime(): boolean {
-    const weekBefore = DateHelper.getPreviousDateType(DateHelper.getDate(), Constants.displayTypes.WEEK).dayOfYear();
+    const dayBefore = DateHelper.getPreviousDateType(DateHelper.getDate(), Constants.displayTypes.DAY).dayOfYear();
     const actualDayMenuDay = DateHelper.getDate(this.dayMenu.date).dayOfYear();
-    if (actualDayMenuDay > weekBefore) {
+    if (actualDayMenuDay > dayBefore) {
       return false;
     }
 
