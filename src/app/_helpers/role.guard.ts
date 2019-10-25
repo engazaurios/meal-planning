@@ -47,6 +47,7 @@ export class RoleGuard implements CanActivate {
         isExpectedRole = actualRoles.length > 0;
       }
     }
+
     return isExpectedRole;
   }
 

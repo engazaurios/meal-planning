@@ -130,7 +130,7 @@
               formControlName="roleId">
               <option value="">Selecciona una opción</option>
               <option value="{{role.id}}" *ngFor="let role of roles">
-                {{role.name}}
+                {{role.title}}
               </option>
             </select>
 
@@ -232,13 +232,13 @@
           type="submit"
           class="btn btn-ok action"
           [disabled]="!userForm.valid">
-          Save
+          Guardar
         </button>
         <button
           type="button"
           class="btn btn-cancel action"
           (click)="onCancel()">
-          Cancel
+          Cancelar
         </button>
       </div>
     </div>

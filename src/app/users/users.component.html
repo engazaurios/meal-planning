@@ -17,7 +17,7 @@
       <tr *ngFor="let user of users;">
         <td class="align-middle">{{ user.fullName }}</td>
         <td class="align-middle">{{ user.username }}</td>
-        <td class="align-middle">{{ user.role ? user.role.name : '' }}</td>
+        <td class="align-middle">{{ user.role ? user.role.title : '' }}</td>
         <td class="align-middle">{{ user.department ? user.department.name : ''}}</td>
         <td class="align-middle">{{ user.email }}</td>
         <td>
