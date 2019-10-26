@@ -43,7 +43,7 @@ export class JwtInterceptor implements HttpInterceptor {
           errorMessage = `${error.message}`;
         }
 
-        this.notifier.hideAll();
+        // this.notifier.hideAll();
         this.notifier.notify(
           'error',
           'Hubo un error. Intenta de nuevo.'
