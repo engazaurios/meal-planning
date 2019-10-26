@@ -4,6 +4,7 @@ import {AuthenticationService} from '../_services';
 import {Observable, throwError} from 'rxjs';
 import {catchError, finalize} from 'rxjs/operators';
 import {LoaderService} from '../common/loader/loader.service';
+import {NotifierService} from 'angular-notifier';
 
 /**
  * Injectable typescript that handles the error messages.
@@ -12,6 +13,7 @@ import {LoaderService} from '../common/loader/loader.service';
 export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(private authenticationService: AuthenticationService,
+              private notifier: NotifierService,
               private loaderService: LoaderService) {
   }
 
@@ -28,6 +30,12 @@ export class ErrorInterceptor implements HttpInterceptor {
       }
 
       this.loaderService.show();
+
+      // this.notifier.hideAll();
+      this.notifier.notify(
+        'error',
+        'Hubo un error. Intenta de nuevo.'
+      );
 
       const error = err.error.message || err.statusText;
       return throwError(error).pipe(
