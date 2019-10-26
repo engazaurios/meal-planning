@@ -1,7 +1,6 @@
 <div class="mt-4">
   <ng-template #customDay let-date let-currentMonth="currentMonth"
                let-selected="selected" let-disabled="disabled" let-focused="focused">
-      <!--  TODO : Agregar un icono cuando no llego -->
       <div class="custom-day"
            [class.bg-primary]="selected"
            [class.custom-day-out-month]="date.month !== currentMonth"

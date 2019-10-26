@@ -79,7 +79,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
       if (menu !== null && menu !== undefined) {
         this.notifier.notify(
           'success',
-          `El menu "${menu.title}" ha sido creado correctamente.`
+          `El menu ha sido creado correctamente.`
         );
         this.onUploadMenuClick(dayMenu, menu);
       }
@@ -100,7 +100,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
       if (menu !== null && menu !== undefined) {
         this.notifier.notify(
           'success',
-          `El menu "${menu.title}" ha sido agregado correctamente.`
+          `El menu ha sido agregado correctamente.`
         );
         this.reloadMenuItems();
         this.selectedTab = menu.meal.id;
@@ -127,7 +127,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
       this.planningDetailService.deleteMenu(dayMenu, menu).subscribe((response) => {
         this.notifier.notify(
           'success',
-          `El menu "${menu.title}" ha sido eliminado correctamente.`
+          `El menu ha sido eliminado correctamente.`
         );
         this.reloadMenuItems();
       });

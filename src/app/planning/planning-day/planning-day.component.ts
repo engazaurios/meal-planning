@@ -176,10 +176,11 @@ export class PlanningDayComponent implements OnInit, OnDestroy {
     let selectedMenus = this.selectedMenus[`${mealId}`];
     const menuIndex = selectedMenus.indexOf(menuId);
 
-    // TODO : change based on role
-    if (this.currentUser.role !== Constants.userTypes.GUEST.key) {
+    const actualUserRoles = this.currentUser.user.roles;
+    if (actualUserRoles.find(r => r.name === Constants.userTypes.EMPLOYEE.key)) {
       selectedMenus = [];
-    } else if (this.currentUser.role !== Constants.userTypes.ADMIN.key)  {
+    } else if (actualUserRoles.find(r => r.name === Constants.userTypes.ADMIN.key)
+      || actualUserRoles.find(r => r.name === Constants.userTypes.PROVIDER.key)) {
       return;
     }
 
@@ -196,6 +197,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy {
 
   /**
    * Method that validates the selected dayMenus.
+   * TODO : change the behavior depending on the role type.
    */
   public validateUploadMenus() {
     const amountBreakfast = this.selectedMenus[`${Constants.mealsTypes.BREAKFAST.key}`].length;
@@ -267,8 +269,7 @@ export class PlanningDayComponent implements OnInit, OnDestroy {
     errorAlert.componentInstance.content = {
       title: 'Horario no válido',
       description:
-        `El horario para seleccionar comidas son los días <i>Miércoles, Jueves y Viernes</i> de <b>06:00 a 23:00 horas</b>. 
-<br><br>Vuelve más tarde.`,
+        `El horario para seleccionar comidas son los días <i>Miércoles, Jueves y Viernes</i> de <b>06:00 a 23:00 horas</b>.`,
       cancelText: '',
       confirmationText: 'OK'
     };

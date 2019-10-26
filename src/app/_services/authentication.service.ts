@@ -43,8 +43,6 @@ export class AuthenticationService {
    * Method that logs in to the API by sending as a JSON the user information.
    * @param username Username of the user to log in.
    * @param password Password of the user to log in.
-   * TODO: replace localhost url to the API URL.
-   * TODO: two diff roles: admin/user.
    */
   login(username: string, password: string) {
     return this.request
@@ -69,11 +67,8 @@ export class AuthenticationService {
   /**
    * Method that logs in to the API by sending as a JSON the userID information from the QR.
    * @param usernameID Username of the user to log in.
-   * TODO: replace localhost url to the API URL.
-   * TODO: two diff roles: admin/user.
    */
   loginQR(usernameID: string) {
-    // TODO: Implement
     return this.login('todo', 'todo');
   }
 

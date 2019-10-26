@@ -79,35 +79,6 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method to get only the updated week.
-   * @param startOfWeek Start of week.
-   * @param endOfWeek End of week.
-   * TODO : update only week confirmed/published.
-   */
-  protected getDayMenusUpdate(startOfWeek, endOfWeek) {
-    this.planningServiceSubscription = this.planningService.userUpdatedDayMenusDataChanged.subscribe((dayMenusResponse: DayMenuModel[]) => {
-
-      for (const dayMenuResponse of dayMenusResponse) {
-        // const oldDayMenuIndex = this.dayMenusList.findIndex(dMenu => dMenu.id === dayMenuResponse.id);
-        // console.log(this.dayMenusList);
-        // console.log(dayMenuResponse);
-        // console.log(this.dayMenusList[oldDayMenuIndex]);
-        // this.dayMenusList[oldDayMenuIndex] = dayMenuResponse;
-        // console.log(this.dayMenusList[oldDayMenuIndex]);
-      }
-
-      console.log(dayMenusResponse);
-
-      this.dayMenus = this.menusToJson(dayMenusResponse);
-
-      // TODO : finish the update to actual month.
-      this.actualMonth = {year: startOfWeek.year(), month: startOfWeek.month()};
-    });
-
-    this.planningService.getUpdatedUserMenu(this.currentUser.userId, startOfWeek.toISOString(), endOfWeek.toISOString());
-  }
-
-  /**
    * Action to do when next/previous month is selected
    * @param event Event to trigger.
    */
