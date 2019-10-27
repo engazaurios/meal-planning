@@ -8,9 +8,9 @@
           </div>
         </div>
         <div class="circle-animation">
-            <div class="pulsating-circle">
+            <div class="pulsating-circle" [class.loading]="loading" [ngClass]="statusClass">
             </div>
-            <span class="content-text">Acerca tu carnet al lector</span>
+            <span class="content-text">{{statusMessage}}</span>
           </div>
       </div>
   </div>

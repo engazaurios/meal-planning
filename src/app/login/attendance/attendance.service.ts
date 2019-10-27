@@ -9,7 +9,7 @@ export class AttendanceService {
   constructor(private request: RequestService) {}
 
   attendance(data: Data) {
-    return this.request.post('/Orders/TempAttendance', data);
+    return this.request.post('/Orders/Attendance', data);
   }
 
   getAttendance(date: String, hour: Number, minute: Number) {

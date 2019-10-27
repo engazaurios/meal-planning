@@ -68,13 +68,25 @@ export class AuthenticationService {
 
   /**
    * Method that logs in to the API by sending as a JSON the userID information from the QR.
-   * @param usernameID Username of the user to log in.
+   * @param token Token of the user to log in.
    * TODO: replace localhost url to the API URL.
    * TODO: two diff roles: admin/user.
    */
-  loginQR(usernameID: string) {
+  loginQR(token: String) {
     // TODO: Implement
-    return this.login('todo', 'todo');
+    return this.request.post('/AppUsers/loginWithQR', {
+      token: token
+    })
+    .pipe(map((session: LoginResponse) => {
+      console.log(session);
+      session.user = this.dataHelper.createUserFromObject(session.user);
+
+      localStorage.setItem(this.sessionKey, JSON.stringify(session));
+
+      this.sessionSubject.next(session);
+
+      return session;
+    }));
   }
 
   /**
