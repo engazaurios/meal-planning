@@ -274,9 +274,9 @@
         </h5>
       </div>
 
-      <div class="image-preview mb-3" *ngIf="profilePicturePreviewUrl">
+      <div class="image-preview mb-3" *ngIf="user.photo">
         <img
-          [src]="profilePicturePreviewUrl"
+          [src]="fileUploader.downloadUrl  + user.photo"
           height="300"
           (error)="userProfilePictureNotFound($event)" />
       </div>

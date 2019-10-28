@@ -69,9 +69,10 @@ export class UserEditComponent implements OnInit {
       username: new FormControl(user.username, Validators.required),
       qrCode: new FormControl(user.qrCode, Validators.required),
       password: new FormControl(user.password, user.id ? null : Validators.required),
+      photo: new FormControl(user.photo),
     });
 
-    this.profilePicturePreviewUrl = this.editMode ? (this.fileUploader.downloadUrl + this.id) : null;
+    // this.profilePicturePreviewUrl = user.photo ? (this.fileUploader.downloadUrl + user.photo) : null;
   }
 
   onSubmit() {
@@ -149,14 +150,18 @@ export class UserEditComponent implements OnInit {
         } else if(event['type'] === HttpEventType.Response) {
           this.profilePictureFile = null;
           this.profilePictureFileInput.nativeElement.value = null;
-          this.profilePicturePreviewUrl = this.fileUploader.downloadUrl + this.id + '?' + (new Date()).getTime();
+          // this.profilePicturePreviewUrl = this.fileUploader.downloadUrl + this.id + '?lastModified=' + (new Date()).getTime();
           this.profilePictureFileExist = true;
+
+          this.userForm.value.photo.setValue(this.id + '?lastModified=' + (new Date()).getTime());
+
+          return this.onSubmit();
         }
       });
   }
 
   userProfilePictureNotFound() {
-    this.profilePicturePreviewUrl = this.fileUploader.downloadUrl + 'man.png';
+    // this.profilePicturePreviewUrl = this.fileUploader.downloadUrl + 'man.png';
     this.profilePictureFileExist = false;
   }
 
