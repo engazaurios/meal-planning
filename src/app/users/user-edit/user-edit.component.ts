@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router, Data } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpEventType } from '@angular/common/http';
+import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierService } from 'angular-notifier';
 
@@ -73,6 +73,31 @@ export class UserEditComponent implements OnInit {
     });
   }
 
+  handleSubmitError(serverError: HttpErrorResponse) {
+    const error = serverError.error && serverError.error.error;
+
+    if (!error || (error.name !== 'ValidationError')) {
+      return;
+    }
+
+    let errorCodes: Object = error.details.codes;
+
+    Object.keys(errorCodes).forEach((attrKey: string) => {
+      if (attrKey === 'context') {
+        return;
+      }
+
+      if (errorCodes[attrKey].includes('uniqueness')) {
+        if (this.userForm.value.hasOwnProperty(attrKey)) {
+          this.userForm.controls[attrKey].markAsTouched();
+          this.userForm.controls[attrKey].setErrors({
+            alreadyExists: true
+          });
+        }
+      }
+    });
+  }
+
   onSubmit() {
     if (this.userForm.invalid) {
       return;
@@ -87,15 +112,17 @@ export class UserEditComponent implements OnInit {
 
     if (this.editMode) {
       return this.usersService.updateUser(this.id, this.userForm.value)
-        .subscribe(() => {
-          this.router.navigate(['/users']);
-        });
+        .subscribe(
+          () => this.router.navigate(['/users']),
+          this.handleSubmitError.bind(this)
+        );
     }
 
     return this.usersService.createUser(this.userForm.value)
-      .subscribe(() => {
-        this.router.navigate(['/users']);
-      });
+      .subscribe(
+        () => this.router.navigate(['/users']),
+        this.handleSubmitError.bind(this)
+      );
   }
 
   profilePictureSelected(fileInput: any) {

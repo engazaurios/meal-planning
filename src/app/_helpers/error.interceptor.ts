@@ -23,8 +23,8 @@ export class ErrorInterceptor implements HttpInterceptor {
    * @param next HttpHandler to send the authentication token.
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(catchError(err => {
-      if (err.status === 400) {
+    return next.handle(req).pipe(catchError(error => {
+      if (error.status === 400) {
         this.authenticationService.logout();
         location.reload();
       }
@@ -32,12 +32,8 @@ export class ErrorInterceptor implements HttpInterceptor {
       this.loaderService.show();
 
       // this.notifier.hideAll();
-      this.notifier.notify(
-        'error',
-        'Hubo un error. Intenta de nuevo.'
-      );
+      this.notifier.notify('error', 'Hubo un error. Intenta de nuevo.');
 
-      const error = err.error.message || err.statusText;
       return throwError(error).pipe(
         finalize(() => this.loaderService.hide())
       );

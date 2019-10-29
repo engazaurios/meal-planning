@@ -17,6 +17,10 @@ $theme-colors: (
   "actions": $action
 );
 
+.error-message {
+  color: $danger;
+}
+
 .text-action {
   color: $action !important;
 }
