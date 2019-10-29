@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { RequestService } from './request.service';
-import { DataHelperService } from './data.helper.service';
+import { User } from '../common/models/user.model';
 
 interface LoginResponse {
   id: string,
@@ -21,11 +21,11 @@ export class AuthenticationService {
   private sessionSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
-  constructor(private request: RequestService, private dataHelper: DataHelperService) {
+  constructor(private request: RequestService) {
     let session = JSON.parse(localStorage.getItem(this.sessionKey));
 
     if (session) {
-      session.user = this.dataHelper.createUserFromObject(session.user);
+      session.user = new User(session.user);
     }
 
     this.sessionSubject = new BehaviorSubject<any>(session);
@@ -54,7 +54,7 @@ export class AuthenticationService {
         }
       )
       .pipe(map((session: LoginResponse) => {
-        session.user = this.dataHelper.createUserFromObject(session.user);
+        session.user = new User(session.user);
 
         localStorage.setItem(this.sessionKey, JSON.stringify(session));
 
