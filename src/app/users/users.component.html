@@ -24,8 +24,7 @@
           <div class="img-container">
             <img
               class="btn-md"
-              [src]="fileUploader.downloadUrl + user.id + '?' + currentTime"
-              (error)="userProfilePictureNotFound($event)"
+              [src]="fileUploader.downloadUrl + (user.photo || 'man.png')"
               alt="profile-image"
               width="60"
               height="60"

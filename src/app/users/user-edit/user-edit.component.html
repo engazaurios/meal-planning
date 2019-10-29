@@ -261,8 +261,9 @@
             <button
               type="button"
               class="btn btn-primary upload-btn"
+              [disabled]="!userForm.valid"
               (click)="uploadProfilePicture()">
-              {{ profilePictureFileExist ? 'Cambiar' : 'Subir' }}
+              {{ userEntity.photo ? 'Cambiar' : 'Subir' }}
             </button>
           </div>
         </div>
@@ -274,11 +275,10 @@
         </h5>
       </div>
 
-      <div class="image-preview mb-3" *ngIf="user.photo">
+      <div class="image-preview mb-3" *ngIf="userEntity.photo">
         <img
-          [src]="fileUploader.downloadUrl  + user.photo"
-          height="300"
-          (error)="userProfilePictureNotFound($event)" />
+          [src]="fileUploader.downloadUrl  + userEntity.photo"
+          height="300"/>
       </div>
     </div>
   </div>

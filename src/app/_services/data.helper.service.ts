@@ -19,7 +19,7 @@ export class DataHelperService {
 
   createModelArray(model: any, data: Object[]) {
     if ((new model()) instanceof User) {
-      return data.map((modelData) => this.createUserFromObject(modelData));
+      return data.map((modelData) => new User(modelData));
     }
 
     return data.map((modelData) => this.createModel(model, modelData));

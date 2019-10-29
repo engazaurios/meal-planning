@@ -20,14 +20,15 @@ import { CostCenter } from '../../common/models/cost-center.model';
 export class UserEditComponent implements OnInit {
   id: string;
   editMode: boolean;
+  userEntity: User;
   userForm: FormGroup;
   departments: Department[];
   costCenters: CostCenter[];
   roles: Role[];
 
   profilePictureFile: File;
-  profilePicturePreviewUrl: any;
-  profilePictureFileExist: boolean;
+  profilePicturePreview: any;
+
   @ViewChild('imageInput', { static: false }) profilePictureFileInput: ElementRef;
 
   constructor(
@@ -52,27 +53,24 @@ export class UserEditComponent implements OnInit {
     this.roles = this.route.snapshot.data.model.roles;
 
     this.profilePictureFile = null;
-    this.profilePictureFileExist = true;
   }
 
   initForm() {
-    let user: User = this.route.snapshot.data.model.user;
+    this.userEntity = this.route.snapshot.data.model.user;
 
     this.userForm = new FormGroup({
-      name: new FormControl(user.name, Validators.required),
-      lastName: new FormControl(user.lastName, Validators.required),
-      birthdayNgbDate: new FormControl(user.birthdayNgbDate),
-      departmentId: new FormControl(user.departmentId, Validators.required),
-      costCenterId: new FormControl(user.costCenterId, Validators.required),
-      roleId: new FormControl(user.roleId, Validators.required),
-      email: new FormControl(user.email, [Validators.required, Validators.email]),
-      username: new FormControl(user.username, Validators.required),
-      qrCode: new FormControl(user.qrCode, Validators.required),
-      password: new FormControl(user.password, user.id ? null : Validators.required),
-      photo: new FormControl(user.photo),
+      name: new FormControl(this.userEntity.name, Validators.required),
+      lastName: new FormControl(this.userEntity.lastName, Validators.required),
+      birthdayNgbDate: new FormControl(this.userEntity.birthdayNgbDate),
+      departmentId: new FormControl(this.userEntity.departmentId, Validators.required),
+      costCenterId: new FormControl(this.userEntity.costCenterId, Validators.required),
+      roleId: new FormControl(this.userEntity.roleId, Validators.required),
+      email: new FormControl(this.userEntity.email, [Validators.required, Validators.email]),
+      username: new FormControl(this.userEntity.username, Validators.required),
+      qrCode: new FormControl(this.userEntity.qrCode, Validators.required),
+      password: new FormControl(this.userEntity.password, this.userEntity.id ? null : Validators.required),
+      photo: new FormControl(this.userEntity.photo),
     });
-
-    // this.profilePicturePreviewUrl = user.photo ? (this.fileUploader.downloadUrl + user.photo) : null;
   }
 
   onSubmit() {
@@ -88,15 +86,13 @@ export class UserEditComponent implements OnInit {
     }
 
     if (this.editMode) {
-      this.usersService.updateUser(this.id, this.userForm.value)
+      return this.usersService.updateUser(this.id, this.userForm.value)
         .subscribe(() => {
           this.router.navigate(['/users']);
         });
-
-      return;
     }
 
-    this.usersService.createUser(this.userForm.value)
+    return this.usersService.createUser(this.userForm.value)
       .subscribe(() => {
         this.router.navigate(['/users']);
       });
@@ -132,13 +128,19 @@ export class UserEditComponent implements OnInit {
 
     reader.readAsDataURL(this.profilePictureFile);
     reader.onload = (_event) => {
-      this.profilePicturePreviewUrl = reader.result;
+      this.profilePicturePreview = reader.result;
     }
   }
 
   uploadProfilePicture() {
     if (!this.profilePictureFile) {
       this.notifier.notify('error', 'Ninguna imagen seleccionada.');
+
+      return;
+    }
+
+    if (this.userForm.invalid) {
+      this.notifier.notify('error', 'Corrija los errores para poder subir la imagen de perfil.');
 
       return;
     }
@@ -150,19 +152,12 @@ export class UserEditComponent implements OnInit {
         } else if(event['type'] === HttpEventType.Response) {
           this.profilePictureFile = null;
           this.profilePictureFileInput.nativeElement.value = null;
-          // this.profilePicturePreviewUrl = this.fileUploader.downloadUrl + this.id + '?lastModified=' + (new Date()).getTime();
-          this.profilePictureFileExist = true;
 
-          this.userForm.value.photo.setValue(this.id + '?lastModified=' + (new Date()).getTime());
+          this.userForm.value.photo = this.id + '?lastModified=' + (new Date()).getTime();
 
           return this.onSubmit();
         }
       });
-  }
-
-  userProfilePictureNotFound() {
-    // this.profilePicturePreviewUrl = this.fileUploader.downloadUrl + 'man.png';
-    this.profilePictureFileExist = false;
   }
 
   onCancel() {

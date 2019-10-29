@@ -38,18 +38,12 @@ export class UserEditResolverService implements Resolve<UserEditData> {
     }
 
     return forkJoin(queries).pipe(
-      map(data => {
-        let userObject = data[3]
-          ? this.dataHelper.createUserFromObject(data[3])
-          : new User();
-
-        return {
-          departments: <Department[]>data[0],
-          costCenters: <Department[]>data[1],
-          roles: <Role[]>data[2],
-          user: userObject
-        };
-      })
+      map(data => ({
+        departments: <Department[]>data[0],
+        costCenters: <Department[]>data[1],
+        roles: <Role[]>data[2],
+        user: new User(data[3] || {}),
+      }))
     );
   }
 }

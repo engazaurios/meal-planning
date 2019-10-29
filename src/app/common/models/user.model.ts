@@ -3,6 +3,7 @@ import { CostCenter } from './cost-center.model';
 import { Role } from './role.model';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { Constants } from '../../_helpers/constants';
+import * as moment from 'moment';
 
 
 export class User {
@@ -25,51 +26,49 @@ export class User {
     public status: string;
     public photo: string;
 
-    constructor();
-    constructor(
-        id?: string,
-        name?: string,
-        lastName?: string,
-        birthday?: Date,
-        department?: Department,
-        departmentId?: string,
-        costCenter?: CostCenter,
-        costCenterId?: string,
-        roles?: Role[],
-        roleId?: string,
-        email?: string,
-        username?: string,
-        password?: string,
-        qrCode?: string,
-        emailVerified?: boolean,
-        status?: string,
-        photo?: string
-    ) {
-        this.id = id || null;
-        this.name = name || null;
-        this.lastName = lastName || null;
-        this.birthday = birthday || null;
-        this.department = department || null;
-        this.departmentId = departmentId || null;
-        this.costCenter = costCenter || null;
-        this.costCenterId = costCenterId || null;
-        this.roles = roles || [];
-        this.roleId = roleId || null;
-        this.email = email || null;
-        this.username = username || null;
-        this.password = password || null;
-        this.qrCode = qrCode || null;
-        this.emailVerified = emailVerified || false;
-        this.status = status || null;
-        this.photo = photo || null;
+    constructor(values : Object = {}) {
+        this.id = null;
+        this.name = null;
+        this.lastName = null;
+        this.birthday = null;
+        this.department = null;
+        this.departmentId = null;
+        this.costCenter = null;
+        this.costCenterId = null;
+        this.roles = [];
+        this.roleId = null;
+        this.email = null;
+        this.username = null;
+        this.password = null;
+        this.qrCode = null;
+        this.emailVerified = false;
+        this.status = null;
+        this.photo = null;
 
-        if (this.birthday) {
-            this.birthdayNgbDate = new NgbDate(
-                this.birthday.getFullYear(),
-                this.birthday.getMonth() + 1,
-                this.birthday.getDate()
-            );
-        }
+        Object.keys(values).forEach(key => {
+            if (!this.hasOwnProperty(key)) {
+              return;
+            }
+
+            if (key === 'birthday') {
+              let birthday = moment(values[key]);
+
+              if (birthday.isValid()) {
+                this.birthday = birthday.toDate();
+                this.birthdayNgbDate = new NgbDate(
+                  birthday.year(),
+                  birthday.month() + 1,
+                  birthday.date()
+                );
+              }
+            }
+            else if ((key === 'roles') && Array.isArray(values[key])) {
+              this.roles = values[key].map((roleData: Role) => new Role(roleData.id, roleData.name));
+            }
+            else {
+              this[key] = values[key];
+            }
+        });
     }
 
     get role() : Role {
