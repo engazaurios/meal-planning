@@ -64,6 +64,8 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
       status = this.dayMenu.status;
     }
     this.userMenu = new UserMenuModel(status);
+
+    this.validateTime();
   }
 
   /**
@@ -77,7 +79,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
       if (menu !== null && menu !== undefined) {
         this.notifier.notify(
           'success',
-          `El menu "${menu.title}" ha sido creado correctamente.`
+          `El menu ha sido creado correctamente.`
         );
         this.onUploadMenuClick(dayMenu, menu);
       }
@@ -98,7 +100,7 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
       if (menu !== null && menu !== undefined) {
         this.notifier.notify(
           'success',
-          `El menu "${menu.title}" ha sido agregado correctamente.`
+          `El menu ha sido agregado correctamente.`
         );
         this.reloadMenuItems();
         this.selectedTab = menu.meal.id;
@@ -123,10 +125,9 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
 
     deleteMenuRef.result.then(() => {
       this.planningDetailService.deleteMenu(dayMenu, menu).subscribe((response) => {
-        console.log(response);
         this.notifier.notify(
           'success',
-          `El menu "${menu.title}" ha sido eliminado correctamente.`
+          `El menu ha sido eliminado correctamente.`
         );
         this.reloadMenuItems();
       });
@@ -182,7 +183,27 @@ export class ManageDayComponent extends PlanningDayComponent implements OnInit, 
    * Disable method to validate time.
    */
   protected validateTime(): boolean {
-    return false;
+    const dayBefore = DateHelper.getPreviousDateType(DateHelper.getDate(), Constants.displayTypes.DAY).dayOfYear();
+    const actualDayMenuDay = DateHelper.getDate(this.dayMenu.date).dayOfYear();
+    if (actualDayMenuDay > dayBefore) {
+      return false;
+    }
+
+    const errorAlert = this.modalService.open(AlertSimpleComponent, {backdrop: 'static', size: 'lg'});
+    errorAlert.componentInstance.content = {
+      title: 'Fecha no válida',
+      description:
+        `No puedes agregar menús de fechas pasadas. <br><i>Consulta a tu administrador.</i>`,
+      cancelText: '',
+      confirmationText: 'OK'
+    };
+    errorAlert.result.then(() => {
+      this.router.navigate(['/manage']);
+    }, () => {
+      this.router.navigate(['/manage']);
+    });
+
+    return true;
   }
 
   /**

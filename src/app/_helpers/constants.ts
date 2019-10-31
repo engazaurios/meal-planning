@@ -18,16 +18,20 @@ export class Constants {
 
   public static userTypes = {
     ADMIN: {
-      key: 'admin'
+      key: 'admin',
+      name: 'Administrador',
     },
     EMPLOYEE: {
-      key: 'employee'
+      key: 'employee',
+      name: 'Empleado',
     },
     PROVIDER: {
-      key: 'provider'
+      key: 'provider',
+      name: 'Proveedor',
     },
     GUEST: {
-      key: 'guest'
+      key: 'guest',
+      name: 'Visitante',
     },
   };
 

@@ -17,6 +17,10 @@ $theme-colors: (
   "actions": $action
 );
 
+.error-message {
+  color: $danger;
+}
+
 .text-action {
   color: $action !important;
 }
@@ -36,6 +40,10 @@ $theme-colors: (
 .btn-action {
   color: $action;
   background-color: $primary !important;
+}
+
+.btn-link {
+  color: $light-info !important;
 }
 
 .btn-action-secondary {

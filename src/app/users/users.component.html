@@ -17,15 +17,14 @@
       <tr *ngFor="let user of users;">
         <td class="align-middle">{{ user.fullName }}</td>
         <td class="align-middle">{{ user.username }}</td>
-        <td class="align-middle">{{ user.role ? user.role.name : '' }}</td>
+        <td class="align-middle">{{ user.role ? user.role.title : '' }}</td>
         <td class="align-middle">{{ user.department ? user.department.name : ''}}</td>
         <td class="align-middle">{{ user.email }}</td>
         <td>
           <div class="img-container">
             <img
               class="btn-md"
-              [src]="fileUploader.downloadUrl + user.id + '?' + currentTime"
-              (error)="userProfilePictureNotFound($event)"
+              [src]="fileUploader.downloadUrl + (user.photo || 'man.png')"
               alt="profile-image"
               width="60"
               height="60"

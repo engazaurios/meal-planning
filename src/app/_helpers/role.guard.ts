@@ -39,7 +39,7 @@ export class RoleGuard implements CanActivate {
 
     if (!isExpectedRole) {
       if (actualRoles.find(r => r.name === Constants.userTypes.ADMIN.key)) {
-        this.router.navigate(['/reporting']);
+        this.router.navigate(['/manage']);
       } else if (actualRoles.find(r => r.name === Constants.userTypes.PROVIDER.key)) {
         this.router.navigate(['/manage']);
       } else {
@@ -47,6 +47,7 @@ export class RoleGuard implements CanActivate {
         isExpectedRole = actualRoles.length > 0;
       }
     }
+
     return isExpectedRole;
   }
 

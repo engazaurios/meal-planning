@@ -21,9 +21,6 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
 
   actualMonth: any;
 
-  minDate: any;
-  maxDate: any;
-
   dayMenus: any;
   dayMenusList: DayMenuModel[] = [];
 
@@ -33,6 +30,9 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   isSent      = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.SENT.key);
   isApproved  = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.APPROVED.key);
   isPending   = (date: NgbDate) => this.isDateWithStatus(date, Constants.statusTypes.PENDING.key);
+
+  isToday       = (date: NgbDate) => DateHelper.isActualType(this.formatDate(date), Constants.displayTypes.DAY);
+  isActualMonth = () => DateHelper.isActualType(this.actualMonth, Constants.displayTypes.MONTH);
 
   isAction    = (date: NgbDate) => DateHelper.getDayOfWeek(this.formatDate(date)) === 6;
   isActionEnabled(date: NgbDate): boolean {
@@ -64,8 +64,6 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.minDate = JSON.parse(this.startOfWeek.format('{["year"]:YYYY, ["month"]:M, ["day"]:D}'));
-    this.maxDate = JSON.parse(this.endOfWeek.format('{["year"]:YYYY, ["month"]:M, ["day"]:D}'));
   }
 
   /**
@@ -78,35 +76,6 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
     });
 
     this.planningService.getUserDayMenus(this.currentUser.userId, this.startOfWeek.toISOString(), this.endOfWeek.toISOString());
-  }
-
-  /**
-   * Method to get only the updated week.
-   * @param startOfWeek Start of week.
-   * @param endOfWeek End of week.
-   * TODO : update only week confirmed/published.
-   */
-  protected getDayMenusUpdate(startOfWeek, endOfWeek) {
-    this.planningServiceSubscription = this.planningService.userUpdatedDayMenusDataChanged.subscribe((dayMenusResponse: DayMenuModel[]) => {
-
-      for (const dayMenuResponse of dayMenusResponse) {
-        // const oldDayMenuIndex = this.dayMenusList.findIndex(dMenu => dMenu.id === dayMenuResponse.id);
-        // console.log(this.dayMenusList);
-        // console.log(dayMenuResponse);
-        // console.log(this.dayMenusList[oldDayMenuIndex]);
-        // this.dayMenusList[oldDayMenuIndex] = dayMenuResponse;
-        // console.log(this.dayMenusList[oldDayMenuIndex]);
-      }
-
-      console.log(dayMenusResponse);
-
-      this.dayMenus = this.menusToJson(dayMenusResponse);
-
-      // TODO : finish the update to actual month.
-      this.actualMonth = {year: startOfWeek.year(), month: startOfWeek.month()};
-    });
-
-    this.planningService.getUpdatedUserMenu(this.currentUser.userId, startOfWeek.toISOString(), endOfWeek.toISOString());
   }
 
   /**
@@ -231,6 +200,14 @@ export class MenuCalendarComponent implements OnInit, OnDestroy {
       }
     }
     return status;
+  }
+
+  /**
+   * Method that will change the calendar month to the actual day month.
+   */
+  protected goToActualMonth(dp) {
+    // noinspection TypeScriptValidateJSTypes,JSIgnoredPromiseFromCall
+    dp.navigateTo(DateHelper.getJsonFormattedDate(DateHelper.getDate()));
   }
 
   ngOnDestroy(): void {

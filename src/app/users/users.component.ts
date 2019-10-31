@@ -45,10 +45,6 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.router.navigate([`/users/${id}`]);
   }
 
-  userProfilePictureNotFound(event) {
-    event.target.src = this.fileUploader.downloadUrl + 'man.png';
-  }
-
   onDelete(id: string) {
     this.usersService.deleteUser(id)
       .subscribe(() => this.usersService.fetchAll());

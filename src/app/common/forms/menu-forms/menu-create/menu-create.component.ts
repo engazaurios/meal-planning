@@ -66,7 +66,6 @@ export class MenuCreateComponent implements OnInit, OnDestroy {
 
   /**
    * Method that will validate the menus and upload it.
-   * TODO : do a more deeply validation.
    */
   public validate() {
     if (this.formGroup.invalid) {

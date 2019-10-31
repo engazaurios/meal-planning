@@ -6,10 +6,6 @@
 @circle-width: 300px;
 @circle-height: 300px;
 
-.error-message {
-  color: @color-error;
-}
-
 .circle-animation {
     position: relative;
     width: 100%;
@@ -22,7 +18,7 @@
     transform: translateX(-50%) translateY(-50%);
     width: @circle-width;
     height: @circle-height;
-    
+
     &:before {
       content: '';
       position: relative;
@@ -34,11 +30,11 @@
       background-color: @color-base;
       animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
     }
-    
+
     &:after {
       content: '';
       position: absolute;
-      left: 15%; 
+      left: 15%;
       top: 15%;
       display: block;
       width: 70%;
@@ -89,7 +85,7 @@
         color: @font-color;
         font-size: 20px;
   }
-  
+
   @keyframes pulse-ring {
     0% {
       transform: scale(.33);
@@ -98,7 +94,7 @@
       opacity: 0;
     }
   }
-  
+
   @keyframes pulse-dot {
     0% {
       transform: scale(.95);

@@ -10,7 +10,6 @@ export class OverviewFormManageComponent extends OverviewFormPlanningComponent {
 
   public onConfirmWeek() {
     this.overviewService.publishWeek(this.startOfWeek).subscribe((response) => {
-      console.log(response);
       this.notifier.notify(
         'success',
         `La semana ${this.getActualDateRange} ha sido publicada.`
@@ -19,9 +18,8 @@ export class OverviewFormManageComponent extends OverviewFormPlanningComponent {
     });
   }
 
-
   public get getConfirmMessage() {
-    return `¿Publicas la semana <i><b>${this.getActualDateRange}</b></i>?`;
+    return `¿Publicas los siguientes días de la semana <i><b>${this.getActualDateRange}</b></i>?`;
   }
 
 }

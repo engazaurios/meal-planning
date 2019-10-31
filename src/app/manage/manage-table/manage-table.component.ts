@@ -42,12 +42,17 @@ export class ManageTableComponent implements OnInit, OnDestroy {
 
   subscriptions = [];
 
-  isAvailable     = (status: string) => status === Constants.statusTypes.OPEN.key;
   isPending       = (status: string) => status === Constants.statusTypes.PENDING.key;
   isPublished     = (status: string) => status === Constants.statusTypes.APPROVED.key;
   statusText      = (status: string) => Constants.statusTypes[`${status.toUpperCase()}`].message;
 
-  isActionDisabled = (dayMenu: DayMenuModel) => dayMenu && dayMenu.status === Constants.statusTypes.APPROVED.key;
+  isActionDisabled(dayMenu: DayMenuModel): boolean {
+    const isDisabled = dayMenu.status === Constants.statusTypes.APPROVED.key;
+
+    const dayBefore = DateHelper.getPreviousDateType(DateHelper.getDate(), Constants.displayTypes.DAY).dayOfYear();
+    const actualDayMenuDay = DateHelper.getDate(dayMenu.date).dayOfYear();
+    return dayMenu && (isDisabled || dayBefore >= actualDayMenuDay);
+  }
 
   constructor(
     private modalService: NgbModal,
@@ -95,7 +100,6 @@ export class ManageTableComponent implements OnInit, OnDestroy {
         this.sortData(actualDayMenu.menus, 'meal.name');
         this.dayMenus.push(actualDayMenu);
       }
-      console.log(this.dayMenus);
     });
     this.subscriptions.push(dayMenusSubs);
   }
@@ -143,7 +147,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
    * @param dayMenu Day menu to add from.
    */
   private onCreateAndAddMenuClick(dayMenu: DayMenuModel) {
-    if (this.isActionDisabled(dayMenu)) {
+    if (dayMenu !== undefined && this.isActionDisabled(dayMenu)) {
       return;
     }
 
@@ -152,7 +156,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
       if (menu !== null && menu !== undefined) {
         this.notifier.notify(
           'success',
-          `El menu "${menu.title}" ha sido creado correctamente.`
+          `El menu ha sido creado correctamente.`
         );
         if (dayMenu !== null && dayMenu !== undefined) {
           this.getSpecifiedDate(dayMenu.date);
@@ -179,7 +183,7 @@ export class ManageTableComponent implements OnInit, OnDestroy {
       if (menu !== null && menu !== undefined) {
         this.notifier.notify(
           'success',
-          `El menu "${menu.title}" ha sido agregado correctamente al día ${DateHelper.getFormattedDate(dayMenu.date)}.`
+          `El menu ha sido agregado correctamente al día ${DateHelper.getFormattedDate(dayMenu.date)}.`
         );
         this.getSpecifiedDate(dayMenu.date);
       }
@@ -207,10 +211,9 @@ export class ManageTableComponent implements OnInit, OnDestroy {
 
     deleteMenuRef.result.then(() => {
       this.manageDayService.deleteMenu(dayMenu, menu).subscribe((response) => {
-        console.log(response);
         this.notifier.notify(
           'success',
-          `El menu "${menu.title}" ha sido eliminado correctamente del día ${DateHelper.getFormattedDate(dayMenu.date)}.`
+          `El menu ha sido eliminado correctamente del día ${DateHelper.getFormattedDate(dayMenu.date)}.`
         );
         this.getSpecifiedDate(dayMenu.date);
       });
