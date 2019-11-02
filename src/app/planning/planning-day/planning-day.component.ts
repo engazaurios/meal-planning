@@ -256,20 +256,35 @@ export class PlanningDayComponent implements OnInit, OnDestroy {
    */
   protected validateTime() {
     const actualDate = DateHelper.getDate();
+    const actualDateWeek = DateHelper.getStartOfType(actualDate, Constants.displayTypes.WEEK).dayOfYear();
 
+    const selectedDate = DateHelper.getDate(this.dayMenu.date);
+    const actualDayWeek = DateHelper.getStartOfType(selectedDate, Constants.displayTypes.WEEK).dayOfYear();
+    if (actualDayWeek >= actualDateWeek) {
+    } else {
+      this.showErrorMessage(`No se pueden seleccionar menús de días anteriores.`);
+      return true;
+    }
+    
     const actualDayOfWeek = DateHelper.getDayOfWeek(actualDate);
     const actualTime = actualDate.hours();
-
     if ((actualDayOfWeek > 2 && actualDayOfWeek < 5)
       && (actualTime > 6 && actualTime < 23)) {
-      return false;
+    } else {
+      this.showErrorMessage(
+        `El horario para seleccionar comidas son los días <i>Miércoles, Jueves y Viernes</i> de <b>06:00 a 23:00 horas</b>.`
+      );
+      return true;
     }
 
+    return false;
+  }
+
+  private showErrorMessage(errorDescription) {
     const errorAlert = this.modalService.open(AlertSimpleComponent, {backdrop: 'static', size: 'lg'});
     errorAlert.componentInstance.content = {
       title: 'Horario no válido',
-      description:
-        `El horario para seleccionar comidas son los días <i>Miércoles, Jueves y Viernes</i> de <b>06:00 a 23:00 horas</b>.`,
+      description: errorDescription,
       cancelText: '',
       confirmationText: 'OK'
     };
@@ -278,8 +293,6 @@ export class PlanningDayComponent implements OnInit, OnDestroy {
     }, () => {
       this.router.navigate(['/']);
     });
-
-    return true;
   }
 
   private unsubscribe() {
