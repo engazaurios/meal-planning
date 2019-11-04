@@ -43,34 +43,33 @@
       border-radius: 50%;
       text-align: center;
       box-shadow: 0 0 8px rgba(0,0,0,.3);
-      animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -.4s infinite;
+      //animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -.4s infinite;
     }
-
-    .loading {
-      &:before {
-        background-color: @color-loading;
-      }
-      &:after {
-        background-color: @color-loading;
-      }
+  }
+  .loading {
+    &:before {
+      background-color: @color-loading;
     }
-
-    .error {
-      &:before {
-        background-color: @color-error;
-      }
-      &:after {
-        background-color: @color-error;
-      }
+    &:after {
+      background-color: @color-loading;
     }
+  }
 
-    .success {
-      &:before {
-        background-color: @color-success;
-      }
-      &:after {
-        background-color: @color-success;
-      }
+  .error {
+    &:before {
+      background-color: @color-error;
+    }
+    &:after {
+      background-color: @color-error;
+    }
+  }
+
+  .success {
+    &:before {
+      background-color: @color-success;
+    }
+    &:after {
+      background-color: @color-success;
     }
   }
 

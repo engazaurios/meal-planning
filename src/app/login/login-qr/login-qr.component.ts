@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {LoginComponent} from '../login/login.component';
-import {first} from 'rxjs/operators';
-import {FormGroup} from '@angular/forms';
-import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { LoginComponent } from '../login/login.component';
+
+export enum KEY_CODE {
+  ENTER = 13,
+}
 
 @Component({
   selector: 'app-login-qr',
@@ -10,50 +11,67 @@ import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple
   styleUrls: ['./login-qr.component.less']
 })
 export class LoginQrComponent extends LoginComponent implements OnInit {
+  qrCode: String;
+  statusClass: String;
+  statusMessage: String;
 
-  loginForm: FormGroup;
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.keyCode === KEY_CODE.ENTER) {
+      this.loginWithQRCode(this.qrCode);
+      this.qrCode = '';
+    } else {
+      this.qrCode = this.qrCode +  event.key;
+    }
+  }
 
   /**
    * Method that starts the form and sets the validators.
    */
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      username: [''],
-    });
-
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    this.qrCode = '';
+    this.statusClass = '';
+    this.statusMessage = 'Acerca tu carnet al lector';
   }
 
   /**
    * Method that submits the information from the AuthenticationService.
    */
-  onSubmit() {
-    this.submitted = true;
+  loginWithQRCode(token: String) {
+    if (this.loading) {
+      return;
+    }
     this.loading = true;
+    this.statusMessage = 'Cargando...';
 
     /**
      * Login from the AuthenticationService based on input. If the login was fine, redirect to the returnUrl. If there's an error store it,
      * and return it.
      */
-    this.authenticationService.loginQR(this.form.usernameID.value).pipe(first())
-      .subscribe(() => {
+    this.authenticationService.loginQR(token)
+      .subscribe(res => {
         this.router.navigate([this.returnUrl]);
-      }, () => {
-        this.loading = false;
-
-        const errorOnLogin = this.modalService.open(AlertSimpleComponent, { size: 'lg' });
-        errorOnLogin.componentInstance.content = {
-          title: '¡Hubo un error!',
-          description:
-            `<i>¿Existe el usuario?<br>¿El código QR está correcto?<br>¿Está sucio o roto el carnet donde está el código?</i>
-<br><br>Intenta de nuevo o habla con tu administrador.`,
-          cancelText: '',
-          confirmationText: 'OK'
-        };
+      }, (err) => {
+        if (err.status === 401) {
+          this.showMessage("Usuario invalido", 'error');
+        } else {
+          this.showMessage("Ocurrio un error", 'error');
+        }
       });
   }
 
   backToLogin() {
     this.router.navigate(['/login']);
+  }
+
+  showMessage(statusMessage: String, statusClass: String) {
+    this.statusMessage = statusMessage;
+    this.statusClass = statusClass;
+    setTimeout(() => {
+      this.statusClass = '';
+      this.statusMessage = 'Acerca tu carnet al lector';
+      this.loading = false;
+    }, 2500);
   }
 }
