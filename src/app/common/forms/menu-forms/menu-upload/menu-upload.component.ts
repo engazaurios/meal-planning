@@ -110,7 +110,6 @@ export class MenuUploadComponent extends MenuCreateComponent implements OnInit {
 
   /**
    * Method that creates the day menu.
-   * TODO : manage code status.
    */
   private createDayMenu() {
     if (this.dayMenu.status === Constants.statusTypes.OPEN.key) {

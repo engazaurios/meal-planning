@@ -4,6 +4,7 @@ import {AuthenticationService} from '../_services';
 import {Observable, throwError} from 'rxjs';
 import {catchError, finalize} from 'rxjs/operators';
 import {LoaderService} from '../common/loader/loader.service';
+import {NotifierService} from 'angular-notifier';
 
 /**
  * Injectable typescript that handles the error messages.
@@ -12,6 +13,7 @@ import {LoaderService} from '../common/loader/loader.service';
 export class ErrorInterceptor implements HttpInterceptor {
 
   constructor(private authenticationService: AuthenticationService,
+              private notifier: NotifierService,
               private loaderService: LoaderService) {
   }
 
@@ -21,15 +23,17 @@ export class ErrorInterceptor implements HttpInterceptor {
    * @param next HttpHandler to send the authentication token.
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(catchError(err => {
-      if (err.status === 400) {
+    return next.handle(req).pipe(catchError(error => {
+      if (error.status === 400) {
         this.authenticationService.logout();
         location.reload();
       }
 
       this.loaderService.show();
 
-      const error = err.error.message || err.statusText;
+      // this.notifier.hideAll();
+      this.notifier.notify('error', 'Hubo un error. Intenta de nuevo.');
+
       return throwError(error).pipe(
         finalize(() => this.loaderService.hide())
       );

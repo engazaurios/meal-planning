@@ -27,9 +27,6 @@ export class PlanningComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.startOfWeek = DateHelper.getPreviousMonthStart();
     this.endOfWeek = DateHelper.getNextMonthEnd();
-
-    console.log(this.startOfWeek);
-    console.log(this.endOfWeek);
   }
 
   ngOnDestroy(): void {

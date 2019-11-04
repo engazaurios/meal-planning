@@ -25,13 +25,8 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Subtracts one more month to publish menus.
     this.startOfWeek = DateHelper.getPreviousMonthStart(2);
-    // Adds one more month to publish menus.
     this.endOfWeek = DateHelper.getNextMonthEnd(2);
-
-    console.log(this.startOfWeek);
-    console.log(this.endOfWeek);
   }
 
 }

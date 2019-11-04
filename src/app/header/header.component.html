@@ -12,10 +12,6 @@
 
   <div class="collapse navbar-collapse navbar-content text-action font-italic" id="mainNavBar">
     <ul class="navbar-nav">
-      <li *ngIf="isAdmin" class="nav-item"
-          data-toggle="collapse" data-target="#mainNavBar">
-        <a class="nav-link" routerLink="/reporting">Reporte</a>
-      </li>
       <li *ngIf="isProvider || isAdmin" class="nav-item"
           data-toggle="collapse" data-target="#mainNavBar">
         <a class="nav-link" routerLink="/manage">Calendario</a>
@@ -23,6 +19,10 @@
       <li *ngIf="isProvider || isAdmin" class="nav-item"
           data-toggle="collapse" data-target="#mainNavBar">
         <a class="nav-link" routerLink="/manage/table">Tabla</a>
+      </li>
+      <li *ngIf="isAdmin" class="nav-item"
+          data-toggle="collapse" data-target="#mainNavBar">
+        <a class="nav-link" routerLink="/reporting">Reporte</a>
       </li>
       <li *ngIf="isAdmin" class="nav-item"
           data-toggle="collapse" data-target="#mainNavBar">

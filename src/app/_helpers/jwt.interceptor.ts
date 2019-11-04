@@ -1,9 +1,9 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../_services';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import {LoaderService} from '../common/loader/loader.service';
-import {finalize} from 'rxjs/operators';
+import {finalize, catchError} from 'rxjs/operators';
 
 /**
  * Injectable typescript that handles the responses/requests from the API server.
@@ -24,7 +24,6 @@ export class JwtInterceptor implements HttpInterceptor {
 
     this.loaderService.show();
 
-    // WARNING: currentUser.id is really the token.
     if (currentUser && currentUser.id) {
       req = req.clone({
         setHeaders: {

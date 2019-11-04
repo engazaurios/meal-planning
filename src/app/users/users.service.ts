@@ -21,7 +21,7 @@ export class UsersService {
   fetchAll() {
     return this.request.get('/AppUsers')
       .subscribe((users: Data[]) => {
-        this.list = this.dataHelper.createModelArray(User, users);
+        this.list = users.map(userData => new User(userData));
         this.listChanged.next(this.list);
       });
   }

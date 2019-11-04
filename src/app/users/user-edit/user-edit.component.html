@@ -62,8 +62,7 @@
               formControlName="birthdayNgbDate"
               ngbDatepicker
               #d="ngbDatepicker"
-              (focus)="d.toggle()"
-              (click)="d.toggle()"/>
+              (focus)="d.toggle()"/>
           </div>
         </div>
       </div>
@@ -130,7 +129,7 @@
               formControlName="roleId">
               <option value="">Selecciona una opción</option>
               <option value="{{role.id}}" *ngFor="let role of roles">
-                {{role.name}}
+                {{role.title}}
               </option>
             </select>
 
@@ -158,7 +157,12 @@
             <div
               *ngIf="!userForm.get('email').valid && userForm.get('email').touched"
               class="error-message small">
-              Campo requerido
+              <span *ngIf="userForm.get('email').errors['required']">
+                Campo requerido
+              </span>
+              <span *ngIf="userForm.get('email').errors['alreadyExists']">
+                Valor ya existe
+              </span>
             </div>
           </div>
         </div>
@@ -179,7 +183,12 @@
             <div
               *ngIf="!userForm.get('username').valid && userForm.get('username').touched"
               class="error-message small">
-              Campo requerido
+              <span *ngIf="userForm.get('username').errors['required']">
+                Campo requerido
+              </span>
+              <span *ngIf="userForm.get('username').errors['alreadyExists']">
+                Valor ya existe
+              </span>
             </div>
           </div>
         </div>
@@ -200,7 +209,12 @@
             <div
               *ngIf="!userForm.get('qrCode').valid && userForm.get('qrCode').touched"
               class="error-message small">
-              Campo requerido
+              <span *ngIf="userForm.get('qrCode').errors['required']">
+                Campo requerido
+              </span>
+              <span *ngIf="userForm.get('qrCode').errors['alreadyExists']">
+                Valor ya existe
+              </span>
             </div>
           </div>
         </div>
@@ -232,13 +246,13 @@
           type="submit"
           class="btn btn-ok action"
           [disabled]="!userForm.valid">
-          Save
+          Guardar
         </button>
         <button
           type="button"
           class="btn btn-cancel action"
           (click)="onCancel()">
-          Cancel
+          Cancelar
         </button>
       </div>
     </div>
@@ -261,8 +275,9 @@
             <button
               type="button"
               class="btn btn-primary upload-btn"
+              [disabled]="!userForm.valid"
               (click)="uploadProfilePicture()">
-              {{ profilePictureFileExist ? 'Cambiar' : 'Subir' }}
+              {{ userEntity.photo ? 'Cambiar' : 'Subir' }}
             </button>
           </div>
         </div>
@@ -274,11 +289,10 @@
         </h5>
       </div>
 
-      <div class="image-preview mb-3" *ngIf="profilePicturePreviewUrl">
+      <div class="image-preview mb-3" *ngIf="userEntity.photo">
         <img
-          [src]="profilePicturePreviewUrl"
-          height="300"
-          (error)="userProfilePictureNotFound($event)" />
+          [src]="fileUploader.downloadUrl  + userEntity.photo"
+          height="300"/>
       </div>
     </div>
   </div>

@@ -1,14 +1,14 @@
 <div class="mt-4">
   <ng-template #customDay let-date let-currentMonth="currentMonth"
                let-selected="selected" let-disabled="disabled" let-focused="focused">
-      <!--  TODO : Agregar un icono cuando no llego -->
       <div class="custom-day"
            [class.bg-primary]="selected"
            [class.custom-day-out-month]="date.month !== currentMonth"
            [class.custom-day-na]="isNA(date) && date.month === currentMonth"
            [class.custom-day-sent]="isSent(date) || isApproved(date)"
            [class.custom-day-approved]="isApproved(date)"
-           [class.custom-day-pending]="isPending(date)">
+           [class.custom-day-pending]="isPending(date)"
+           [class.actual-day]="isToday(date)">
 
         <i *ngIf="isAction(date) && isActionEnabled(date)" (click)="onConfirmWeek(date)"
            class="fas fa-check-circle custom-day-action text-info"></i>
@@ -19,8 +19,7 @@
       </div>
   </ng-template>
 
-  <ngb-datepicker [maxDate]="maxDate"
-                  [minDate]="minDate"
+  <ngb-datepicker #dp
                   [displayMonths]="1"
                   [markDisabled]="isNA || isAction"
                   [dayTemplate]="customDay"
@@ -28,3 +27,8 @@
                   (navigate)="onNavigationChanged($event)"
                   [navigation]="'arrows'"></ngb-datepicker>
 </div>
+
+
+<button *ngIf="!isActualMonth()"
+  class="btn float-md-right mt-md-3 btn-static btn-action-dark"
+  (click)="goToActualMonth(dp)">Ir al mes actual</button>

@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { RequestService } from './request.service';
-import { DataHelperService } from './data.helper.service';
+import { User } from '../common/models/user.model';
 
 interface LoginResponse {
   id: string,
@@ -21,11 +21,11 @@ export class AuthenticationService {
   private sessionSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
-  constructor(private request: RequestService, private dataHelper: DataHelperService) {
+  constructor(private request: RequestService) {
     let session = JSON.parse(localStorage.getItem(this.sessionKey));
 
     if (session) {
-      session.user = this.dataHelper.createUserFromObject(session.user);
+      session.user = new User(session.user);
     }
 
     this.sessionSubject = new BehaviorSubject<any>(session);
@@ -43,8 +43,6 @@ export class AuthenticationService {
    * Method that logs in to the API by sending as a JSON the user information.
    * @param username Username of the user to log in.
    * @param password Password of the user to log in.
-   * TODO: replace localhost url to the API URL.
-   * TODO: two diff roles: admin/user.
    */
   login(username: string, password: string) {
     return this.request
@@ -56,7 +54,7 @@ export class AuthenticationService {
         }
       )
       .pipe(map((session: LoginResponse) => {
-        session.user = this.dataHelper.createUserFromObject(session.user);
+        session.user = new User(session.user);
 
         localStorage.setItem(this.sessionKey, JSON.stringify(session));
 
@@ -79,7 +77,7 @@ export class AuthenticationService {
     })
     .pipe(map((session: LoginResponse) => {
       console.log(session);
-      session.user = this.dataHelper.createUserFromObject(session.user);
+      session.user = new User(session.user);
 
       localStorage.setItem(this.sessionKey, JSON.stringify(session));
 

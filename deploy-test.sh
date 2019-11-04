@@ -28,7 +28,7 @@ fi
 
 echo "---> Starting to build production environment."
 # Execute build to prod
-ng build --prod true --progress true
+ng build --test true --progress true
 
 echo "---> Cleaning directories."
 # Creates the directory if doesn't exist.
