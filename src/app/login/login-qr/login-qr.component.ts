@@ -1,7 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
-import { first } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
 
 export enum KEY_CODE {
   ENTER = 13,
@@ -55,7 +53,7 @@ export class LoginQrComponent extends LoginComponent implements OnInit {
       .subscribe(res => {
         this.router.navigate([this.returnUrl]);
       }, (err) => {
-        if (err === 'Unauthorized') {
+        if (err.status === 401) {
           this.showMessage("Usuario invalido", 'error');
         } else {
           this.showMessage("Ocurrio un error", 'error');

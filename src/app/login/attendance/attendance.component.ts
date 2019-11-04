@@ -1,8 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AttendanceService } from './attendance.service';
-import { finalize } from 'rxjs/operators';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 export enum KEY_CODE {
   ENTER = 13,
@@ -95,8 +93,12 @@ export class AttendanceComponent implements OnInit {
           this.attendanceService.getAttendance(this.date, hour, minute)
           .subscribe((data) => {
             this.cont = this.extractAttendance(data);
+            this.statusClass = '';
+            this.statusMessage = '';
+            this.loading = false;
           }, (error) => {
             console.log(error);
+            this.showMessage('Ocurrio un error', 'error');
           });
         } else {
           this.showMessage(result.message, status.toLowerCase());
