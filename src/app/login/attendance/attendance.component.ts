@@ -49,7 +49,8 @@ export class AttendanceComponent implements OnInit {
     this.attendanceService.getAttendance(this.date, hour, minute)
     .subscribe(data => {
       console.log('data: ', data);
-      this.meal = (data['result'] && data['result']['selected'].name) || '----';
+      this.meal = (data['result'] && data['result']['selected'] && data['result']['selected'].name)
+        || '----';
       this.cont = this.extractAttendance(data);
     }, error => {
       console.log(error);
