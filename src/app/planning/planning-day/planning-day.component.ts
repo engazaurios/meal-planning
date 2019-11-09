@@ -265,14 +265,14 @@ export class PlanningDayComponent implements OnInit, OnDestroy {
       this.showErrorMessage(`No se pueden seleccionar menús de días anteriores.`);
       return true;
     }
-    
+
     const actualDayOfWeek = DateHelper.getDayOfWeek(actualDate);
     const actualTime = actualDate.hours();
-    if ((actualDayOfWeek > 2 && actualDayOfWeek < 5)
+    if ((actualDayOfWeek >= 0 && actualDayOfWeek < 3)
       && (actualTime > 6 && actualTime < 23)) {
     } else {
       this.showErrorMessage(
-        `El horario para seleccionar comidas son los días <i>Miércoles, Jueves y Viernes</i> de <b>06:00 a 23:00 horas</b>.`
+        `El horario para seleccionar comidas son los días <i>Lunes, Martes y Miércoles</i> de <b>06:00 a 23:00 horas</b>.`
       );
       return true;
     }
