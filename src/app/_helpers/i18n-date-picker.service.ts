@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {NgbDatepickerI18n, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import {I18n} from './I18n.service';
+import { Injectable } from '@angular/core';
+import { NgbDatepickerI18n, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { I18n } from './I18n.service';
 
 @Injectable()
 export class I18nDatePicker extends NgbDatepickerI18n {

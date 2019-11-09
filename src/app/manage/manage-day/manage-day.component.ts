@@ -1,19 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthenticationService} from '../../_services';
-import {ActivatedRoute, Router} from '@angular/router';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NotifierService} from 'angular-notifier';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../_services';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NotifierService } from 'angular-notifier';
 
-import {PlanningDayComponent} from '../../planning/planning-day/planning-day.component';
-import {UserMenuModel} from 'src/app/common/models/user-menu.model';
-import {Constants} from '../../_helpers/constants';
-import {MenuModel} from '../../common/models/menu.model';
-import {DayMenuModel} from 'src/app/common/models/day-menu.model';
-import {MenuCreateComponent} from 'src/app/common/forms/menu-forms/menu-create/menu-create.component';
-import {MenuUploadComponent} from 'src/app/common/forms/menu-forms/menu-upload/menu-upload.component';
-import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
-import {DateHelper} from '../../_helpers/date-helper';
-import {ManageService} from '../manage.service';
+import { PlanningDayComponent } from '../../planning/planning-day/planning-day.component';
+import { UserMenuModel } from 'src/app/common/models/user-menu.model';
+import { Constants } from '../../_helpers/constants';
+import { MenuModel } from '../../common/models/menu.model';
+import { DayMenuModel } from 'src/app/common/models/day-menu.model';
+import { MenuCreateComponent } from 'src/app/common/forms/menu-forms/menu-create/menu-create.component';
+import { MenuUploadComponent } from 'src/app/common/forms/menu-forms/menu-upload/menu-upload.component';
+import { AlertSimpleComponent } from '../../common/forms/common-forms/alert-simple/alert-simple.component';
+import { DateHelper } from '../../_helpers/date-helper';
+import { ManageService } from '../manage.service';
 
 @Component({
   selector: 'app-manage-day',

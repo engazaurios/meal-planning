@@ -1,4 +1,6 @@
-import { Constants } from '../../_helpers/constants';;
+import { Constants } from '../../_helpers/constants';
+
+;
 
 export class Role {
     public id: string;

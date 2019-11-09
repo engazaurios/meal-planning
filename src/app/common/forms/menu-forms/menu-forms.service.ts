@@ -1,11 +1,11 @@
-import {MenuModel} from '../../models/menu.model';
-import {Injectable} from '@angular/core';
-import {MenuListService} from '../../menu-list/menu-list.service';
-import {Subject} from 'rxjs/internal/Subject';
-import {RequestService} from '../../../_services/request.service';
-import {DayMenuModel} from '../../models/day-menu.model';
-import {Constants} from 'src/app/_helpers/constants';
-import {DateHelper} from 'src/app/_helpers/date-helper';
+import { MenuModel } from '../../models/menu.model';
+import { Injectable } from '@angular/core';
+import { MenuListService } from '../../menu-list/menu-list.service';
+import { Subject } from 'rxjs/internal/Subject';
+import { RequestService } from '../../../_services/request.service';
+import { DayMenuModel } from '../../models/day-menu.model';
+import { Constants } from 'src/app/_helpers/constants';
+import { DateHelper } from 'src/app/_helpers/date-helper';
 
 @Injectable({providedIn: 'root'})
 export class MenuFormsService extends MenuListService {

@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthenticationService} from '../../_services';
-import {first} from 'rxjs/operators';
-import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '../../_services';
+import { first } from 'rxjs/operators';
+import { AlertSimpleComponent } from '../../common/forms/common-forms/alert-simple/alert-simple.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 /**
  * Component class that will handle the login form and interaction with user.

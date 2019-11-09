@@ -1,6 +1,6 @@
-import {MenuModel} from './menu.model';
-import {Transform, Type} from 'class-transformer';
-import {DateHelper} from '../../_helpers/date-helper';
+import { MenuModel } from './menu.model';
+import { Transform, Type } from 'class-transformer';
+import { DateHelper } from '../../_helpers/date-helper';
 
 export class DayMenuModel {
 

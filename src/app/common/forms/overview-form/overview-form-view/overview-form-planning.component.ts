@@ -1,11 +1,11 @@
-import {Component, Input, OnDestroy, AfterViewChecked, ViewChild, ElementRef} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {DateHelper} from '../../../../_helpers/date-helper';
-import {DayMenuModel} from '../../../models/day-menu.model';
-import {OverviewFormService} from '../overview-form.service';
-import {NotifierService} from 'angular-notifier';
-import {AuthenticationService} from '../../../../_services';
-import {Constants} from '../../../../_helpers/constants';
+import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DateHelper } from '../../../../_helpers/date-helper';
+import { DayMenuModel } from '../../../models/day-menu.model';
+import { OverviewFormService } from '../overview-form.service';
+import { NotifierService } from 'angular-notifier';
+import { AuthenticationService } from '../../../../_services';
+import { Constants } from '../../../../_helpers/constants';
 
 @Component({
   selector: 'app-overview-form-planning',

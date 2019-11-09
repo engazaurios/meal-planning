@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CategoryModel} from '../../../models/category.model';
-import {MealModel} from '../../../models/meal.model';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MenuModel} from '../../../models/menu.model';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CategoryModel } from '../../../models/category.model';
+import { MealModel } from '../../../models/meal.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MenuModel } from '../../../models/menu.model';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {plainToClass} from 'class-transformer';
-import {MenuFormsService} from '../menu-forms.service';
-import {Constants} from '../../../../_helpers/constants';
-import {FileUploaderService} from '../../../../file-uploader.service';
+import { plainToClass } from 'class-transformer';
+import { MenuFormsService } from '../menu-forms.service';
+import { Constants } from '../../../../_helpers/constants';
+import { FileUploaderService } from '../../../../file-uploader.service';
 
 @Component({
   selector: 'app-menu-add',

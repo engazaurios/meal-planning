@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NotifierModule } from 'angular-notifier';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -13,8 +13,7 @@ import localeEsExtra from '@angular/common/locales/extra/es';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { JwtInterceptor } from './_helpers';
-import { ErrorInterceptor } from './_helpers';
+import { ErrorInterceptor, JwtInterceptor } from './_helpers';
 import { RequestService } from './_services/request.service';
 import { DataHelperService } from './_services/data.helper.service';
 import { UsersService } from './users/users.service';

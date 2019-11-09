@@ -1,6 +1,6 @@
-import {CategoryModel} from './category.model';
-import {MealModel} from './meal.model';
-import {Type} from 'class-transformer';
+import { CategoryModel } from './category.model';
+import { MealModel } from './meal.model';
+import { Type } from 'class-transformer';
 
 export class MenuModel {
 

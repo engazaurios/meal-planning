@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { LoginComponent } from '../login/login.component';
 
 export enum KEY_CODE {

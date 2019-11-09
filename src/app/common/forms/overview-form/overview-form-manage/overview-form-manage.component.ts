@@ -1,5 +1,5 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
-import {OverviewFormPlanningComponent} from '../overview-form-view/overview-form-planning.component';
+import { Component } from '@angular/core';
+import { OverviewFormPlanningComponent } from '../overview-form-view/overview-form-planning.component';
 
 @Component({
   selector: 'app-overview-form-manage',

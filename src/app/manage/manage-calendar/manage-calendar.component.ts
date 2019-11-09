@@ -1,12 +1,12 @@
-import {MenuCalendarComponent} from '../../common/menu-calendar/menu-calendar.component';
-import {Component, OnInit} from '@angular/core';
-import {MenuCalendarService} from '../../common/menu-calendar/menu-calendar.service';
-import {Router} from '@angular/router';
-import {Constants} from '../../_helpers/constants';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {DateHelper} from '../../_helpers/date-helper';
-import {OverviewFormManageComponent} from '../../common/forms/overview-form/overview-form-manage/overview-form-manage.component';
-import {DayMenuModel} from '../../common/models/day-menu.model';
+import { MenuCalendarComponent } from '../../common/menu-calendar/menu-calendar.component';
+import { Component, OnInit } from '@angular/core';
+import { MenuCalendarService } from '../../common/menu-calendar/menu-calendar.service';
+import { Router } from '@angular/router';
+import { Constants } from '../../_helpers/constants';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DateHelper } from '../../_helpers/date-helper';
+import { OverviewFormManageComponent } from '../../common/forms/overview-form/overview-form-manage/overview-form-manage.component';
+import { DayMenuModel } from '../../common/models/day-menu.model';
 
 @Component({
   selector: 'app-planning-calendar-admin',

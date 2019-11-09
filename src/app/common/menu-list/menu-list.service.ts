@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
-import {MealModel} from '../models/meal.model';
-import {RequestService} from '../../_services/request.service';
-import {CategoryModel} from '../models/category.model';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { MealModel } from '../models/meal.model';
+import { RequestService } from '../../_services/request.service';
+import { CategoryModel } from '../models/category.model';
 
 @Injectable({ providedIn : 'root'})
 export class MenuListService {
