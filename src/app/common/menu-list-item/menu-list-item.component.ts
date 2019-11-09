@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Constants} from '../../_helpers/constants';
-import {FileUploaderService} from '../../file-uploader.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Constants } from '../../_helpers/constants';
+import { FileUploaderService } from '../../file-uploader.service';
 
 @Component({
   selector: 'app-menu-item',

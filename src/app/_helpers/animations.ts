@@ -1,4 +1,4 @@
-import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
+import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
 
 export class Animations {
 

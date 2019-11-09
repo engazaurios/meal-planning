@@ -1,11 +1,11 @@
-import {PlanningDayService} from '../planning/planning-day/planning-day.service';
-import {RequestService} from 'src/app/_services/request.service';
-import {Injectable} from '@angular/core';
-import {DayMenuModel} from 'src/app/common/models/day-menu.model';
+import { PlanningDayService } from '../planning/planning-day/planning-day.service';
+import { RequestService } from 'src/app/_services/request.service';
+import { Injectable } from '@angular/core';
+import { DayMenuModel } from 'src/app/common/models/day-menu.model';
 
-import {plainToClass} from 'class-transformer';
-import {Subject} from 'rxjs';
-import {DateHelper} from '../_helpers/date-helper';
+import { plainToClass } from 'class-transformer';
+import { Subject } from 'rxjs';
+import { DateHelper } from '../_helpers/date-helper';
 
 @Injectable({providedIn: 'root'})
 export class ManageService extends PlanningDayService {

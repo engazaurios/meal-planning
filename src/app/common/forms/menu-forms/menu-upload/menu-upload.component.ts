@@ -1,13 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MenuCreateComponent} from '../menu-create/menu-create.component';
-import {MenuModel} from '../../../models/menu.model';
-import {MenuFormsService} from '../menu-forms.service';
-import {DateHelper} from 'src/app/_helpers/date-helper';
-import {Constants} from '../../../../_helpers/constants';
-import {DayMenuModel} from '../../../models/day-menu.model';
-import {FileUploaderService} from '../../../../file-uploader.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MenuCreateComponent } from '../menu-create/menu-create.component';
+import { MenuModel } from '../../../models/menu.model';
+import { MenuFormsService } from '../menu-forms.service';
+import { DateHelper } from 'src/app/_helpers/date-helper';
+import { Constants } from '../../../../_helpers/constants';
+import { DayMenuModel } from '../../../models/day-menu.model';
+import { FileUploaderService } from '../../../../file-uploader.service';
 
 @Component({
   selector: 'app-menu-upload',

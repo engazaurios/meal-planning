@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
-import {AuthenticationService} from '../_services';
-import {Constants} from './constants';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { AuthenticationService } from '../_services';
+import { Constants } from './constants';
 
 /**
  * Injectable typescript that will handle all the verifications if the user tries to reach a page he's not allowed.

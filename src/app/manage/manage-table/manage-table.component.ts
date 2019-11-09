@@ -1,17 +1,17 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DateHelper} from '../../_helpers/date-helper';
-import {DayMenuModel} from '../../common/models/day-menu.model';
-import {MenuModel} from '../../common/models/menu.model';
-import {Constants} from '../../_helpers/constants';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {MenuCreateComponent} from '../../common/forms/menu-forms/menu-create/menu-create.component';
-import {MenuUploadComponent} from '../../common/forms/menu-forms/menu-upload/menu-upload.component';
-import {NotifierService} from 'angular-notifier';
-import {ManageService} from '../manage.service';
-import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
-import {MenuViewComponent} from '../../common/forms/menu-forms/menu-view/menu-view.component';
-import {OverviewFormManageComponent} from '../../common/forms/overview-form/overview-form-manage/overview-form-manage.component';
-import {Animations} from '../../_helpers/animations';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DateHelper } from '../../_helpers/date-helper';
+import { DayMenuModel } from '../../common/models/day-menu.model';
+import { MenuModel } from '../../common/models/menu.model';
+import { Constants } from '../../_helpers/constants';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MenuCreateComponent } from '../../common/forms/menu-forms/menu-create/menu-create.component';
+import { MenuUploadComponent } from '../../common/forms/menu-forms/menu-upload/menu-upload.component';
+import { NotifierService } from 'angular-notifier';
+import { ManageService } from '../manage.service';
+import { AlertSimpleComponent } from '../../common/forms/common-forms/alert-simple/alert-simple.component';
+import { MenuViewComponent } from '../../common/forms/menu-forms/menu-view/menu-view.component';
+import { OverviewFormManageComponent } from '../../common/forms/overview-form/overview-form-manage/overview-form-manage.component';
+import { Animations } from '../../_helpers/animations';
 
 @Component({
   selector: 'app-manage-table',

@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params, Router, Data } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { NotifierService } from 'angular-notifier';
 

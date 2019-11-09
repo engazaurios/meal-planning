@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import {AuthenticationService} from '../../_services';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Constants} from 'src/app/_helpers/constants';
-import {DayMenuModel} from '../../common/models/day-menu.model';
-import {UserMenuModel} from '../../common/models/user-menu.model';
-import {PlanningDayService} from './planning-day.service';
-import {NotifierService} from 'angular-notifier';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {plainToClass} from 'class-transformer';
-import {DateHelper} from '../../_helpers/date-helper';
-import {AlertSimpleComponent} from '../../common/forms/common-forms/alert-simple/alert-simple.component';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../_services';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Constants } from 'src/app/_helpers/constants';
+import { DayMenuModel } from '../../common/models/day-menu.model';
+import { UserMenuModel } from '../../common/models/user-menu.model';
+import { PlanningDayService } from './planning-day.service';
+import { NotifierService } from 'angular-notifier';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { plainToClass } from 'class-transformer';
+import { DateHelper } from '../../_helpers/date-helper';
+import { AlertSimpleComponent } from '../../common/forms/common-forms/alert-simple/alert-simple.component';
 
 @Component({
   selector: 'app-planning-detail',

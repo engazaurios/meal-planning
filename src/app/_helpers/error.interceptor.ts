@@ -1,10 +1,10 @@
-import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {AuthenticationService} from '../_services';
-import {Observable, throwError} from 'rxjs';
-import {catchError, finalize} from 'rxjs/operators';
-import {LoaderService} from '../common/loader/loader.service';
-import {NotifierService} from 'angular-notifier';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { AuthenticationService } from '../_services';
+import { Observable, throwError } from 'rxjs';
+import { catchError, finalize } from 'rxjs/operators';
+import { LoaderService } from '../common/loader/loader.service';
+import { NotifierService } from 'angular-notifier';
 
 /**
  * Injectable typescript that handles the error messages.

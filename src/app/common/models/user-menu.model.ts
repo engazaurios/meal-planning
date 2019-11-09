@@ -1,7 +1,7 @@
-import {MenuModel} from './menu.model';
-import {Transform, Type} from 'class-transformer';
-import {Constants} from '../../_helpers/constants';
-import {DateHelper} from '../../_helpers/date-helper';
+import { MenuModel } from './menu.model';
+import { Transform, Type } from 'class-transformer';
+import { Constants } from '../../_helpers/constants';
+import { DateHelper } from '../../_helpers/date-helper';
 
 export class UserMenuModel {
 

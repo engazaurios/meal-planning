@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import {Constants} from './constants';
+import { Constants } from './constants';
 
 export class DateHelper {
 

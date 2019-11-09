@@ -1,9 +1,9 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../_services';
-import { Observable, throwError } from 'rxjs';
-import {LoaderService} from '../common/loader/loader.service';
-import {finalize, catchError} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { LoaderService } from '../common/loader/loader.service';
+import { finalize } from 'rxjs/operators';
 
 /**
  * Injectable typescript that handles the responses/requests from the API server.

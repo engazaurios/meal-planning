@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthenticationService} from '../_services';
-import {NgbDatepickerI18n} from '@ng-bootstrap/ng-bootstrap';
-import {I18n} from '../_helpers/I18n.service';
-import {I18nDatePicker} from '../_helpers/i18n-date-picker.service';
-import {DateHelper} from '../_helpers/date-helper';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthenticationService } from '../_services';
+import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { I18n } from '../_helpers/I18n.service';
+import { I18nDatePicker } from '../_helpers/i18n-date-picker.service';
+import { DateHelper } from '../_helpers/date-helper';
 
 @Component({
   selector: 'app-planning',

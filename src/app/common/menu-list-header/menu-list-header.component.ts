@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UserMenuModel} from 'src/app/common/models/user-menu.model';
-import {DateHelper} from '../../_helpers/date-helper';
-import {Constants} from '../../_helpers/constants';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { UserMenuModel } from 'src/app/common/models/user-menu.model';
+import { DateHelper } from '../../_helpers/date-helper';
+import { Constants } from '../../_helpers/constants';
 
 @Component({
   selector: 'app-menu-list-header',

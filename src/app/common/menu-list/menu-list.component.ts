@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, AfterViewChecked} from '@angular/core';
-import {DayMenuModel} from '../models/day-menu.model';
-import {UserMenuModel} from '../models/user-menu.model';
-import {Constants} from '../../_helpers/constants';
-import {MealModel} from '../models/meal.model';
-import {MenuListService} from './menu-list.service';
-import {Animations} from '../../_helpers/animations';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { DayMenuModel } from '../models/day-menu.model';
+import { UserMenuModel } from '../models/user-menu.model';
+import { Constants } from '../../_helpers/constants';
+import { MealModel } from '../models/meal.model';
+import { MenuListService } from './menu-list.service';
+import { Animations } from '../../_helpers/animations';
 
 @Component({
   selector: 'app-menu-list',
