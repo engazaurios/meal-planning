@@ -256,11 +256,9 @@ export class PlanningDayComponent implements OnInit, OnDestroy {
    */
   protected validateTime() {
     const actualDate = DateHelper.getDate();
-    const actualDateWeek = DateHelper.getStartOfType(actualDate, Constants.displayTypes.WEEK).dayOfYear();
 
     const selectedDate = DateHelper.getDate(this.dayMenu.date);
-    const actualDayWeek = DateHelper.getStartOfType(selectedDate, Constants.displayTypes.WEEK).dayOfYear();
-    if (actualDayWeek >= actualDateWeek) {
+    if (selectedDate.dayOfYear() >= actualDate.dayOfYear()) {
     } else {
       this.showErrorMessage(`No se pueden seleccionar menús de días anteriores.`);
       return true;
