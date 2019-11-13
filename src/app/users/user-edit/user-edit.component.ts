@@ -30,6 +30,7 @@ export class UserEditComponent implements OnInit {
   profilePicturePreview: any;
 
   @ViewChild('imageInput', { static: false }) profilePictureFileInput: ElementRef;
+  @ViewChild('imageLabel', { static: false }) profilePictureFileLabel: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -129,6 +130,7 @@ export class UserEditComponent implements OnInit {
     if (!fileInput.target.files.length) {
       this.profilePictureFile = null;
       this.profilePictureFileInput.nativeElement.value = null;
+      this.profilePictureFileLabel.nativeElement.innerText = 'Seleccionar archivo';
 
       return;
     }
@@ -136,11 +138,13 @@ export class UserEditComponent implements OnInit {
     if (fileInput.target.files[0].type.match(/image\/*/) == null) {
       this.notifier.notify('error', 'Archivo inválido.');
       this.profilePictureFileInput.nativeElement.value = null;
+      this.profilePictureFileLabel.nativeElement.innerText = 'Seleccionar archivo';
 
       return;
     }
 
     this.profilePictureFile = new File([fileInput.target.files[0]], this.id);
+    this.profilePictureFileLabel.nativeElement.innerText = fileInput.target.files[0].name;
 
     // TODO: Fix this feature. Doesn't work at now.
     // this.previewProfilePicture();
@@ -177,9 +181,6 @@ export class UserEditComponent implements OnInit {
         if(event['type'] === HttpEventType.UploadProgress) {
           console.log('Loaded:', Math.round(event['loaded'] / event['total'] * 100) + '%');
         } else if(event['type'] === HttpEventType.Response) {
-          this.profilePictureFile = null;
-          this.profilePictureFileInput.nativeElement.value = null;
-
           this.userForm.value.photo = this.id + '?lastModified=' + (new Date()).getTime();
 
           return this.onSubmit();

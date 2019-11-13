@@ -264,13 +264,20 @@
             <label for="profilePicture">Foto</label>
           </div>
           <div class="col-sm-9 upload-input-container">
-            <input
-              #imageInput
-              id="profilePicture"
-              type="file"
-              name="profilePicture"
-              class="form-control"
-              (change)="profilePictureSelected($event)">
+            <div class="custom-file">
+              <input
+                #imageInput
+                id="profilePicture"
+                type="file"
+                name="profilePicture"
+                class="custom-file-input"
+                lang="es"
+                (change)="profilePictureSelected($event)">
+
+              <label class="custom-file-label" #imageLabel for="profilePicture">
+                Seleccionar archivo
+              </label>
+            </div>
 
             <button
               type="button"
