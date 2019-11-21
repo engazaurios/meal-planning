@@ -34,7 +34,11 @@ export class ReportingComponent implements OnInit, OnDestroy {
     {
       key: 'RAW_DATA',
       name: 'Plano'
-    }
+    },
+    {
+      key: 'CSV',
+      name: 'CSV'
+    },
   ];
 
   constructor(
@@ -106,10 +110,11 @@ export class ReportingComponent implements OnInit, OnDestroy {
 
     this.reporting.downloadReport(filters)
       .subscribe((response: Blob) => {
-        const contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'; 
+        const isCSV = values.reportType === 'CSV';
+        const contentType = isCSV ? 'text/csv' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
         const blob = new Blob([response], { type: contentType });
 
-        saveAs(blob, 'Reporte-Comidas.xlsx');
+        saveAs(blob, 'Reporte-Comidas.' + (isCSV ? 'csv' : 'xlsx'));
       }, (error) => {
         this.notifier.notify('error', 'No se pudo generar el reporte. Recargue la página.');
       });
