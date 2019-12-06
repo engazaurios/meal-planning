@@ -146,6 +146,15 @@ export class UserEditComponent implements OnInit {
     this.profilePictureFile = new File([fileInput.target.files[0]], this.id);
     this.profilePictureFileLabel.nativeElement.innerText = fileInput.target.files[0].name;
 
+    const sizeMb = this.profilePictureFile.size / (1024 * 1024);
+
+    if (sizeMb > 10) {
+      this.notifier.notify('error', 'Imagen demasiado grande (max. 10MB).');
+      this.profilePictureFile = null;
+      this.profilePictureFileInput.nativeElement.value = null;
+      this.profilePictureFileLabel.nativeElement.innerText = 'Seleccionar archivo';
+    }
+
     // TODO: Fix this feature. Doesn't work at now.
     // this.previewProfilePicture();
   }
