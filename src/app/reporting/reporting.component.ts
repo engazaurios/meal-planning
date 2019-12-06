@@ -35,10 +35,10 @@ export class ReportingComponent implements OnInit, OnDestroy {
       key: 'RAW_DATA',
       name: 'Plano'
     },
-    {
-      key: 'CSV',
-      name: 'CSV'
-    },
+    // {
+    //   key: 'CSV',
+    //   name: 'CSV'
+    // },
   ];
 
   constructor(
